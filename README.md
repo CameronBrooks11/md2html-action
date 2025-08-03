@@ -123,7 +123,7 @@ jobs:
 
 Your repository should be structured like this:
 
-```
+```js
 your-repo/
 ├── docs/                    # Source Markdown files
 │   ├── index.md            # Will become index.html
@@ -142,7 +142,7 @@ your-repo/
 
 After conversion:
 
-```
+```js
 _website/                   # Generated HTML files
 ├── index.html
 ├── getting-started.html
