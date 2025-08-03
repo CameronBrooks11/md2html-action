@@ -4,7 +4,7 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 
 ## Features
 
-- 📝 Convert Markdown files to HTML using uses: CameronBrooks11/md2html-action@v1Pandoc
+- 📝 Convert Markdown files to HTML using Pandoc
 - 🎨 Customizable HTML templates (default provided or bring your own)
 - 💅 Flexible stylesheet options (default, custom, or remote CSS)
 - 📱 Responsive design with dark/light theme support
