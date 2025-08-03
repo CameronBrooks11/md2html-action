@@ -37,11 +37,11 @@ if __name__ == "__main__":
 
 ## Table Example
 
-| Feature | Status | Notes |
-|---------|--------|--------|
-| Conversion | ✅ Working | Basic MD to HTML |
-| Templates | ⚠️ Testing | Multiple templates |
-| Styling | ✅ Working | CSS integration |
+| Feature    | Status     | Notes              |
+| ---------- | ---------- | ------------------ |
+| Conversion | ✅ Working | Basic MD to HTML   |
+| Templates  | ⚠️ Testing | Multiple templates |
+| Styling    | ✅ Working | CSS integration    |
 
 ## Links
 

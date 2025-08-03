@@ -43,7 +43,7 @@ Use `#` for headers. The action will automatically generate a table of contents.
 - Another item
   - Nested item
 
-1. Ordered list item  
+1. Ordered list item
 2. Another ordered item
 
 ### Links

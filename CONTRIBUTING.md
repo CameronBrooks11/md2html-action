@@ -6,41 +6,46 @@ Thank you for your interest in contributing! This document provides guidelines f
 
 1. Fork the repository
 2. Clone your fork:
-   ```bash
-   git clone https://github.com/CameronBrooks11/md2html-action.git
-   cd md2html-action
-   ```
+
+```bash
+git clone https://github.com/CameronBrooks11/md2html-action.git
+cd md2html-action
+```
 
 3. Create a feature branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
+
+```bash
+git checkout -b feature/your-feature-name
+```
 
 ## Testing Your Changes
 
 1. Make your changes to the action files
 2. Test using the local action in a workflow:
+
    ```yaml
-   - uses: ./  # This uses the local action
+   - uses: ./ # This uses the local action
      with:
-       source-dir: 'test-docs'
-       output-dir: 'test-output'
+       source-dir: "test-docs"
+       output-dir: "test-output"
    ```
 
 3. Run the test workflow:
-   ```bash
-   # Push to trigger the test workflow
-   git push origin feature/your-feature-name
-   ```
+
+```bash
+# Push to trigger the test workflow
+git push origin feature/your-feature-name
+```
 
 ## Adding New Templates
 
 1. Create your template file in `templates/`:
-   ```html
-   <!-- templates/your-template.html -->
-   <!DOCTYPE html>
-   <!-- Your template content -->
-   ```
+
+```html
+<!-- templates/your-template.html -->
+<!DOCTYPE html>
+<!-- Your template content -->
+```
 
 2. Update the conversion script to recognize the new template
 3. Add documentation to the README
@@ -49,10 +54,11 @@ Thank you for your interest in contributing! This document provides guidelines f
 ## Adding New Stylesheets
 
 1. Create your stylesheet in `stylesheets/`:
-   ```css
-   /* stylesheets/your-theme.css */
-   /* Your styles */
-   ```
+
+```css
+/* stylesheets/your-theme.css */
+/* Your styles */
+```
 
 2. Update the conversion script to recognize the new stylesheet
 3. Add documentation to the README
@@ -81,10 +87,11 @@ Releases are automated when tags are pushed:
 
 1. Update version in documentation
 2. Create and push a tag:
-   ```bash
-   git tag -a v1.1.0 -m "Release v1.1.0"
-   git push origin v1.1.0
-   ```
+
+```bash
+git tag -a v1.1.0 -m "Release v1.1.0"
+git push origin v1.1.0
+```
 
 ## Getting Help
 
