@@ -32,21 +32,10 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       
-      - name: Prepare README with frontmatter
+      - name: Prepare README for conversion
         run: |
-          # Create a temporary README with YAML frontmatter
-          cat > temp-readme.md << 'EOF'
-          ---
-          title: "Markdown to HTML Action"
-          description: "GitHub Action to convert Markdown files to HTML with customizable templates and stylesheets using Pandoc"
-          author: "Cameron Brooks"
-          date: "$(date +%Y-%m-%d)"
-          navbar_home: true
-          ---
-          EOF
-          
-          # Append the README content (skip the first line which is the title)
-          tail -n +2 README.md >> temp-readme.md
+          # Copy README.md as-is for conversion
+          cp README.md temp-readme.md
       
       - name: Convert README to HTML
         id: convert

@@ -4,12 +4,14 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 
 ## Features
 
-- 📝 Convert Markdown files to HTML using Pandoc
+- 📝 **Pure Markdown support** - No frontmatter required!
+- 🔧 Convert Markdown files to HTML using Pandoc  
 - 🎨 Customizable HTML templates (default provided or bring your own)
 - 💅 Flexible stylesheet options (default, custom, or remote CSS)
 - 📱 Responsive design with dark/light theme support
 - 🔗 Automatic table of contents generation
-- 📁 Preserves directory structure
+- 📁 Preserves directory structure and converts entire directories
+- 📄 Single file conversion support for individual Markdown files
 - 🖼️ Copies media and asset files
 - 🏷️ Open Graph meta tags for social sharing
 - ⚡ Fast and reliable conversion
@@ -140,20 +142,23 @@ _website/                   # Generated HTML files
 
 ## Markdown Features Supported
 
+- **Pure Markdown** - No frontmatter required!
 - Standard Markdown syntax
-- YAML frontmatter for metadata
 - Tables
 - Code blocks with syntax highlighting
 - Math expressions (with appropriate Pandoc options)
 - Footnotes
 - Task lists
 - Strikethrough
+- Optional YAML frontmatter for custom metadata
 
-### YAML Frontmatter Example
+### Optional YAML Frontmatter
+
+Frontmatter is **completely optional** but can be used for custom metadata:
 
 ```yaml
 ---
-title: "Page Title"
+title: "Custom Page Title" 
 description: "Page description for SEO"
 author: "Your Name"
 date: "2025-01-01"

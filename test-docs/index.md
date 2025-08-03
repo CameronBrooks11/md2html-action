@@ -1,11 +1,3 @@
----
-title: "Test Documentation Home"
-description: "This is a test page for the md2html-action"
-author: "Test Author"
-date: "2025-01-03"
-navbar_home: true
----
-
 # Welcome to Test Documentation
 
 This is a test page to verify that the md2html-action works correctly.

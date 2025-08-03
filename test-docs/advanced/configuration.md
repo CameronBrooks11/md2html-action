@@ -1,8 +1,3 @@
----
-title: "Advanced Configuration"
-description: "Advanced features and configuration options"
----
-
 # Advanced Configuration
 
 This page covers advanced usage of the md2html-action.
@@ -25,13 +20,27 @@ You can create your own Pandoc templates:
 
 ## Template Variables
 
-Key Pandoc template variables:
+Key Pandoc template variables (automatically populated):
 
-- `$title$` - Page title
-- `$body$` - Converted content
-- `$toc$` - Table of contents  
-- `$date$` - Page date
-- `$author$` - Page author
+- `$title$` - Extracted from the first `# Heading` or filename
+- `$body$` - Converted Markdown content
+- `$toc$` - Table of contents (if enabled)
+- `$date$` - Current date
+- `$author$` - Can be set via action inputs
+
+## Optional YAML Frontmatter
+
+While the action works with vanilla Markdown, you can optionally add frontmatter for more control:
+
+```yaml
+---
+title: "Custom Page Title"
+description: "Page description for metadata"
+author: "Your Name"
+---
+```
+
+But this is **completely optional** - plain Markdown files work perfectly!
 
 ## Custom Stylesheets
 
@@ -76,8 +85,10 @@ Deploy to GitHub Pages:
 
 ## Tips and Best Practices
 
-1. Use consistent frontmatter across pages
-2. Organize media files in a dedicated directory
-3. Test locally before pushing
-4. Use meaningful filenames and directory structure
-5. Include navigation in your templates
+1. **Use vanilla Markdown** - No frontmatter required!
+2. Start files with `# Title` for automatic title extraction
+3. Organize media files in a dedicated directory
+4. Test locally before pushing
+5. Use meaningful filenames and directory structure
+6. Include navigation in your templates
+7. Frontmatter is optional - only add it if you need custom metadata

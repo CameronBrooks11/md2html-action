@@ -1,8 +1,3 @@
----
-title: "Getting Started"
-description: "How to get started with this documentation system"
----
-
 # Getting Started
 
 This page demonstrates how to create documentation using Markdown.

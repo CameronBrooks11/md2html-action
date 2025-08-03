@@ -24,9 +24,6 @@
   $if(base-url)$
   <meta property="og:url" content="$base-url$/$if(rel_path)$$rel_path$/$endif$" />
   $endif$
-  $if(description)$
-  <meta property="og:description" content="$description$" />
-  $endif$
 
   <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
   
@@ -89,9 +86,6 @@
   <main class="main-content">
     $if(title)$
     <header class="page-header">
-      $if(date)$
-      <p class="page-date">$date$</p>
-      $endif$
       <h1 class="page-title">$title$</h1>
       $if(subtitle)$
       <p class="page-subtitle">$subtitle$</p>
