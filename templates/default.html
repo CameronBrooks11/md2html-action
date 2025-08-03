@@ -1,124 +1,139 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$"$if(dir)$ dir="$dir$"$endif$>
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc via md2html-action" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  
-  $for(author-meta)$
-  <meta name="author" content="$author-meta$" />
-  $endfor$
-  $if(date-meta)$
-  <meta name="dcterms.date" content="$date-meta$" />
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  lang="$lang$"
+  xml:lang="$lang$"
+  $if(dir)$
+  dir="$dir$"
   $endif$
-  $if(keywords)$
-  <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
-  $endif$
-  $if(description-meta)$
-  <meta name="description" content="$description-meta$" />
-  $endif$
-  
-  <!-- Open Graph metadata -->
-  <meta property="og:title" content="$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$" />
-  <meta property="og:type" content="website" />
-  $if(base-url)$
-  <meta property="og:url" content="$base-url$/$if(rel_path)$$rel_path$/$endif$" />
-  $endif$
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc via md2html-action" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
 
-  <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
-  
-  <!-- Favicon -->
-  $if(rel_path)$
-  <link rel="icon" type="image/x-icon" href="$rel_path$/favicon.ico" />
-  $else$
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  $endif$
-  
-  <!-- Stylesheets -->
-  $if(stylesheet)$
-  $if(rel_path)$
-  <link rel="stylesheet" href="$rel_path$/$stylesheet$" />
-  $else$
-  <link rel="stylesheet" href="$stylesheet$" />
-  $endif$
-  $endif$
-  $if(stylesheet-url)$
-  <link rel="stylesheet" href="$stylesheet-url$" />
-  $endif$
-  
-  $for(css)$
-  <link rel="stylesheet" href="$css$" />
-  $endfor$
-  
-  $if(math)$
-  $math$
-  $endif$
-  
-  $for(header-includes)$
-  $header-includes$
-  $endfor$
-</head>
+    $for(author-meta)$
+    <meta name="author" content="$author-meta$" />
+    $endfor$ $if(date-meta)$
+    <meta name="dcterms.date" content="$date-meta$" />
+    $endif$ $if(keywords)$
+    <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
+    $endif$ $if(description-meta)$
+    <meta name="description" content="$description-meta$" />
+    $endif$
 
-<body>
-  $for(include-before)$
-  $include-before$
-  $endfor$
+    <!-- Open Graph metadata -->
+    <meta
+      property="og:title"
+      content="$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$"
+    />
+    <meta property="og:type" content="website" />
+    $if(base-url)$
+    <meta
+      property="og:url"
+      content="$base-url$/$if(rel_path)$$rel_path$/$endif$"
+    />
+    $endif$
 
-  <header class="site-header">
-    <div class="header-content">
-      <div class="site-title">
-        $if(site-title)$
-        <h1><a href="$if(rel_path)$$rel_path$/$endif$index.html" title="$site-title$">$site-title$</a></h1>
-        $else$
-        <h1><a href="$if(rel_path)$$rel_path$/$endif$index.html" title="Home">Documentation</a></h1>
+    <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+
+    <!-- Favicon -->
+    $if(rel_path)$
+    <link rel="icon" type="image/x-icon" href="$rel_path$/favicon.ico" />
+    $else$
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    $endif$
+
+    <!-- Stylesheets -->
+    $if(stylesheet)$ $if(rel_path)$
+    <link rel="stylesheet" href="$rel_path$/$stylesheet$" />
+    $else$
+    <link rel="stylesheet" href="$stylesheet$" />
+    $endif$ $endif$ $if(stylesheet-url)$
+    <link rel="stylesheet" href="$stylesheet-url$" />
+    $endif$ $for(css)$
+    <link rel="stylesheet" href="$css$" />
+    $endfor$ $if(math)$ $math$ $endif$ $for(header-includes)$ $header-includes$
+    $endfor$
+  </head>
+
+  <body>
+    $for(include-before)$ $include-before$ $endfor$
+
+    <header class="site-header">
+      <div class="header-content">
+        <div class="site-title">
+          $if(site-title)$
+          <h1>
+            <a
+              href="$if(rel_path)$$rel_path$/$endif$index.html"
+              title="$site-title$"
+              >$site-title$</a
+            >
+          </h1>
+          $else$
+          <h1>
+            <a href="$if(rel_path)$$rel_path$/$endif$index.html" title="Home"
+              >Documentation</a
+            >
+          </h1>
+          $endif$
+        </div>
+
+        <nav class="site-nav">
+          <a
+            href="$if(rel_path)$$rel_path$/$endif$index.html"
+            class="nav-link $if(navbar_home)$active$endif$"
+            >Home</a
+          >
+          $for(nav-links)$
+          <a
+            href="$if(rel_path)$$rel_path$/$endif$$nav-links.url$"
+            class="nav-link $if(nav-links.active)$active$endif$"
+            >$nav-links.title$</a
+          >
+          $endfor$
+        </nav>
+      </div>
+    </header>
+
+    <main class="main-content">
+      $if(title)$
+      <header class="page-header">
+        <h1 class="page-title">$title$</h1>
+        $if(subtitle)$
+        <p class="page-subtitle">$subtitle$</p>
+        $endif$ $if(author)$
+        <p class="page-author">$for(author)$$author$$sep$, $endfor$</p>
+        $endif$
+      </header>
+      $endif$ $if(toc)$
+      <nav class="table-of-contents">
+        <h2>Contents</h2>
+        $table-of-contents$
+      </nav>
+      $endif$
+
+      <div class="page-content">$body$</div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>
+          Generated with
+          <a href="https://github.com/CameronBrooks11/md2html-action"
+            >md2html-action</a
+          >
+        </p>
+        $if(footer-text)$
+        <p>$footer-text$</p>
         $endif$
       </div>
-      
-      <nav class="site-nav">
-        <a href="$if(rel_path)$$rel_path$/$endif$index.html" class="nav-link $if(navbar_home)$active$endif$">Home</a>
-        $for(nav-links)$
-        <a href="$if(rel_path)$$rel_path$/$endif$$nav-links.url$" class="nav-link $if(nav-links.active)$active$endif$">$nav-links.title$</a>
-        $endfor$
-      </nav>
-    </div>
-  </header>
+    </footer>
 
-  <main class="main-content">
-    $if(title)$
-    <header class="page-header">
-      <h1 class="page-title">$title$</h1>
-      $if(subtitle)$
-      <p class="page-subtitle">$subtitle$</p>
-      $endif$
-      $if(author)$
-      <p class="page-author">$for(author)$$author$$sep$, $endfor$</p>
-      $endif$
-    </header>
-    $endif$
-    
-    $if(toc)$
-    <nav class="table-of-contents">
-      <h2>Contents</h2>
-      $table-of-contents$
-    </nav>
-    $endif$
-    
-    <div class="page-content">
-      $body$
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p>Generated with <a href="https://github.com/CameronBrooks11/md2html-action">md2html-action</a></p>
-      $if(footer-text)$
-      <p>$footer-text$</p>
-      $endif$
-    </div>
-  </footer>
-
-  $for(include-after)$
-  $include-after$
-  $endfor$
-</body>
+    $for(include-after)$ $include-after$ $endfor$
+  </body>
 </html>

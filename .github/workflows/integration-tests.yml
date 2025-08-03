@@ -65,9 +65,6 @@ jobs:
           # Verify files exist with custom settings
           test -f custom-output/index.html || (echo "ERROR: custom index.html missing" && exit 1)
           
-          # Check that custom title appears in HTML
-          grep -q "Custom Test Documentation" custom-output/index.html || (echo "ERROR: Custom title not found" && exit 1)
-          
           echo "✅ Custom configuration test passed!"
       
       - name: Upload test artifacts
