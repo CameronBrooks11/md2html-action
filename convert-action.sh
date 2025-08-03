@@ -172,7 +172,6 @@ fi
 PANDOC_OPTS=(
     "--template=$TEMPLATE_FILE"
     "--standalone"
-    "--self-contained=false"
 )
 
 # Add table of contents if requested
