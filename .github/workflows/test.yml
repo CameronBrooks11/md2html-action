@@ -47,7 +47,7 @@ jobs:
           stylesheet: 'minimal'
           site-title: 'Test Documentation'
           include-toc: 'true'
-          pandoc-options: '--highlight-style=github'
+          pandoc-options: '--highlight-style=tango'
       
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

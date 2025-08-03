@@ -62,7 +62,7 @@ jobs:
           site-title: "My Documentation"
           base-url: "https://mysite.github.io/my-repo"
           include-toc: "true"
-          pandoc-options: "--highlight-style=github"
+          pandoc-options: "--highlight-style=tango"
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
@@ -231,7 +231,7 @@ With custom styling:
     source-dir: "api-docs"
     template: "api-template.html"
     stylesheet: "https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@main/github-markdown.css"
-    pandoc-options: "--highlight-style=github --toc-depth=4"
+    pandoc-options: "--highlight-style=tango --toc-depth=4"
 ```
 
 ## Requirements
