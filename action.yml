@@ -8,6 +8,11 @@ inputs:
     required: false
     default: 'source'
   
+  source-file:
+    description: 'Single Markdown file to convert (alternative to source-dir)'
+    required: false
+    default: ''
+  
   output-dir:
     description: 'Directory where HTML files will be generated'
     required: false

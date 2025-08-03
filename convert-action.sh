@@ -8,6 +8,7 @@ set -e  # Exit on any error
 
 # Default values
 SOURCE_DIR="${INPUT_SOURCE_DIR:-source}"
+SOURCE_FILE="${INPUT_SOURCE_FILE:-}"
 OUTPUT_DIR="${INPUT_OUTPUT_DIR:-_website}"
 TEMPLATE="${INPUT_TEMPLATE:-default}"
 STYLESHEET="${INPUT_STYLESHEET:-default}"
@@ -69,19 +70,30 @@ relpath() {
 # Validate inputs and setup paths
 # ------------------------------------------------------------
 log_info "Starting Markdown to HTML conversion..."
-log_info "Source directory: $SOURCE_DIR"
+
+# Determine if we're processing a single file or directory
+if [[ -n "$SOURCE_FILE" ]]; then
+    log_info "Source file: $SOURCE_FILE"
+    if [[ ! -f "$SOURCE_FILE" ]]; then
+        log_error "Source file '$SOURCE_FILE' does not exist!"
+        exit 1
+    fi
+    MD_FILES=1
+    SINGLE_FILE_MODE=true
+else
+    log_info "Source directory: $SOURCE_DIR"
+    if [[ ! -d "$SOURCE_DIR" ]]; then
+        log_error "Source directory '$SOURCE_DIR' does not exist!"
+        exit 1
+    fi
+    # Count markdown files
+    MD_FILES=$(find "$SOURCE_DIR" -name "*.md" -type f | wc -l | tr -d ' ')
+    SINGLE_FILE_MODE=false
+fi
+
 log_info "Output directory: $OUTPUT_DIR"
 log_info "Template: $TEMPLATE"
 log_info "Stylesheet: $STYLESHEET"
-
-# Check if source directory exists
-if [[ ! -d "$SOURCE_DIR" ]]; then
-    log_error "Source directory '$SOURCE_DIR' does not exist!"
-    exit 1
-fi
-
-# Count markdown files
-MD_FILES=$(find "$SOURCE_DIR" -name "*.md" -type f | wc -l | tr -d ' ')
 if [[ "$MD_FILES" -eq 0 ]]; then
     log_warning "No Markdown files found in '$SOURCE_DIR'"
     echo "files-converted=0" >> $GITHUB_OUTPUT
@@ -209,66 +221,93 @@ FILES_CONVERTED=0
 
 log_info "Converting Markdown files..."
 
-# Find and convert all markdown files
-while IFS= read -r -d '' md_file; do
-    # Get relative path from source directory
-    rel_path=$(relpath "$md_file" "$SOURCE_DIR")
-    
-    # Create output path with .html extension
-    html_file="$OUTPUT_DIR/${rel_path%.md}.html"
+if [[ "$SINGLE_FILE_MODE" == "true" ]]; then
+    # Single file mode
+    filename=$(basename "$SOURCE_FILE" .md)
+    html_file="$OUTPUT_DIR/${filename}.html"
     
     # Create output directory if it doesn't exist
-    mkdir -p "$(dirname "$html_file")"
+    mkdir -p "$OUTPUT_DIR"
     
-    # Calculate relative path for assets
-    output_dir_rel=$(dirname "$html_file")
-    rel_to_root=$(relpath "$OUTPUT_DIR" "$output_dir_rel")
+    log_info "Converting: $(basename "$SOURCE_FILE")"
     
-    log_info "Converting: $rel_path"
-    
-    # Convert the file
-    if pandoc "$md_file" "${PANDOC_OPTS[@]}" \
-        --metadata="rel_path:$rel_to_root" \
+    # Convert the single file
+    if pandoc "$SOURCE_FILE" "${PANDOC_OPTS[@]}" \
+        --metadata="rel_path:." \
         --output="$html_file"; then
         
-        FILES_CONVERTED=$((FILES_CONVERTED + 1))
-        log_success "✓ $rel_path → ${html_file#$OUTPUT_DIR/}"
+        FILES_CONVERTED=1
+        log_success "✓ $(basename "$SOURCE_FILE") → ${filename}.html"
     else
-        log_error "✗ Failed to convert $rel_path"
+        log_error "✗ Failed to convert $(basename "$SOURCE_FILE")"
         exit 1
     fi
-    
-done < <(find "$SOURCE_DIR" -name "*.md" -type f -print0)
+else
+    # Directory mode - Find and convert all markdown files
+    while IFS= read -r -d '' md_file; do
+        # Get relative path from source directory
+        rel_path=$(relpath "$md_file" "$SOURCE_DIR")
+        
+        # Create output path with .html extension
+        html_file="$OUTPUT_DIR/${rel_path%.md}.html"
+        
+        # Create output directory if it doesn't exist
+        mkdir -p "$(dirname "$html_file")"
+        
+        # Calculate relative path for assets
+        output_dir_rel=$(dirname "$html_file")
+        rel_to_root=$(relpath "$OUTPUT_DIR" "$output_dir_rel")
+        
+        log_info "Converting: $rel_path"
+        
+        # Convert the file
+        if pandoc "$md_file" "${PANDOC_OPTS[@]}" \
+            --metadata="rel_path:$rel_to_root" \
+            --output="$html_file"; then
+            
+            FILES_CONVERTED=$((FILES_CONVERTED + 1))
+            log_success "✓ $rel_path → ${html_file#$OUTPUT_DIR/}"
+        else
+            log_error "✗ Failed to convert $rel_path"
+            exit 1
+        fi
+        
+    done < <(find "$SOURCE_DIR" -name "*.md" -type f -print0)
+fi
 
 # ------------------------------------------------------------
 # Copy additional assets
 # ------------------------------------------------------------
-log_info "Copying additional assets..."
+if [[ "$SINGLE_FILE_MODE" == "false" ]]; then
+    log_info "Copying additional assets..."
 
-# Copy media files (images, etc.)
-if [[ -d "$SOURCE_DIR/media" ]]; then
-    cp -r "$SOURCE_DIR/media" "$OUTPUT_DIR/"
-    log_success "Copied media directory"
+    # Copy media files (images, etc.)
+    if [[ -d "$SOURCE_DIR/media" ]]; then
+        cp -r "$SOURCE_DIR/media" "$OUTPUT_DIR/"
+        log_success "Copied media directory"
+    fi
+
+    # Copy any other common asset directories
+    for asset_dir in "images" "assets" "static" "files"; do
+        if [[ -d "$SOURCE_DIR/$asset_dir" ]]; then
+            cp -r "$SOURCE_DIR/$asset_dir" "$OUTPUT_DIR/"
+            log_success "Copied $asset_dir directory"
+        fi
+    done
 fi
 
-# Copy any other common asset directories
-for asset_dir in "images" "assets" "static" "files"; do
-    if [[ -d "$SOURCE_DIR/$asset_dir" ]]; then
-        cp -r "$SOURCE_DIR/$asset_dir" "$OUTPUT_DIR/"
-        log_success "Copied $asset_dir directory"
+# ------------------------------------------------------------
+# Generate index if it doesn't exist (directory mode only)
+# ------------------------------------------------------------
+if [[ "$SINGLE_FILE_MODE" == "false" ]]; then
+    if [[ ! -f "$OUTPUT_DIR/index.html" ]] && [[ -f "$SOURCE_DIR/README.md" ]]; then
+        log_info "Generating index.html from README.md"
+        pandoc "$SOURCE_DIR/README.md" "${PANDOC_OPTS[@]}" \
+            --metadata="rel_path:." \
+            --output="$OUTPUT_DIR/index.html"
+        FILES_CONVERTED=$((FILES_CONVERTED + 1))
+        log_success "Generated index.html"
     fi
-done
-
-# ------------------------------------------------------------
-# Generate index if it doesn't exist
-# ------------------------------------------------------------
-if [[ ! -f "$OUTPUT_DIR/index.html" ]] && [[ -f "$SOURCE_DIR/README.md" ]]; then
-    log_info "Generating index.html from README.md"
-    pandoc "$SOURCE_DIR/README.md" "${PANDOC_OPTS[@]}" \
-        --metadata="rel_path:." \
-        --output="$OUTPUT_DIR/index.html"
-    FILES_CONVERTED=$((FILES_CONVERTED + 1))
-    log_success "Generated index.html"
 fi
 
 # ------------------------------------------------------------

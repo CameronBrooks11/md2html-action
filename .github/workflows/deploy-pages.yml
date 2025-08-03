@@ -1,0 +1,75 @@
+name: Deploy README to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'README.md' ]
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress deployments as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Prepare README with frontmatter
+        run: |
+          # Create a temporary README with YAML frontmatter
+          cat > temp-readme.md << 'EOF'
+          ---
+          title: "Markdown to HTML Action"
+          description: "GitHub Action to convert Markdown files to HTML with customizable templates and stylesheets using Pandoc"
+          author: "Cameron Brooks"
+          date: "$(date +%Y-%m-%d)"
+          navbar_home: true
+          ---
+          EOF
+          
+          # Append the README content (skip the first line which is the title)
+          tail -n +2 README.md >> temp-readme.md
+      
+      - name: Convert README to HTML
+        id: convert
+        uses: ./
+        with:
+          source-file: 'temp-readme.md'
+          output-dir: '_site'
+          template: 'default'
+          stylesheet: 'default'
+          site-title: 'md2html-action'
+          base-url: 'https://cameronbrooks11.github.io/md2html-action'
+          include-toc: 'true'
+          pandoc-options: '--highlight-style=tango'
+      
+      - name: Rename output to index.html
+        run: |
+          mv _site/temp-readme.html _site/index.html
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
