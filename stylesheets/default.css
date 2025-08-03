@@ -48,12 +48,13 @@
 /* ─────────────────────────────────────────────────────────────────────── */
 
 html {
-  padding-top: -20px;
   height: 100%;
+  scroll-padding-top: 120px; /* Account for fixed header when scrolling to anchors */
 }
 
 body {
-  margin: auto;
+  margin: 0;
+  padding: 0;
   color: var(--text_color);
   font-family: sans-serif;
   font-size: 100%;
@@ -68,18 +69,18 @@ Content including toc and article heading
 === */
 
 .content {
-  margin: auto;
+  margin: 0 auto;
   max-width: 900px;
   color: var(--text_color);
   border-left: 1px solid var(--border_color);
   border-right: 1px solid var(--border_color);
   background-color: var(--content_background_color);
-  padding: 20px;
+  padding: 40px;
   padding-bottom: 60px;
-  /* padding as high as the page header. */
-  padding-top: 151.2px;
+  /* Add top padding to account for fixed header + extra space */
+  padding-top: 140px;
   /* page_height - header_height - footer_height - content_margin */
-  min-height: calc(100% - 151.2px - 71px - 60px);
+  min-height: calc(100vh - 140px - 71px - 100px);
 }
 
 .content-title-n-toc {
@@ -101,16 +102,18 @@ header {
   border-bottom: 1px solid var(--border_color);
   background-color: var(--header_background_color);
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .header_content {
-  margin: auto;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  max-width: 890px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  max-width: 900px;
   margin-bottom: -1px;
 }
 
@@ -126,11 +129,9 @@ footer {
 }
 
 .footer_content {
-  margin: auto;
-  padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
-  max-width: 890px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  max-width: 900px;
 }
 
 .footer_site_link {
@@ -416,12 +417,14 @@ Table of contents
 
 .table_of_contents {
   float: right;
-  border: 2px var(--toc_border_color);
+  border: 2px solid var(--toc_border_color);
   margin-left: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px; /* Add top margin to prevent header overlap */
   padding: 20px;
   font-family: monospace;
   background-color: var(--toc_background_color);
+  max-width: 300px;
 }
 
 .table_of_contents_header {
@@ -572,4 +575,44 @@ blockquote p {
   margin-top: 0px;
   margin-bottom: 0px;
   color: var(--text_color);
+}
+
+/* =========
+Responsive Design
+=== */
+
+@media (max-width: 768px) {
+  .content {
+    padding: 120px 20px 60px 20px; /* Reduce side padding on mobile */
+    border-left: none;
+    border-right: none;
+  }
+  
+  .header_content,
+  .footer_content {
+    padding: 20px;
+  }
+  
+  .table_of_contents {
+    float: none;
+    margin: 20px 0;
+    max-width: none;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  h1.title {
+    font-size: min(8vw, 24px); /* Smaller title on mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    padding: 110px 15px 50px 15px; /* Even more compact on small screens */
+  }
+  
+  .header_content,
+  .footer_content {
+    padding: 15px;
+  }
 }
