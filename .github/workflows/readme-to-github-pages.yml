@@ -1,9 +1,12 @@
+# Deploy project README as a GitHub Pages website
+# Automatically converts README.md to HTML and deploys to GitHub Pages
+
 name: Deploy README to GitHub Pages
 
 on:
   push:
     branches: [ main ]
-    paths: [ 'README.md' ]
+    paths: [ 'README.md', 'templates/**', 'stylesheets/**' ]
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -15,29 +18,31 @@ permissions:
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress deployments as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
+  group: "github-pages-deployment"
   cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  convert-and-deploy-readme:
     runs-on: ubuntu-latest
+    name: Convert README and deploy to GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
       
-      - name: Setup Pages
+      - name: Setup GitHub Pages
         uses: actions/configure-pages@v4
       
       - name: Prepare README for conversion
         run: |
-          # Copy README.md as-is for conversion
+          # Copy README.md as-is for conversion (no frontmatter needed)
           cp README.md temp-readme.md
+          echo "✅ README prepared for conversion"
       
-      - name: Convert README to HTML
+      - name: Convert README to HTML using md2html-action
         id: convert
         uses: ./
         with:
@@ -45,16 +50,18 @@ jobs:
           output-dir: '_site'
           template: 'default'
           stylesheet: 'default'
-          site-title: 'md2html-action'
+          site-title: 'md2html-action Documentation'
           base-url: 'https://cameronbrooks11.github.io/md2html-action'
           include-toc: 'true'
           pandoc-options: '--highlight-style=tango'
       
-      - name: Rename output to index.html
+      - name: Rename converted file to index.html
         run: |
           mv _site/temp-readme.html _site/index.html
+          echo "✅ README converted to index.html"
+          ls -la _site/
       
-      - name: Upload artifact
+      - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: '_site'

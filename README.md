@@ -123,7 +123,7 @@ jobs:
 
 Your repository should be structured like this:
 
-```js
+```
 your-repo/
 ├── docs/                    # Source Markdown files
 │   ├── index.md            # Will become index.html
@@ -142,7 +142,7 @@ your-repo/
 
 After conversion:
 
-```js
+```
 _website/                   # Generated HTML files
 ├── index.html
 ├── getting-started.html
@@ -257,6 +257,107 @@ With custom styling:
 
 - Pandoc (automatically installed by the action)
 - Python 3.x (for path utilities, automatically available)
+
+## Local Testing with Act
+
+You can test this action locally using [act](https://github.com/nektos/act) to run GitHub Actions workflows on your machine.
+
+### Prerequisites
+
+1. **Install Docker** (required by act)
+2. **Install act** via GitHub CLI:
+
+   ```bash
+   gh extension install https://github.com/nektos/gh-act
+   ```
+
+### Testing Commands
+
+#### List Available Workflows
+
+```bash
+# See all available workflows and jobs
+gh act --list
+```
+
+#### Test Individual Jobs
+
+```bash
+# Test main cross-platform functionality (dry-run to check workflow)
+gh act -j cross-platform-tests -n
+
+# Test with default configuration and generate output files
+gh act -j test-default-configuration --bind
+
+# Test with custom template and configuration options
+gh act -j test-custom-configuration --bind
+
+# Test with remote CSS functionality
+gh act -j test-remote-css --bind
+
+# Test GitHub Pages README deployment
+gh act -j convert-and-deploy-readme --bind
+```
+
+#### Test Entire Workflows
+
+```bash
+# Test the integration test workflow (all configuration scenarios)
+gh act -W .github/workflows/integration-tests.yml --bind
+
+# Test GitHub Pages workflow (converts README.md to website)
+gh act -W .github/workflows/readme-to-github-pages.yml --bind
+
+# Test cross-platform and release workflow
+gh act -W .github/workflows/cross-platform-tests-and-release.yml
+```
+
+#### Quick Test Commands
+
+```bash
+# Run all available workflows with output binding
+gh act --bind
+
+# Test only the cross-platform functionality
+gh act -j cross-platform-tests
+```
+
+### Viewing Test Output
+
+After running `act` with `--bind`, the generated HTML files will be available in your local directory:
+
+```bash
+# View default configuration test output
+cd test-output
+python -m http.server 8000
+
+# View custom configuration test output  
+cd custom-output
+python -m http.server 8001
+
+# View remote CSS test output
+cd remote-css-output
+python -m http.server 8002
+
+# View GitHub Pages output (README conversion)
+cd _site
+python -m http.server 8003
+
+# Open the respective localhost URL in your browser:
+# http://localhost:8000 (default config)
+# http://localhost:8001 (custom config)  
+# http://localhost:8002 (remote CSS)
+# http://localhost:8003 (README as website)
+```
+
+### Testing Your Changes
+
+1. Make changes to templates, stylesheets, or the conversion script
+2. Run `gh act -j test-default --bind` to test locally
+3. View the output in your browser using the local server
+4. Iterate until satisfied, then commit and push
+
+This allows you to test the action completely offline before pushing changes to GitHub!
 
 ## Contributing
 

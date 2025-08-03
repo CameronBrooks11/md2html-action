@@ -17,11 +17,13 @@ Thumbs.db
 *~
 
 # Test outputs
-test-output/
+*output/
+*outputs/
 _website/
 _site/
+temp-readme.md
 
-# Node modules (if using any Node.js tools)
+# Node modules
 node_modules/
 
 # Logs

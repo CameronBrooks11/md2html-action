@@ -1,0 +1,114 @@
+# Integration tests for the md2html-action
+# Tests different configuration scenarios to ensure the action works correctly
+
+name: Integration Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test-default-configuration:
+    runs-on: ubuntu-latest
+    name: Test default configuration
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Convert Markdown to HTML (default settings)
+        id: convert
+        uses: ./  # Use local action for testing
+        with:
+          source-dir: 'test-docs'
+          output-dir: 'test-output'
+      
+      - name: Verify output
+        run: |
+          echo "Files converted: ${{ steps.convert.outputs.files-converted }}"
+          echo "Output path: ${{ steps.convert.outputs.output-path }}"
+          ls -la test-output/
+          
+          # Verify key files exist
+          test -f test-output/index.html || (echo "ERROR: index.html missing" && exit 1)
+          test -f test-output/getting-started.html || (echo "ERROR: getting-started.html missing" && exit 1)
+          test -f test-output/advanced/configuration.html || (echo "ERROR: configuration.html missing" && exit 1)
+          
+          echo "✅ Default configuration test passed!"
+
+  test-custom-configuration:
+    runs-on: ubuntu-latest
+    name: Test custom configuration
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Convert with custom settings
+        id: convert
+        uses: ./
+        with:
+          source-dir: 'test-docs'
+          output-dir: 'custom-output'
+          template: 'minimal'
+          stylesheet: 'minimal'
+          site-title: 'Custom Test Documentation'
+          include-toc: 'true'
+          pandoc-options: '--highlight-style=tango'
+      
+      - name: Verify custom output
+        run: |
+          echo "Files converted: ${{ steps.convert.outputs.files-converted }}"
+          ls -la custom-output/
+          
+          # Verify files exist with custom settings
+          test -f custom-output/index.html || (echo "ERROR: custom index.html missing" && exit 1)
+          
+          # Check that custom title appears in HTML
+          grep -q "Custom Test Documentation" custom-output/index.html || (echo "ERROR: Custom title not found" && exit 1)
+          
+          echo "✅ Custom configuration test passed!"
+      
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: custom-configuration-output
+          path: custom-output/
+          retention-days: 7
+
+  test-remote-css:
+    runs-on: ubuntu-latest
+    name: Test remote CSS integration
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Convert with remote stylesheet
+        id: convert
+        uses: ./
+        with:
+          source-dir: 'test-docs'
+          output-dir: 'remote-css-output'
+          stylesheet: 'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css'
+          site-title: 'Remote CSS Test'
+      
+      - name: Verify remote CSS integration
+        run: |
+          echo "Files converted: ${{ steps.convert.outputs.files-converted }}"
+          ls -la remote-css-output/
+          
+          # Verify files exist
+          test -f remote-css-output/index.html || (echo "ERROR: index.html missing" && exit 1)
+          
+          # Check that remote CSS URL is referenced
+          grep -q "github-markdown-css" remote-css-output/index.html || (echo "ERROR: Remote CSS not referenced" && exit 1)
+          
+          echo "✅ Remote CSS test passed!"
+      
+      - name: Upload remote CSS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: remote-css-output
+          path: remote-css-output/
+          retention-days: 7
