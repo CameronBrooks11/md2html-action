@@ -71,12 +71,6 @@ relpath() {
 # ------------------------------------------------------------
 log_info "Starting Markdown to HTML conversion..."
 
-# Debug: Print all input variables
-log_info "Debug - INPUT_SOURCE_DIR: '$INPUT_SOURCE_DIR'"
-log_info "Debug - INPUT_SOURCE_FILE: '$INPUT_SOURCE_FILE'"
-log_info "Debug - SOURCE_DIR: '$SOURCE_DIR'"
-log_info "Debug - SOURCE_FILE: '$SOURCE_FILE'"
-
 # Determine if we're processing a single file or directory
 if [[ -n "$SOURCE_FILE" ]]; then
     log_info "Source file: $SOURCE_FILE"

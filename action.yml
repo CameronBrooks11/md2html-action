@@ -87,6 +87,7 @@ runs:
       shell: bash
       env:
         INPUT_SOURCE_DIR: ${{ inputs.source-dir }}
+        INPUT_SOURCE_FILE: ${{ inputs.source-file }}
         INPUT_OUTPUT_DIR: ${{ inputs.output-dir }}
         INPUT_TEMPLATE: ${{ inputs.template }}
         INPUT_STYLESHEET: ${{ inputs.stylesheet }}
