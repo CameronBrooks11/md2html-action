@@ -4,7 +4,7 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 
 ## Features
 
-- 📝 Convert Markdown files to HTML using        uses: CameronBrooks11/md2html-action@v1Pandoc
+- 📝 Convert Markdown files to HTML using uses: CameronBrooks11/md2html-action@v1Pandoc
 - 🎨 Customizable HTML templates (default provided or bring your own)
 - 💅 Flexible stylesheet options (default, custom, or remote CSS)
 - 📱 Responsive design with dark/light theme support
@@ -22,19 +22,19 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 name: Build Documentation
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Convert Markdown to HTML
         uses: CameronBrooks11/md2html-action@v1
         with:
-          source-dir: 'docs'
-          output-dir: 'website'
+          source-dir: "docs"
+          output-dir: "website"
 ```
 
 ### Advanced Usage
@@ -43,27 +43,27 @@ jobs:
 name: Build and Deploy Docs
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Convert Markdown to HTML
         id: convert
         uses: CameronBrooks11/md2html-action@v1
         with:
-          source-dir: 'docs'
-          output-dir: '_site'
-          template: 'custom-template.html'
-          stylesheet: 'https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css'
-          site-title: 'My Documentation'
-          base-url: 'https://mysite.github.io/my-repo'
-          include-toc: 'true'
-          pandoc-options: '--highlight-style=github'
-      
+          source-dir: "docs"
+          output-dir: "_site"
+          template: "custom-template.html"
+          stylesheet: "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+          site-title: "My Documentation"
+          base-url: "https://mysite.github.io/my-repo"
+          include-toc: "true"
+          pandoc-options: "--highlight-style=github"
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         with:
@@ -72,16 +72,16 @@ jobs:
 
 ## Inputs
 
-| Input | Description | Required | Default |
-|-------|-------------|----------|---------|
-| `source-dir` | Directory containing Markdown files | No | `source` |
-| `output-dir` | Directory where HTML files will be generated | No | `_website` |
-| `template` | HTML template to use | No | `default` |
-| `stylesheet` | CSS stylesheet to use | No | `default` |
-| `site-title` | Title for the website | No | `Documentation` |
-| `base-url` | Base URL for the site | No | `` |
-| `include-toc` | Include table of contents | No | `true` |
-| `pandoc-options` | Additional Pandoc options | No | `` |
+| Input            | Description                                  | Required | Default         |
+| ---------------- | -------------------------------------------- | -------- | --------------- |
+| `source-dir`     | Directory containing Markdown files          | No       | `source`        |
+| `output-dir`     | Directory where HTML files will be generated | No       | `_website`      |
+| `template`       | HTML template to use                         | No       | `default`       |
+| `stylesheet`     | CSS stylesheet to use                        | No       | `default`       |
+| `site-title`     | Title for the website                        | No       | `Documentation` |
+| `base-url`       | Base URL for the site                        | No       | ``              |
+| `include-toc`    | Include table of contents                    | No       | `true`          |
+| `pandoc-options` | Additional Pandoc options                    | No       | ``              |
 
 ### Template Options
 
@@ -98,10 +98,10 @@ jobs:
 
 ## Outputs
 
-| Output | Description |
-|--------|-------------|
-| `output-path` | Path to the generated HTML files |
-| `files-converted` | Number of files converted |
+| Output            | Description                      |
+| ----------------- | -------------------------------- |
+| `output-path`     | Path to the generated HTML files |
+| `files-converted` | Number of files converted        |
 
 ## Directory Structure
 
@@ -160,7 +160,6 @@ date: "2025-01-01"
 keywords: ["documentation", "markdown", "html"]
 navbar_home: true
 ---
-
 # Your content here...
 ```
 
@@ -199,11 +198,11 @@ Perfect for project documentation:
 - name: Build Documentation
   uses: CameronBrooks11/md2html-action@v1
   with:
-    source-dir: 'docs'
-    output-dir: 'public'
-    site-title: 'Project Documentation'
-    base-url: 'https://myproject.github.io'
-    include-toc: 'true'
+    source-dir: "docs"
+    output-dir: "public"
+    site-title: "Project Documentation"
+    base-url: "https://myproject.github.io"
+    include-toc: "true"
 ```
 
 ### Blog
@@ -214,11 +213,11 @@ Convert Markdown blog posts:
 - name: Build Blog
   uses: CameronBrooks11/md2html-action@v1
   with:
-    source-dir: 'posts'
-    output-dir: 'blog'
-    template: 'blog-template.html'
-    stylesheet: 'blog-style.css'
-    site-title: 'My Blog'
+    source-dir: "posts"
+    output-dir: "blog"
+    template: "blog-template.html"
+    stylesheet: "blog-style.css"
+    site-title: "My Blog"
 ```
 
 ### API Documentation
@@ -229,10 +228,10 @@ With custom styling:
 - name: Build API Docs
   uses: CameronBrooks11/md2html-action@v1
   with:
-    source-dir: 'api-docs'
-    template: 'api-template.html'
-    stylesheet: 'https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@main/github-markdown.css'
-    pandoc-options: '--highlight-style=github --toc-depth=4'
+    source-dir: "api-docs"
+    template: "api-template.html"
+    stylesheet: "https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@main/github-markdown.css"
+    pandoc-options: "--highlight-style=github --toc-depth=4"
 ```
 
 ## Requirements
