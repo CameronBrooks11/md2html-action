@@ -5,7 +5,7 @@ This is a test page to verify that the md2html-action works correctly.
 ## Features Being Tested
 
 - [x] Markdown to HTML conversion
-- [x] YAML frontmatter support
+- [x] Pure vanilla Markdown support (no frontmatter needed!)
 - [x] Table of contents generation
 - [x] Code syntax highlighting
 - [x] Links and navigation

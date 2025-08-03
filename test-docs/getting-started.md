@@ -11,18 +11,37 @@ This page demonstrates how to create documentation using Markdown.
 ## Creating Your First Page
 
 1. Create a `.md` file in your source directory
-2. Add YAML frontmatter at the top
-3. Write your content in Markdown
-4. Push to trigger the action
+2. Start with a `# Title` heading
+3. Write your content in standard Markdown
+4. Push to trigger the action - that's it!
 
-## YAML Frontmatter
+## Pure Markdown - No Setup Required
+
+The action works with any standard Markdown file. Just write normal Markdown:
+
+```markdown
+# My Page Title
+
+This is my content. No special formatting needed!
+
+## Features
+
+- Lists work
+- **Bold** and *italic* text
+- [Links](https://example.com)
+- Code blocks
+
+```python
+print("Hello, World!")
+```
+
+Want custom metadata? Frontmatter is optional:
 
 ```yaml
 ---
-title: "Page Title"
+title: "Custom Page Title"
 description: "SEO description"
 author: "Your Name"
-date: "2025-01-03"
 ---
 ```
 

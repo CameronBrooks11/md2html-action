@@ -39,6 +39,19 @@ jobs:
           output-dir: "website"
 ```
 
+### Single File Usage
+
+Convert a single Markdown file (great for README to GitHub Pages):
+
+```yaml
+- name: Convert README to HTML
+  uses: CameronBrooks11/md2html-action@v1
+  with:
+    source-file: "README.md"
+    output-dir: "_site"
+    template: "default"
+```
+
 ### Advanced Usage
 
 ```yaml
@@ -77,6 +90,7 @@ jobs:
 | Input            | Description                                  | Required | Default         |
 | ---------------- | -------------------------------------------- | -------- | --------------- |
 | `source-dir`     | Directory containing Markdown files          | No       | `source`        |
+| `source-file`    | Single Markdown file to convert (alternative to source-dir) | No | ``              |
 | `output-dir`     | Directory where HTML files will be generated | No       | `_website`      |
 | `template`       | HTML template to use                         | No       | `default`       |
 | `stylesheet`     | CSS stylesheet to use                        | No       | `default`       |
