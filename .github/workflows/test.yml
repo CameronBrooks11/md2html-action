@@ -1,0 +1,71 @@
+# Example workflow for testing the md2html-action
+# Copy this to .github/workflows/ in a repository that uses this action
+
+name: Test md2html-action
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  test-default:
+    runs-on: ubuntu-latest
+    name: Test with default options
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Convert Markdown to HTML
+        id: convert
+        uses: ./  # Use local action for testing
+        with:
+          source-dir: 'test-docs'
+          output-dir: 'test-output'
+      
+      - name: Check output
+        run: |
+          echo "Files converted: ${{ steps.convert.outputs.files-converted }}"
+          echo "Output path: ${{ steps.convert.outputs.output-path }}"
+          ls -la test-output/
+
+  test-custom:
+    runs-on: ubuntu-latest
+    name: Test with custom options
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Convert with custom settings
+        uses: ./
+        with:
+          source-dir: 'test-docs'
+          output-dir: 'custom-output'
+          template: 'minimal'
+          stylesheet: 'minimal'
+          site-title: 'Test Documentation'
+          include-toc: 'true'
+          pandoc-options: '--highlight-style=github'
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: converted-html
+          path: custom-output/
+
+  test-remote-css:
+    runs-on: ubuntu-latest
+    name: Test with remote CSS
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Convert with remote stylesheet
+        uses: ./
+        with:
+          source-dir: 'test-docs'
+          output-dir: 'remote-css-output'
+          stylesheet: 'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css'
+          site-title: 'GitHub Style Test'

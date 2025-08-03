@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+  
+  $if(stylesheet)$
+  $if(rel_path)$
+  <link rel="stylesheet" href="$rel_path$/$stylesheet$" />
+  $else$
+  <link rel="stylesheet" href="$stylesheet$" />
+  $endif$
+  $endif$
+  $if(stylesheet-url)$
+  <link rel="stylesheet" href="$stylesheet-url$" />
+  $endif$
+</head>
+
+<body>
+  $if(title)$
+  <header>
+    <h1>$title$</h1>
+    $if(date)$<p><em>$date$</em></p>$endif$
+  </header>
+  $endif$
+  
+  $if(toc)$
+  <nav>
+    <h2>Contents</h2>
+    $table-of-contents$
+  </nav>
+  $endif$
+  
+  <main>
+    $body$
+  </main>
+</body>
+</html>

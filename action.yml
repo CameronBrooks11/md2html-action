@@ -1,0 +1,100 @@
+name: 'Markdown to HTML Converter'
+description: 'Convert Markdown files to HTML with customizable templates and stylesheets using Pandoc'
+author: 'Cameron Brooks'
+
+inputs:
+  source-dir:
+    description: 'Directory containing Markdown files to convert'
+    required: false
+    default: 'source'
+  
+  output-dir:
+    description: 'Directory where HTML files will be generated'
+    required: false
+    default: '_website'
+  
+  template:
+    description: 'HTML template to use. Can be "default" for built-in template, or path to custom template file'
+    required: false
+    default: 'default'
+  
+  stylesheet:
+    description: 'CSS stylesheet to use. Can be "default" for built-in stylesheet, path to local file, or URL to remote stylesheet'
+    required: false
+    default: 'default'
+  
+  site-title:
+    description: 'Title for the website (used in navigation and meta tags)'
+    required: false
+    default: 'Documentation'
+  
+  base-url:
+    description: 'Base URL for the site (useful for GitHub Pages deployment)'
+    required: false
+    default: ''
+  
+  include-toc:
+    description: 'Include table of contents in generated HTML'
+    required: false
+    default: 'true'
+  
+  pandoc-options:
+    description: 'Additional Pandoc command line options'
+    required: false
+    default: ''
+
+outputs:
+  output-path:
+    description: 'Path to the generated HTML files'
+    value: ${{ steps.convert.outputs.output-path }}
+  
+  files-converted:
+    description: 'Number of files converted'
+    value: ${{ steps.convert.outputs.files-converted }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    
+    - name: Install Pandoc
+      shell: bash
+      run: |
+        if command -v pandoc &> /dev/null; then
+          echo "Pandoc already installed: $(pandoc --version | head -n1)"
+        else
+          echo "Installing Pandoc..."
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sudo apt-get update
+            sudo apt-get install -y pandoc
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            brew install pandoc
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            choco install pandoc
+          fi
+        fi
+    
+    - name: Convert Markdown to HTML
+      id: convert
+      shell: bash
+      env:
+        INPUT_SOURCE_DIR: ${{ inputs.source-dir }}
+        INPUT_OUTPUT_DIR: ${{ inputs.output-dir }}
+        INPUT_TEMPLATE: ${{ inputs.template }}
+        INPUT_STYLESHEET: ${{ inputs.stylesheet }}
+        INPUT_SITE_TITLE: ${{ inputs.site-title }}
+        INPUT_BASE_URL: ${{ inputs.base-url }}
+        INPUT_INCLUDE_TOC: ${{ inputs.include-toc }}
+        INPUT_PANDOC_OPTIONS: ${{ inputs.pandoc-options }}
+        GITHUB_ACTION_PATH: ${{ github.action_path }}
+      run: |
+        # Make the convert script executable and run it
+        chmod +x "$GITHUB_ACTION_PATH/convert-action.sh"
+        "$GITHUB_ACTION_PATH/convert-action.sh"
+
+branding:
+  icon: 'file-text'
+  color: 'blue'
