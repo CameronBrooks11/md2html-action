@@ -31,13 +31,13 @@ See the action in action! The demo gallery showcases different templates and sty
 - **[Blog Theme](https://cameronbrooks11.github.io/md2html-action/demos/blog/)** - Elegant blog-style layout with beautiful typography, perfect for articles and tutorials
 - **[Corporate Theme](https://cameronbrooks11.github.io/md2html-action/demos/corporate/)** - Professional business styling with corporate color scheme for enterprise documentation
 
+> **Note:** All demos use the same markdown content with different stylesheets to showcase theme variety
+
 ### Remote CSS Examples
 
 - **[GitHub CSS Demo](https://cameronbrooks11.github.io/md2html-action/demos/github/)** - Uses `github` template with remote GitHub markdown CSS from CDN
 
 > **Note:** The GitHub demo showcases how to use remote CSS by combining the `github` template with the official GitHub markdown CSS (`https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css`)
-
-> **Note:** All demos use the same markdown content with different stylesheets to showcase theme variety
 
 ## Usage
 
@@ -431,7 +431,7 @@ gh act -j test-default-configuration --bind
 # Test custom configuration with minimal template
 gh act -j test-custom-configuration --bind
 
-# Test remote CSS integration  
+# Test remote CSS integration
 gh act -j test-remote-css --bind
 
 # Test new stylesheet themes
@@ -481,7 +481,7 @@ cd outputs-custom-configuration && python -m http.server 8001
 # View academic theme output
 cd outputs-academic-style && python -m http.server 8002
 
-# View technical theme output  
+# View technical theme output
 cd outputs-technical-style && python -m http.server 8003
 
 # View blog theme output

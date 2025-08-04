@@ -171,9 +171,8 @@ elif [[ -f "$STYLESHEET" ]]; then
     log_info "Using custom stylesheet: $STYLESHEET"
 elif [[ -f "$GITHUB_ACTION_PATH/stylesheets/$STYLESHEET.css" ]]; then
     # Built-in stylesheet
-    STYLESHEET_FILENAME="$STYLESHEET.css"
-    cp "$GITHUB_ACTION_PATH/stylesheets/$STYLESHEET.css" "$OUTPUT_DIR/$STYLESHEET_FILENAME"
-    STYLESHEET_PATH="$STYLESHEET_FILENAME"
+    cp "$GITHUB_ACTION_PATH/stylesheets/$STYLESHEET.css" "$OUTPUT_DIR/style.css"
+    STYLESHEET_PATH="style.css"
     log_info "Using built-in stylesheet: $STYLESHEET"
 elif [[ -f "$GITHUB_ACTION_PATH/stylesheets/$STYLESHEET" ]]; then
     # Built-in stylesheet
