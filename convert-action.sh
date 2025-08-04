@@ -276,6 +276,27 @@ else
 fi
 
 # ------------------------------------------------------------
+# Fix markdown links to point to HTML files
+# ------------------------------------------------------------
+log_info "Fixing internal markdown links..."
+
+# Find all HTML files and fix .md links to .html links
+find "$OUTPUT_DIR" -name "*.html" -type f | while read -r html_file; do
+    # Use sed to replace .md links with .html links
+    # This regex matches href="something.md" and href="path/something.md"
+    case "$(uname -s)" in
+        Darwin*|FreeBSD*|OpenBSD*)
+            sed -i '' 's/href="\([^"]*\)\.md"/href="\1.html"/g' "$html_file"
+        ;;
+        *)
+            sed -i 's/href="\([^"]*\)\.md"/href="\1.html"/g' "$html_file"
+        ;;
+    esac
+done
+
+log_success "Fixed internal markdown links"
+
+# ------------------------------------------------------------
 # Copy additional assets
 # ------------------------------------------------------------
 if [[ "$SINGLE_FILE_MODE" == "false" ]]; then

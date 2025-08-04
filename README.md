@@ -353,7 +353,7 @@ python -m http.server 8003
 ### Testing Your Changes
 
 1. Make changes to templates, stylesheets, or the conversion script
-2. Run `gh act -j test-default --bind` to test locally
+2. Run `gh act -j test-default-configuration --bind` to test locally
 3. View the output in your browser using the local server
 4. Iterate until satisfied, then commit and push
 

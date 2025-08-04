@@ -49,7 +49,7 @@
 
 html {
   height: 100%;
-  scroll-padding-top: 140px; /* Increase to account for larger header + margin */
+  scroll-padding-top: 160px; /* Increase to account for larger header + more margin */
 }
 
 body {
@@ -65,9 +65,29 @@ body {
 }
 
 /* =========
-Content including toc and article heading
+Main content layout
 === */
 
+.main-content {
+  margin: 0 auto;
+  max-width: 900px;
+  color: var(--text_color);
+  border-left: 1px solid var(--border_color);
+  border-right: 1px solid var(--border_color);
+  background-color: var(--content_background_color);
+  padding: 40px 60px 60px 60px; /* More generous side padding */
+  /* Add top padding to account for fixed header + extra space */
+  padding-top: 180px; /* Increase to give more space below header */
+  /* page_height - header_height - footer_height - content_margin */
+  min-height: calc(100vh - 180px - 71px - 120px);
+}
+
+.page-content {
+  clear: both;
+  margin-top: 20px;
+}
+
+/* Legacy support for old content class */
 .content {
   margin: 0 auto;
   max-width: 900px;
@@ -75,12 +95,11 @@ Content including toc and article heading
   border-left: 1px solid var(--border_color);
   border-right: 1px solid var(--border_color);
   background-color: var(--content_background_color);
-  padding: 60px; /* Increase all padding to match header */
-  padding-bottom: 60px;
+  padding: 40px 60px 60px 60px; /* More generous side padding */
   /* Add top padding to account for fixed header + extra space */
-  padding-top: 160px; /* Increase to give more space below header */
+  padding-top: 180px; /* Increase to give more space below header */
   /* page_height - header_height - footer_height - content_margin */
-  min-height: calc(100vh - 160px - 71px - 120px);
+  min-height: calc(100vh - 180px - 71px - 120px);
 }
 
 .content-title-n-toc {
@@ -98,7 +117,8 @@ Content including toc and article heading
 Header styling
 === */
 
-header {
+header,
+.site-header {
   border-bottom: 1px solid var(--border_color);
   background-color: var(--header_background_color);
   position: fixed;
@@ -110,25 +130,101 @@ header {
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.header_content {
+.header_content,
+.header-content {
   margin: 0 auto;
   padding: 20px 60px; /* Increase side padding for more breathing room */
   max-width: 900px;
   margin-bottom: -1px;
 }
 
+.site-title h1 {
+  margin: 0;
+  font-weight: lighter;
+  padding-top: 0.4em;
+  padding-bottom: 0.2em;
+  text-align: left;
+  border: none;
+  color: var(--heading_color);
+  height: 30px;
+  font-size: 32px;
+  /* min of (12% of the view port width - 16px) and (32px).
+  chose larger Xvw for font to shrink faster. */
+  font-size: min(12vw - 16px, 32px);
+}
+
+.site-title h1 a {
+  text-decoration: none;
+  color: var(--heading_color);
+}
+
+/* =========
+Site Navigation
+=== */
+
+.site-nav {
+  margin-top: 10px;
+}
+
+.site-nav .nav-link {
+  color: var(--text_color);
+  text-decoration: none;
+  margin-right: 20px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.site-nav .nav-link:hover,
+.site-nav .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--heading_color);
+}
+
+/* =========
+Page Header
+=== */
+
+.page-header {
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--border_color);
+  padding-bottom: 20px;
+}
+
+.page-title {
+  font-size: 150%;
+  margin-bottom: 10px;
+  color: var(--heading_color);
+  border: none !important; /* Override default h1 styling */
+}
+
+.page-subtitle {
+  font-size: 110%;
+  color: var(--text_color);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.page-author {
+  font-size: 90%;
+  color: var(--text_color);
+  margin-bottom: 0;
+}
+
 /* =========
 Footer styling
 === */
 
-footer {
+footer,
+.site-footer {
   width: 100%;
   height: 70px;
   border-top: 1px solid var(--border_color);
   background-color: var(--header_background_color);
 }
 
-.footer_content {
+.footer_content,
+.footer-content {
   margin: 0 auto;
   padding: 20px 60px; /* Match header padding */
   max-width: 900px;
@@ -233,14 +329,22 @@ hr {
   margin-bottom: 30px;
 }
 
+.main-content > ol > li::marker,
+.main-content > ul > li::marker,
 .content > ol > li::marker,
-.content > ul > li::marker {
+.content > ul > li::marker,
+.page-content > ol > li::marker,
+.page-content > ul > li::marker {
   color: var(--text_color);
 }
 
 /* should not affect the table of contents */
+.main-content > ol > li,
+.main-content > ul > li,
 .content > ol > li,
-.content > ul > li {
+.content > ul > li,
+.page-content > ol > li,
+.page-content > ul > li {
   padding-left: 10px;
 }
 
@@ -277,11 +381,15 @@ p.date {
 }
 
 /* List styling which only acts on list in content div, not on TOC */
-div.content > ol > li {
+div.main-content > ol > li,
+div.content > ol > li,
+div.page-content > ol > li {
   padding-bottom: 6px;
 }
 
-div.content > ul > li {
+div.main-content > ul > li,
+div.content > ul > li,
+div.page-content > ul > li {
   padding-bottom: 3px;
 }
 
@@ -382,7 +490,9 @@ figure {
   margin-bottom: 40px;
 }
 
-div.content > figure {
+div.main-content > figure,
+div.content > figure,
+div.page-content > figure {
   /* Will not be applied to figures that are wrapped by another div, e.g. to
    * float on the right of the page. */
   margin-top: 35px;
@@ -415,33 +525,46 @@ math {
 Table of contents
 === */
 
+.table-of-contents,
 .table_of_contents {
-  float: right;
+  float: left; /* Changed from right to left */
   border: 2px solid var(--toc_border_color);
-  margin-left: 20px;
-  margin-bottom: 20px;
-  margin-top: 40px; /* Increase top margin to prevent header overlap */
-  padding: 20px;
+  margin-right: 30px; /* Increase right margin (was left margin) */
+  margin-left: 20px; /* Add left margin for edge spacing (was right margin) */
+  margin-bottom: 30px; /* Increase bottom margin */
+  margin-top: 30px; /* Increase top margin to prevent header overlap */
+  padding: 25px; /* Increase padding for better spacing */
   font-family: monospace;
+  font-size: 110%; /* Increase font size by 10% */
   background-color: var(--toc_background_color);
-  max-width: 300px;
-  clear: right; /* Ensure it clears any other floated elements */
+  max-width: 280px; /* Slightly reduce to allow for better margins */
+  clear: left; /* Ensure it clears any other floated elements (changed from right) */
+  position: relative;
+  top: 0; /* Ensure it's not pushed up */
 }
 
+.table-of-contents h2,
 .table_of_contents_header {
   text-align: center;
+  margin-top: 0; /* Remove top margin from TOC header */
+  margin-bottom: 15px; /* Add bottom margin */
+  color: var(--heading_color);
 }
 
+.table-of-contents a,
 .table_of_contents a {
   color: var(--toc_link_color);
 }
 
+.table-of-contents ul,
 .table_of_contents ul {
   padding-left: 14px;
   padding-right: 8px;
   margin-bottom: 0px;
+  margin-top: 10px; /* Add top margin to lists */
 }
 
+.table-of-contents li::marker,
 .table_of_contents li::marker {
   color: transparent;
 }
@@ -452,55 +575,6 @@ Link styling
 
 a {
   color: var(--link_color);
-}
-
-/* =========
-Navigation bar
-=== */
-
-.navbar {
-  height: 41px;
-  margin-left: 0px;
-  margin-top: 20px;
-}
-
-.nav_item {
-  float: left;
-  padding-left: 20px;
-  padding-right: 20px;
-  height: 30px;
-  text-align: center;
-  background-color: var(--header_background_color);
-  padding-top: 10px;
-}
-
-.nav_item a {
-  color: var(--text_color);
-  text-decoration: none;
-}
-
-.nav_item a:not(.nav_item_active a):hover {
-  color: var(--heading_color);
-}
-
-.nav_item_active {
-  z-index: 100;
-  border-top: 3px solid var(--heading_color);
-  border-right: 1px solid var(--border_color);
-  border-left: 1px solid var(--border_color);
-  border-bottom: 1px solid var(--content_background_color);
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-  /* border-bottom: 1px solid transparent; */
-  height: 28px;
-  color: var(--text_color);
-  margin-bottom: -1px;
-  background-color: var(--content_background_color);
-}
-
-.nav_item_active a {
-  color: var(--text_color);
-  text-decoration: none;
 }
 
 /* =========
@@ -583,37 +657,55 @@ Responsive Design
 === */
 
 @media (max-width: 768px) {
+  .main-content,
   .content {
-    padding: 140px 30px 60px 30px; /* Increase mobile padding, account for larger header */
+    padding: 160px 40px 60px 40px; /* Increase mobile padding, account for larger header */
     border-left: none;
     border-right: none;
   }
   
   .header_content,
-  .footer_content {
-    padding: 20px 30px; /* Increase mobile side padding */
+  .header-content,
+  .footer_content,
+  .footer-content {
+    padding: 20px 40px; /* Increase mobile side padding */
   }
   
+  .table-of-contents,
   .table_of_contents {
     float: none;
-    margin: 30px 0; /* Increase margin */
+    margin: 40px 20px; /* Increase margin and add side margins */
     max-width: none;
-    width: 100%;
+    width: calc(100% - 40px); /* Account for side margins */
     box-sizing: border-box;
   }
   
   h1.title {
     font-size: min(8vw, 24px); /* Smaller title on mobile */
   }
+  
+  .page-content {
+    margin-top: 30px; /* More space on mobile */
+  }
 }
 
 @media (max-width: 480px) {
+  .main-content,
   .content {
-    padding: 130px 20px 50px 20px; /* Adjust for very small screens */
+    padding: 150px 30px 50px 30px; /* Adjust for very small screens */
   }
   
   .header_content,
-  .footer_content {
-    padding: 15px 20px;
+  .header-content,
+  .footer_content,
+  .footer-content {
+    padding: 15px 30px;
+  }
+  
+  .table-of-contents,
+  .table_of_contents {
+    margin: 30px 15px; /* Smaller margins on very small screens */
+    width: calc(100% - 30px);
+    padding: 20px; /* Reduce padding on small screens */
   }
 }
