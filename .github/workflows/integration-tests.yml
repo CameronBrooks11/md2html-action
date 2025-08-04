@@ -233,7 +233,7 @@ jobs:
                       <h3>Minimal Template</h3>
                       <p>Streamlined design focused on content readability with minimal styling overhead.</p>
                       <div class="features">
-                          <strong>Features:</strong> Lightweight CSS, Simple Layout, Fast Loading, Clean Typography
+                          <strong>Features:</strong> Lightweight CSS, Simple Layout, Clean Typography, MathJax Support
                       </div>
                       <p><a href="minimal/">View Minimal Demo →</a></p>
                   </div>
