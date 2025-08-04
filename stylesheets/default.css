@@ -537,7 +537,7 @@ Table of contents
   font-family: monospace;
   font-size: 110%; /* Increase font size by 10% */
   background-color: var(--toc_background_color);
-  max-width: 360px; /* Increased for wider TOC */
+  max-width: 600px; /* Increased for much wider TOC */
   clear: left; /* Ensure it clears any other floated elements (changed from right) */
   position: relative;
   top: 0; /* Ensure it's not pushed up */
