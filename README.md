@@ -22,11 +22,22 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 
 See the action in action! The demo gallery showcases different templates and styling options:
 
-- **[Default Template](https://cameronbrooks11.github.io/md2html-action/demos/default/)** - Professional layout with navigation and TOC
-- **[Minimal Template](https://cameronbrooks11.github.io/md2html-action/demos/minimal/)** - Clean, lightweight design
-- **[GitHub CSS Theme](https://cameronbrooks11.github.io/md2html-action/demos/github/)** - GitHub-style markdown rendering
+### Built-in Themes
 
-_Demo gallery is automatically updated from integration tests_
+- **[Default Theme](https://cameronbrooks11.github.io/md2html-action/demos/default/)** - Clean, professional layout with navigation header, table of contents, and responsive design with dark/light mode support
+- **[Minimal Theme](https://cameronbrooks11.github.io/md2html-action/demos/minimal/)** - Streamlined design focused on content readability with minimal styling overhead
+- **[Academic Theme](https://cameronbrooks11.github.io/md2html-action/demos/academic/)** - Elegant serif typography designed for scholarly documentation, research papers, and academic content
+- **[Technical Theme](https://cameronbrooks11.github.io/md2html-action/demos/technical/)** - GitHub-inspired clean interface optimized for API documentation and technical guides with alert callouts
+- **[Blog Theme](https://cameronbrooks11.github.io/md2html-action/demos/blog/)** - Elegant blog-style layout with beautiful typography, perfect for articles and tutorials
+- **[Corporate Theme](https://cameronbrooks11.github.io/md2html-action/demos/corporate/)** - Professional business styling with corporate color scheme for enterprise documentation
+
+### Remote CSS Examples
+
+- **[GitHub CSS Demo](https://cameronbrooks11.github.io/md2html-action/demos/github/)** - Uses `github` template with remote GitHub markdown CSS from CDN
+
+> **Note:** The GitHub demo showcases how to use remote CSS by combining the `github` template with the official GitHub markdown CSS (`https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css`)
+
+> **Note:** All demos use the same markdown content with different stylesheets to showcase theme variety
 
 ## Usage
 
@@ -114,15 +125,20 @@ jobs:
 ### Template Options
 
 - `default` - Use the built-in responsive template
+- `minimal` - Use a minimal built-in template
+- `github` - Use a GitHub-style template (pairs well with github stylesheet)
 - `path/to/template.html` - Use a custom template from your repository
-- `minimal` - Use a minimal built-in template (if available)
 
 ### Stylesheet Options
 
 - `default` - Use the built-in responsive stylesheet with dark/light theme
+- `minimal` - Use a minimal built-in stylesheet
+- `academic` - Professional scholarly documentation style with serif fonts
+- `technical` - Modern technical documentation with clean typography
+- `blog` - Personal blog and article styling with elegant design
+- `corporate` - Professional business documentation styling
 - `path/to/style.css` - Use a custom stylesheet from your repository
-- `https://example.com/style.css` - Use a remote stylesheet
-- `minimal` - Use a minimal built-in stylesheet (if available)
+- `https://example.com/style.css` - Use a remote stylesheet (e.g., GitHub CSS)
 
 ## Outputs
 
@@ -210,7 +226,93 @@ See the [default template](templates/default.html) for a complete example.
 
 ## Custom Stylesheets
 
-You can provide your own CSS file or use a remote stylesheet. The default stylesheet includes:
+You can provide your own CSS file or use a remote stylesheet. The action includes several built-in stylesheets for different use cases:
+
+### Built-in Stylesheet Themes
+
+#### `default` - Responsive Dark/Light Theme
+
+- Modern responsive design with automatic dark/light mode detection
+- Professional layout with fixed header and sidebar TOC
+- Comprehensive styling for all markdown elements
+- Optimized for technical documentation
+
+#### `minimal` - Clean and Simple
+
+- Lightweight design with minimal styling
+- Fast loading and clean typography
+- Perfect for simple documents and quick conversions
+- Mobile-first responsive design
+
+#### `academic` - Scholarly Documentation
+
+- Elegant serif typography (Crimson Text, Libre Baskerville)
+- Professional academic paper styling
+- Enhanced readability with justified text and proper spacing
+- Sophisticated color scheme with accent highlights
+- Right-aligned table of contents
+
+#### `technical` - Modern Technical Docs
+
+- GitHub-inspired clean interface
+- Optimized for API documentation and technical guides
+- Monospace code styling with syntax highlighting support
+- Alert callouts for info, warning, success, and error messages
+- Sticky sidebar navigation
+
+#### `blog` - Personal Blog Style
+
+- Elegant blog-style layout with serif headings (Playfair Display)
+- Beautiful typography with Inter font family
+- Gradient headers and stylized elements
+- Perfect for articles, tutorials, and personal documentation
+- Engaging visual design with hover effects
+
+#### `corporate` - Business Documentation
+
+- Professional business styling with corporate color scheme
+- Clean, authoritative design suitable for enterprise documentation
+- Structured layout with clear hierarchy
+- Professional callouts and formatted tables
+- Sticky TOC for easy navigation
+
+### Usage Examples
+
+```yaml
+# Use academic styling for research documentation
+- name: Build Academic Documentation
+  uses: CameronBrooks11/md2html-action@v1
+  with:
+    source-dir: "research"
+    stylesheet: "academic"
+    template: "default"
+
+# Use technical styling for API docs
+- name: Build API Documentation
+  uses: CameronBrooks11/md2html-action@v1
+  with:
+    source-dir: "api-docs"
+    stylesheet: "technical"
+    template: "default"
+
+# Use blog styling for articles
+- name: Build Blog Posts
+  uses: CameronBrooks11/md2html-action@v1
+  with:
+    source-dir: "posts"
+    stylesheet: "blog"
+    template: "default"
+
+# Use GitHub styling with remote CSS and GitHub template
+- name: Build GitHub-style Documentation
+  uses: CameronBrooks11/md2html-action@v1
+  with:
+    source-dir: "docs"
+    stylesheet: "https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css"
+    template: "github"
+```
+
+The default stylesheet includes:
 
 - Responsive design
 - Dark/light theme support
@@ -260,9 +362,37 @@ With custom styling:
   uses: CameronBrooks11/md2html-action@v1
   with:
     source-dir: "api-docs"
-    template: "api-template.html"
-    stylesheet: "https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@main/github-markdown.css"
+    template: "default"
+    stylesheet: "technical"
     pandoc-options: "--highlight-style=tango --toc-depth=4"
+```
+
+### Academic Papers
+
+For scholarly documentation:
+
+```yaml
+- name: Build Research Documentation
+  uses: CameronBrooks11/md2html-action@v1
+  with:
+    source-dir: "research"
+    template: "default"
+    stylesheet: "academic"
+    site-title: "Research Documentation"
+```
+
+### Corporate Documentation
+
+For business and enterprise docs:
+
+```yaml
+- name: Build Corporate Docs
+  uses: CameronBrooks11/md2html-action@v1
+  with:
+    source-dir: "docs"
+    template: "default"
+    stylesheet: "corporate"
+    site-title: "Company Documentation"
 ```
 
 ## Requirements
@@ -295,43 +425,46 @@ gh act --list
 #### Test Individual Jobs
 
 ```bash
-# Test main cross-platform functionality (dry-run to check workflow)
-gh act -j cross-platform-tests -n
-
-# Test with default configuration and generate output files
+# Test default configuration
 gh act -j test-default-configuration --bind
 
-# Test with custom template and configuration options
+# Test custom configuration with minimal template
 gh act -j test-custom-configuration --bind
 
-# Test with remote CSS functionality
+# Test remote CSS integration  
 gh act -j test-remote-css --bind
 
-# Test GitHub Pages README deployment
-gh act -j convert-and-deploy-documentation --bind
+# Test new stylesheet themes
+gh act -j test-academic-style --bind
+gh act -j test-technical-style --bind
+gh act -j test-blog-style --bind
+gh act -j test-corporate-style --bind
 ```
 
 #### Test Entire Workflows
 
 ```bash
-# Test the integration test workflow (all configuration scenarios)
+# Test the integration test workflow (all 7 stylesheet configurations)
 gh act -W .github/workflows/integration-tests.yml --bind
 
 # Test GitHub Pages workflow (converts README.md to website)
 gh act -W .github/workflows/readme-to-github-pages.yml --bind
 
-# Test cross-platform and release workflow
+# Test cross-platform and release workflow (if available)
 gh act -W .github/workflows/cross-platform-tests-and-release.yml
 ```
 
 #### Quick Test Commands
 
 ```bash
-# Run all available workflows with output binding
-gh act --bind
+# Run all integration tests
+gh act -W .github/workflows/integration-tests.yml --bind
 
-# Test only the cross-platform functionality
-gh act -j cross-platform-tests
+# Test a specific stylesheet theme
+gh act -j test-academic-style --bind
+
+# Test all themes at once (will run all 7 test jobs)
+gh act
 ```
 
 ### Viewing Test Output
@@ -339,28 +472,29 @@ gh act -j cross-platform-tests
 After running `act` with `--bind`, the generated HTML files will be available in your local directory:
 
 ```bash
-# View default configuration test output
-cd outputs-default-configuration
-python -m http.server 8000
+# View default theme output
+cd outputs-default-configuration && python -m http.server 8000
 
-# View custom configuration test output
-cd outputs-custom-configuration
-python -m http.server 8001
+# View minimal theme output
+cd outputs-custom-configuration && python -m http.server 8001
 
-# View remote CSS test output
-cd outputs-remote-css
-python -m http.server 8002
+# View academic theme output
+cd outputs-academic-style && python -m http.server 8002
 
-# View GitHub Pages output (README conversion)
-cd _site
-python -m http.server 8003
+# View technical theme output  
+cd outputs-technical-style && python -m http.server 8003
 
-# Open the respective localhost URL in your browser:
-# http://localhost:8000 (default config)
-# http://localhost:8001 (custom config)
-# http://localhost:8002 (remote CSS)
-# http://localhost:8003 (README as website)
+# View blog theme output
+cd outputs-blog-style && python -m http.server 8004
+
+# View corporate theme output
+cd outputs-corporate-style && python -m http.server 8005
+
+# View GitHub theme output
+cd outputs-remote-css && python -m http.server 8006
 ```
+
+Then open your browser to the respective localhost URL (e.g., `http://localhost:8000`) to view the generated HTML files.
 
 ### Testing Your Changes
 

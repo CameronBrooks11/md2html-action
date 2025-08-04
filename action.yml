@@ -19,12 +19,12 @@ inputs:
     default: '_website'
   
   template:
-    description: 'HTML template to use. Can be "default" for built-in template, or path to custom template file'
+    description: 'HTML template to use. Built-in options: "default", "minimal", "github". Can also be path to custom template file'
     required: false
     default: 'default'
   
   stylesheet:
-    description: 'CSS stylesheet to use. Can be "default" for built-in stylesheet, path to local file, or URL to remote stylesheet'
+    description: 'CSS stylesheet to use. Built-in options: "default", "minimal", "academic", "technical", "blog", "corporate". Can also be path to local file, or URL to remote stylesheet (e.g. GitHub)'
     required: false
     default: 'default'
   

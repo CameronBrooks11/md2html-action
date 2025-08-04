@@ -1,0 +1,482 @@
+/* Technical Stylesheet for md2html-action */
+/* Modern technical documentation styling */
+
+/* ─── Theme Variables ─────────────────────────────────────────────────── */
+:root {
+  /* Light theme */
+  --body_background_color: #fafbfc;
+  --content_background_color: #ffffff;
+  --header_background_color: #24292e;
+  --sidebar_background_color: #f6f8fa;
+
+  --text_color: #24292e;
+  --heading_color: #1b1f23;
+  --subheading_color: #586069;
+  --link_color: #0366d6;
+  --link_hover_color: #0256cc;
+  --border_color: #e1e4e8;
+  --accent_color: #28a745;
+
+  --toc_background_color: #f6f8fa;
+  --toc_border_color: #d0d7de;
+  --toc_link_color: #586069;
+  --toc_link_hover_color: #0366d6;
+
+  --code_bg_color: #f6f8fa;
+  --code_text_color: #24292e;
+  --inline_code_bg_color: rgba(175,184,193,0.2);
+  --warning_color: #f66a0a;
+  --success_color: #28a745;
+  --info_color: #0366d6;
+
+  /* Typography */
+  --main_font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  --heading_font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+  --mono_font: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body_background_color: #0d1117;
+    --content_background_color: #161b22;
+    --header_background_color: #21262d;
+    --sidebar_background_color: #21262d;
+
+    --text_color: #c9d1d9;
+    --heading_color: #f0f6fc;
+    --subheading_color: #8b949e;
+    --link_color: #58a6ff;
+    --link_hover_color: #79c0ff;
+    --border_color: #30363d;
+    --accent_color: #238636;
+
+    --toc_background_color: #21262d;
+    --toc_border_color: #30363d;
+    --toc_link_color: #8b949e;
+    --toc_link_hover_color: #58a6ff;
+
+    --code_bg_color: #21262d;
+    --code_text_color: #c9d1d9;
+    --inline_code_bg_color: rgba(110,118,129,0.4);
+    --warning_color: #f85149;
+    --success_color: #56d364;
+    --info_color: #58a6ff;
+  }
+}
+
+/* ─── Base Styles ─────────────────────────────────────────────────────── */
+html {
+  height: 100%;
+  scroll-padding-top: 80px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--main_font);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text_color);
+  background-color: var(--body_background_color);
+  min-width: 320px;
+}
+
+/* ─── Layout ─────────────────────────────────────────────────────────── */
+.main-content {
+  margin: 0 auto;
+  max-width: 1200px;
+  background-color: var(--content_background_color);
+  padding: 40px 50px 60px 50px;
+  padding-top: 120px;
+  min-height: calc(100vh - 120px - 60px);
+  border-left: 1px solid var(--border_color);
+  border-right: 1px solid var(--border_color);
+}
+
+.page-content {
+  clear: both;
+  margin-top: 20px;
+}
+
+/* ─── Header ────────────────────────────────────────────────────────── */
+header,
+.site-header {
+  background-color: var(--header_background_color);
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.header-content {
+  margin: 0 auto;
+  padding: 16px 50px;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-title h1 {
+  margin: 0;
+  font-family: var(--heading_font);
+  font-weight: 600;
+  font-size: 20px;
+  color: white;
+}
+
+.site-title h1 a {
+  text-decoration: none;
+  color: white;
+}
+
+.site-nav .nav-link {
+  color: #f0f6fc;
+  text-decoration: none;
+  margin-left: 24px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.site-nav .nav-link:hover,
+.site-nav .nav-link.active {
+  background-color: rgba(240,246,252,0.1);
+  color: white;
+}
+
+/* ─── Typography ──────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--heading_font);
+  font-weight: 600;
+  color: var(--heading_color);
+  margin-top: 24px;
+  margin-bottom: 16px;
+  line-height: 1.25;
+  clear: both;
+}
+
+h1 { 
+  font-size: 2em;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border_color);
+  margin-bottom: 24px;
+}
+
+h2 { 
+  font-size: 1.5em;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border_color);
+  margin-top: 32px;
+}
+
+h3 { font-size: 1.25em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.875em; }
+h6 { font-size: 0.85em; color: var(--subheading_color); }
+
+p {
+  margin-bottom: 16px;
+}
+
+/* ─── Table of Contents ────────────────────────────────────────────────── */
+.table-of-contents {
+  float: right;
+  width: 280px;
+  background-color: var(--toc_background_color);
+  border: 1px solid var(--toc_border_color);
+  border-radius: 6px;
+  margin: 24px 0 24px 32px;
+  padding: 16px;
+  font-size: 14px;
+  position: sticky;
+  top: 100px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+
+.table-of-contents h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: var(--heading_color);
+  border: none;
+  padding: 0;
+}
+
+.table-of-contents ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.table-of-contents ul ul {
+  padding-left: 16px;
+  margin-top: 4px;
+}
+
+.table-of-contents li {
+  margin-bottom: 4px;
+}
+
+.table-of-contents a {
+  color: var(--toc_link_color);
+  text-decoration: none;
+  display: block;
+  padding: 4px 8px;
+  border-radius: 3px;
+  transition: all 0.15s ease;
+  line-height: 1.3;
+  font-weight: 400;
+}
+
+.table-of-contents a:hover {
+  background-color: var(--link_color);
+  color: white;
+}
+
+/* ─── Links ──────────────────────────────────────────────────────────── */
+a {
+  color: var(--link_color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Lists ──────────────────────────────────────────────────────────── */
+ul, ol {
+  margin-bottom: 16px;
+  padding-left: 32px;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+/* Task lists */
+.task-list-item {
+  list-style-type: none;
+  margin-left: -32px;
+}
+
+.task-list-item-checkbox {
+  margin-right: 8px;
+}
+
+/* ─── Code ─────────────────────────────────────────────────────────────── */
+code, pre, kbd, samp {
+  font-family: var(--mono_font);
+}
+
+pre {
+  background-color: var(--code_bg_color);
+  color: var(--code_text_color);
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border_color);
+  overflow-x: auto;
+  line-height: 1.45;
+  margin: 16px 0;
+  font-size: 14px;
+}
+
+code {
+  background-color: var(--inline_code_bg_color);
+  color: var(--code_text_color);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-size: 85%;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 100%;
+}
+
+/* ─── Alerts/Callouts ──────────────────────────────────────────────────── */
+.alert {
+  padding: 16px;
+  margin: 16px 0;
+  border-radius: 6px;
+  border-left: 4px solid;
+}
+
+.alert-info {
+  background-color: rgba(3,102,214,0.1);
+  border-left-color: var(--info_color);
+  color: var(--text_color);
+}
+
+.alert-warning {
+  background-color: rgba(246,106,10,0.1);
+  border-left-color: var(--warning_color);
+  color: var(--text_color);
+}
+
+.alert-success {
+  background-color: rgba(40,167,69,0.1);
+  border-left-color: var(--success_color);
+  color: var(--text_color);
+}
+
+/* ─── Blockquotes ──────────────────────────────────────────────────────── */
+blockquote {
+  margin: 16px 0;
+  padding: 0 16px;
+  color: var(--subheading_color);
+  border-left: 4px solid var(--border_color);
+}
+
+blockquote p {
+  margin: 8px 0;
+}
+
+/* ─── Tables ──────────────────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 14px;
+  border-spacing: 0;
+  border: 1px solid var(--border_color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 8px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border_color);
+}
+
+th {
+  background-color: var(--sidebar_background_color);
+  font-weight: 600;
+  color: var(--heading_color);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* ─── Images ──────────────────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+figure {
+  margin: 24px 0;
+  text-align: center;
+}
+
+figcaption {
+  font-size: 14px;
+  color: var(--subheading_color);
+  margin-top: 8px;
+}
+
+/* ─── Badges and Labels ────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 12px;
+}
+
+.badge-primary { background-color: var(--link_color); }
+.badge-success { background-color: var(--success_color); }
+.badge-warning { background-color: var(--warning_color); }
+.badge-info { background-color: var(--info_color); }
+
+/* ─── Footer ──────────────────────────────────────────────────────────── */
+footer,
+.site-footer {
+  background-color: var(--sidebar_background_color);
+  border-top: 1px solid var(--border_color);
+  padding: 24px 0;
+  margin-top: 48px;
+  font-size: 14px;
+  color: var(--subheading_color);
+}
+
+.footer-content {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 0 50px;
+  text-align: center;
+}
+
+/* ─── Responsive Design ────────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .table-of-contents {
+    float: none;
+    width: 100%;
+    margin: 24px 0;
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 100px 32px 48px 32px;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .header-content,
+  .footer-content {
+    padding: 16px 32px;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .site-nav {
+    margin-top: 12px;
+  }
+  
+  .site-nav .nav-link {
+    margin: 0 8px;
+  }
+  
+  .table-of-contents {
+    padding: 16px;
+    margin: 16px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 80px 16px 32px 16px;
+  }
+  
+  .header-content,
+  .footer-content {
+    padding: 12px 16px;
+  }
+  
+  .table-of-contents {
+    padding: 12px;
+    margin: 12px 0;
+  }
+}
