@@ -27,7 +27,7 @@ jobs:
         uses: ./
         with:
           source-dir: 'test-docs'
-          output-dir: 'test-output'
+          output-dir: 'outputs-cross-platform-test'
           site-title: 'Cross-Platform Test Site'
       
       - name: Verify Output on ${{ matrix.os }}
@@ -37,29 +37,29 @@ jobs:
           echo "Output path: ${{ steps.test.outputs.output-path }}"
           
           # Check that HTML files were created
-          if [ ! -f "test-output/index.html" ]; then
+          if [ ! -f "outputs-cross-platform-test/index.html" ]; then
             echo "ERROR: index.html not created on ${{ matrix.os }}"
             exit 1
           fi
           
-          if [ ! -f "test-output/getting-started.html" ]; then
+          if [ ! -f "outputs-cross-platform-test/getting-started.html" ]; then
             echo "ERROR: getting-started.html not created on ${{ matrix.os }}"
             exit 1
           fi
           
-          if [ ! -f "test-output/advanced/configuration.html" ]; then
+          if [ ! -f "outputs-cross-platform-test/advanced/configuration.html" ]; then
             echo "ERROR: advanced/configuration.html not created on ${{ matrix.os }}"
             exit 1
           fi
           
           # Check that CSS file exists
-          if [ ! -f "test-output/style.css" ]; then
+          if [ ! -f "outputs-cross-platform-test/style.css" ]; then
             echo "ERROR: style.css not created on ${{ matrix.os }}"
             exit 1
           fi
           
           # Check that media files were copied
-          if [ ! -f "test-output/media/favicon.ico" ]; then
+          if [ ! -f "outputs-cross-platform-test/media/favicon.ico" ]; then
             echo "ERROR: media files not copied on ${{ matrix.os }}"
             exit 1
           fi
@@ -69,8 +69,8 @@ jobs:
       - name: Upload Cross-Platform Test Results
         uses: actions/upload-artifact@v4
         with:
-          name: cross-platform-test-output-${{ matrix.os }}
-          path: test-output/
+          name: outputs-cross-platform-test-${{ matrix.os }}
+          path: outputs-cross-platform-test/
           retention-days: 5
 
   automated-release:

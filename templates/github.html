@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  lang="$lang$"
+  xml:lang="$lang$"
+  $if(dir)$
+  dir="$dir$"
+  $endif$
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="generator" content="pandoc via md2html-action" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+
+    $for(author-meta)$
+    <meta name="author" content="$author-meta$" />
+    $endfor$ $if(date-meta)$
+    <meta name="dcterms.date" content="$date-meta$" />
+    $endif$ $if(keywords)$
+    <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
+    $endif$ $if(description-meta)$
+    <meta name="description" content="$description-meta$" />
+    $endif$
+
+    <!-- Open Graph metadata -->
+    <meta
+      property="og:title"
+      content="$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$"
+    />
+    <meta property="og:type" content="website" />
+    $if(base-url)$
+    <meta
+      property="og:url"
+      content="$base-url$/$if(rel_path)$$rel_path$/$endif$"
+    />
+    $endif$
+
+    <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+
+    <!-- Favicon -->
+    $if(rel_path)$
+    <link rel="icon" type="image/x-icon" href="$rel_path$/favicon.ico" />
+    $else$
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    $endif$
+
+    <!-- Stylesheets -->
+    $if(stylesheet)$ $if(rel_path)$
+    <link rel="stylesheet" href="$rel_path$/$stylesheet$" />
+    $else$
+    <link rel="stylesheet" href="$stylesheet$" />
+    $endif$ $endif$ $if(stylesheet-url)$
+    <link rel="stylesheet" href="$stylesheet-url$" />
+    $endif$ $for(css)$
+    <link rel="stylesheet" href="$css$" />
+    $endfor$ $if(math)$ $math$ $endif$ $for(header-includes)$ $header-includes$
+    $endfor$
+
+    <style>
+      .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    $for(include-before)$ $include-before$ $endfor$
+
+    <div class="markdown-body">
+      $if(site-title)$
+      <header style="text-align: center; margin-bottom: 2em; border-bottom: 1px solid #eaecef; padding-bottom: 1em;">
+        <h1>
+          <a href="$if(rel_path)$$rel_path$/$endif$index.html" style="text-decoration: none; color: inherit;">
+            $site-title$
+          </a>
+        </h1>
+        <nav style="margin-top: 1em;">
+          <a href="$if(rel_path)$$rel_path$/$endif$index.html" style="margin: 0 1em; text-decoration: none;">Home</a>
+          $for(nav-links)$
+          <a href="$if(rel_path)$$rel_path$/$endif$$nav-links.url$" style="margin: 0 1em; text-decoration: none;">$nav-links.title$</a>
+          $endfor$
+        </nav>
+      </header>
+      $endif$
+
+      $if(title)$
+      <header>
+        <h1>$title$</h1>
+        $if(subtitle)$
+        <p><em>$subtitle$</em></p>
+        $endif$ $if(author)$
+        <p><strong>By:</strong> $for(author)$$author$$sep$, $endfor$</p>
+        $endif$
+      </header>
+      $endif$ 
+      
+      $if(toc)$
+      <nav>
+        <h2>Contents</h2>
+        $table-of-contents$
+      </nav>
+      $endif$
+
+      $body$
+
+      $if(site-title)$
+      <footer style="margin-top: 3em; padding-top: 1em; border-top: 1px solid #eaecef; text-align: center; color: #586069; font-size: 0.9em;">
+        <p>
+          Generated with
+          <a href="https://github.com/CameronBrooks11/md2html-action">md2html-action</a>
+        </p>
+        $if(footer-text)$
+        <p>$footer-text$</p>
+        $endif$
+      </footer>
+      $endif$
+    </div>
+
+    $for(include-after)$ $include-after$ $endfor$
+  </body>
+</html>

@@ -5,7 +5,7 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 ## Features
 
 - 📝 **Pure Markdown support** - No frontmatter required!
-- 🔧 Convert Markdown files to HTML using Pandoc  
+- 🔧 Convert Markdown files to HTML using Pandoc
 - 🎨 Customizable HTML templates (default provided or bring your own)
 - 💅 Flexible stylesheet options (default, custom, or remote CSS)
 - 📱 Responsive design with dark/light theme support
@@ -15,6 +15,18 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 - 🖼️ Copies media and asset files
 - 🏷️ Open Graph meta tags for social sharing
 - ⚡ Fast and reliable conversion
+
+## 🎨 Live Demo Gallery
+
+**[View Live Demos →](https://cameronbrooks11.github.io/md2html-action/demos/)**
+
+See the action in action! The demo gallery showcases different templates and styling options:
+
+- **[Default Template](https://cameronbrooks11.github.io/md2html-action/demos/default/)** - Professional layout with navigation and TOC
+- **[Minimal Template](https://cameronbrooks11.github.io/md2html-action/demos/minimal/)** - Clean, lightweight design
+- **[GitHub CSS Theme](https://cameronbrooks11.github.io/md2html-action/demos/github/)** - GitHub-style markdown rendering
+
+_Demo gallery is automatically updated from integration tests_
 
 ## Usage
 
@@ -87,17 +99,17 @@ jobs:
 
 ## Inputs
 
-| Input            | Description                                  | Required | Default         |
-| ---------------- | -------------------------------------------- | -------- | --------------- |
-| `source-dir`     | Directory containing Markdown files          | No       | `source`        |
-| `source-file`    | Single Markdown file to convert (alternative to source-dir) | No | ``              |
-| `output-dir`     | Directory where HTML files will be generated | No       | `_website`      |
-| `template`       | HTML template to use                         | No       | `default`       |
-| `stylesheet`     | CSS stylesheet to use                        | No       | `default`       |
-| `site-title`     | Title for the website                        | No       | `Documentation` |
-| `base-url`       | Base URL for the site                        | No       | ``              |
-| `include-toc`    | Include table of contents                    | No       | `true`          |
-| `pandoc-options` | Additional Pandoc options                    | No       | ``              |
+| Input            | Description                                                 | Required | Default         |
+| ---------------- | ----------------------------------------------------------- | -------- | --------------- |
+| `source-dir`     | Directory containing Markdown files                         | No       | `source`        |
+| `source-file`    | Single Markdown file to convert (alternative to source-dir) | No       | ``              |
+| `output-dir`     | Directory where HTML files will be generated                | No       | `_website`      |
+| `template`       | HTML template to use                                        | No       | `default`       |
+| `stylesheet`     | CSS stylesheet to use                                       | No       | `default`       |
+| `site-title`     | Title for the website                                       | No       | `Documentation` |
+| `base-url`       | Base URL for the site                                       | No       | ``              |
+| `include-toc`    | Include table of contents                                   | No       | `true`          |
+| `pandoc-options` | Additional Pandoc options                                   | No       | ``              |
 
 ### Template Options
 
@@ -172,7 +184,7 @@ Frontmatter is **completely optional** but can be used for custom metadata:
 
 ```yaml
 ---
-title: "Custom Page Title" 
+title: "Custom Page Title"
 description: "Page description for SEO"
 author: "Your Name"
 date: "2025-01-01"
@@ -328,15 +340,15 @@ After running `act` with `--bind`, the generated HTML files will be available in
 
 ```bash
 # View default configuration test output
-cd test-output
+cd outputs-default-configuration
 python -m http.server 8000
 
-# View custom configuration test output  
-cd custom-output
+# View custom configuration test output
+cd outputs-custom-configuration
 python -m http.server 8001
 
 # View remote CSS test output
-cd remote-css-output
+cd outputs-remote-css
 python -m http.server 8002
 
 # View GitHub Pages output (README conversion)
@@ -345,7 +357,7 @@ python -m http.server 8003
 
 # Open the respective localhost URL in your browser:
 # http://localhost:8000 (default config)
-# http://localhost:8001 (custom config)  
+# http://localhost:8001 (custom config)
 # http://localhost:8002 (remote CSS)
 # http://localhost:8003 (README as website)
 ```

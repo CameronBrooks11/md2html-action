@@ -19,6 +19,8 @@ Thumbs.db
 # Test outputs
 *output/
 *outputs/
+outputs*/
+output*/
 _website/
 _site/
 temp-readme.md

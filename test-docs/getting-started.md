@@ -69,7 +69,7 @@ Use `#` for headers. The action will automatically generate a table of contents.
 
 You can include images from the media directory:
 
-![Example](media/example.png)
+![Funny Frog Example](media/funny_frog.jpg)
 
 ## Next Steps
 

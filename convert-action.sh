@@ -109,12 +109,20 @@ mkdir -p "$OUTPUT_DIR"
 # ------------------------------------------------------------
 # Setup template
 # ------------------------------------------------------------
-if [[ "$TEMPLATE" == "default" ]]; then
+
+# Auto-detect GitHub CSS and use GitHub template
+if [[ "$STYLESHEET" =~ github-markdown-css ]] && [[ "$TEMPLATE" == "default" ]]; then
+    TEMPLATE_FILE="$GITHUB_ACTION_PATH/templates/github.html"
+    log_info "Auto-detected GitHub CSS - using GitHub-compatible template"
+elif [[ "$TEMPLATE" == "default" ]]; then
     TEMPLATE_FILE="$GITHUB_ACTION_PATH/templates/default.html"
     log_info "Using default template"
 elif [[ "$TEMPLATE" == "minimal" ]]; then
     TEMPLATE_FILE="$GITHUB_ACTION_PATH/templates/minimal.html"
     log_info "Using minimal template"
+elif [[ "$TEMPLATE" == "github" ]]; then
+    TEMPLATE_FILE="$GITHUB_ACTION_PATH/templates/github.html"
+    log_info "Using GitHub-compatible template"
 elif [[ -f "$TEMPLATE" ]]; then
     TEMPLATE_FILE="$TEMPLATE"
     log_info "Using custom template: $TEMPLATE"

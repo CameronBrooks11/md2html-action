@@ -23,20 +23,27 @@ jobs:
         uses: ./  # Use local action for testing
         with:
           source-dir: 'test-docs'
-          output-dir: 'test-output'
+          output-dir: 'outputs-default-configuration'
       
       - name: Verify output
         run: |
           echo "Files converted: ${{ steps.convert.outputs.files-converted }}"
           echo "Output path: ${{ steps.convert.outputs.output-path }}"
-          ls -la test-output/
+          ls -la outputs-default-configuration/
           
           # Verify key files exist
-          test -f test-output/index.html || (echo "ERROR: index.html missing" && exit 1)
-          test -f test-output/getting-started.html || (echo "ERROR: getting-started.html missing" && exit 1)
-          test -f test-output/advanced/configuration.html || (echo "ERROR: configuration.html missing" && exit 1)
+          test -f outputs-default-configuration/index.html || (echo "ERROR: index.html missing" && exit 1)
+          test -f outputs-default-configuration/getting-started.html || (echo "ERROR: getting-started.html missing" && exit 1)
+          test -f outputs-default-configuration/advanced/configuration.html || (echo "ERROR: configuration.html missing" && exit 1)
           
           echo "✅ Default configuration test passed!"
+      
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: outputs-default-configuration
+          path: outputs-default-configuration/
+          retention-days: 7
 
   test-custom-configuration:
     runs-on: ubuntu-latest
@@ -50,7 +57,7 @@ jobs:
         uses: ./
         with:
           source-dir: 'test-docs'
-          output-dir: 'custom-output'
+          output-dir: 'outputs-custom-configuration'
           template: 'minimal'
           stylesheet: 'minimal'
           site-title: 'Custom Test Documentation'
@@ -60,18 +67,18 @@ jobs:
       - name: Verify custom output
         run: |
           echo "Files converted: ${{ steps.convert.outputs.files-converted }}"
-          ls -la custom-output/
+          ls -la outputs-custom-configuration/
           
           # Verify files exist with custom settings
-          test -f custom-output/index.html || (echo "ERROR: custom index.html missing" && exit 1)
+          test -f outputs-custom-configuration/index.html || (echo "ERROR: custom index.html missing" && exit 1)
           
           echo "✅ Custom configuration test passed!"
       
       - name: Upload test artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: custom-configuration-output
-          path: custom-output/
+          name: outputs-custom-configuration
+          path: outputs-custom-configuration/
           retention-days: 7
 
   test-remote-css:
@@ -86,26 +93,173 @@ jobs:
         uses: ./
         with:
           source-dir: 'test-docs'
-          output-dir: 'remote-css-output'
+          output-dir: 'outputs-remote-css'
           stylesheet: 'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css'
           site-title: 'Remote CSS Test'
       
       - name: Verify remote CSS integration
         run: |
           echo "Files converted: ${{ steps.convert.outputs.files-converted }}"
-          ls -la remote-css-output/
+          ls -la outputs-remote-css/
           
           # Verify files exist
-          test -f remote-css-output/index.html || (echo "ERROR: index.html missing" && exit 1)
+          test -f outputs-remote-css/index.html || (echo "ERROR: index.html missing" && exit 1)
           
           # Check that remote CSS URL is referenced
-          grep -q "github-markdown-css" remote-css-output/index.html || (echo "ERROR: Remote CSS not referenced" && exit 1)
+          grep -q "github-markdown-css" outputs-remote-css/index.html || (echo "ERROR: Remote CSS not referenced" && exit 1)
           
           echo "✅ Remote CSS test passed!"
       
       - name: Upload remote CSS artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: remote-css-output
-          path: remote-css-output/
+          name: outputs-remote-css
+          path: outputs-remote-css/
+          retention-days: 7
+
+  create-demo-gallery:
+    needs: [test-default-configuration, test-custom-configuration, test-remote-css]
+    runs-on: ubuntu-latest
+    name: Create demo gallery
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Download all test artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: demo-artifacts/
+      
+      - name: Create demo gallery structure
+        run: |
+          # Create demo gallery directory structure
+          mkdir -p demo-gallery/default
+          mkdir -p demo-gallery/minimal  
+          mkdir -p demo-gallery/github
+          
+          # Copy outputs to demo gallery with proper names
+          cp -r demo-artifacts/outputs-default-configuration/* demo-gallery/default/
+          cp -r demo-artifacts/outputs-custom-configuration/* demo-gallery/minimal/
+          cp -r demo-artifacts/outputs-remote-css/* demo-gallery/github/
+          
+          echo "✅ Demo gallery structure created"
+          ls -la demo-gallery/
+      
+      - name: Create demo gallery index page
+        run: |
+          cat > demo-gallery/index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>md2html-action Demo Gallery</title>
+              <style>
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                      max-width: 800px;
+                      margin: 0 auto;
+                      padding: 2rem;
+                      line-height: 1.6;
+                      color: #333;
+                  }
+                  .demo-grid {
+                      display: grid;
+                      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                      gap: 2rem;
+                      margin: 2rem 0;
+                  }
+                  .demo-card {
+                      border: 1px solid #e1e4e8;
+                      border-radius: 8px;
+                      padding: 1.5rem;
+                      background: #f8f9fa;
+                      transition: box-shadow 0.2s;
+                  }
+                  .demo-card:hover {
+                      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                  }
+                  .demo-card h3 {
+                      margin-top: 0;
+                      color: #0366d6;
+                  }
+                  .demo-card a {
+                      color: #0366d6;
+                      text-decoration: none;
+                      font-weight: 500;
+                  }
+                  .demo-card a:hover {
+                      text-decoration: underline;
+                  }
+                  .features {
+                      background: #fff;
+                      padding: 1rem;
+                      border-radius: 4px;
+                      margin: 1rem 0;
+                      font-size: 0.9rem;
+                  }
+                  header {
+                      text-align: center;
+                      margin-bottom: 3rem;
+                      padding-bottom: 2rem;
+                      border-bottom: 1px solid #e1e4e8;
+                  }
+                  .back-link {
+                      margin-bottom: 2rem;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="back-link">
+                  <a href="../">← Back to Documentation</a>
+              </div>
+              
+              <header>
+                  <h1>md2html-action Demo Gallery</h1>
+                  <p>Explore different templates and styling options</p>
+              </header>
+              
+              <div class="demo-grid">
+                  <div class="demo-card">
+                      <h3>Default Template</h3>
+                      <p>Clean, professional layout with navigation header, table of contents, and responsive design.</p>
+                      <div class="features">
+                          <strong>Features:</strong> Custom CSS, Fixed Header, Left-aligned TOC, MathJax Support
+                      </div>
+                      <p><a href="default/">View Default Demo →</a></p>
+                  </div>
+                  
+                  <div class="demo-card">
+                      <h3>Minimal Template</h3>
+                      <p>Streamlined design focused on content readability with minimal styling overhead.</p>
+                      <div class="features">
+                          <strong>Features:</strong> Lightweight CSS, Simple Layout, Fast Loading, Clean Typography
+                      </div>
+                      <p><a href="minimal/">View Minimal Demo →</a></p>
+                  </div>
+                  
+                  <div class="demo-card">
+                      <h3>GitHub CSS Theme</h3>
+                      <p>GitHub-style markdown rendering with familiar GitHub.com appearance and typography.</p>
+                      <div class="features">
+                          <strong>Features:</strong> GitHub CSS, Auto-detection, Responsive Container, GitHub Look & Feel
+                      </div>
+                      <p><a href="github/">View GitHub Demo →</a></p>
+                  </div>
+              </div>
+              
+              <footer style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e1e4e8; text-align: center; color: #666;">
+                  <p>Generated automatically by <a href="https://github.com/CameronBrooks11/md2html-action">md2html-action</a> integration tests</p>
+              </footer>
+          </body>
+          </html>
+          EOF
+          
+          echo "✅ Demo gallery index page created"
+      
+      - name: Upload demo gallery artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: outputs-demo-gallery
+          path: demo-gallery/
           retention-days: 7

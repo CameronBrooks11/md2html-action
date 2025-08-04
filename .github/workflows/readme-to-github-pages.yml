@@ -1,12 +1,16 @@
-# Deploy project README as a GitHub Pages website
-# Automatically converts README.md to HTML and deploys to GitHub Pages
+# Deploy project README and demo gallery as GitHub Pages website
+# Automatically converts README.md to HTML and includes integration test demos
 
-name: Deploy README to GitHub Pages
+name: Deploy Documentation and Demo Gallery to GitHub Pages
 
 on:
   push:
     branches: [ main ]
     paths: [ 'README.md', 'templates/**', 'stylesheets/**' ]
+  workflow_run:
+    workflows: ["Integration Tests"]
+    types: [completed]
+    branches: [ main ]
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -22,9 +26,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  convert-and-deploy-readme:
+  convert-and-deploy-documentation:
     runs-on: ubuntu-latest
-    name: Convert README and deploy to GitHub Pages
+    name: Convert documentation and deploy to GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -60,6 +64,25 @@ jobs:
           mv _site/temp-readme.html _site/index.html
           echo "✅ README converted to index.html"
           ls -la _site/
+      
+      - name: Download demo gallery from latest integration tests
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: integration-tests.yml
+          name: outputs-demo-gallery
+          path: _site/demos/
+          if_no_artifact_found: warn
+        continue-on-error: true
+      
+      - name: Create demo gallery link in main page
+        run: |
+          # Add demo gallery link to main documentation if gallery exists
+          if [ -d "_site/demos" ]; then
+            echo "✅ Demo gallery downloaded and integrated"
+            ls -la _site/demos/
+          else
+            echo "⚠️ No demo gallery found - will only deploy documentation"
+          fi
       
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
