@@ -184,6 +184,7 @@ fi
 PANDOC_OPTS=(
     "--template=$TEMPLATE_FILE"
     "--standalone"
+    "--mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 )
 
 # Add table of contents if requested
