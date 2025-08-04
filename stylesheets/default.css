@@ -527,20 +527,20 @@ Table of contents
 
 .table-of-contents,
 .table_of_contents {
-  float: left; /* Changed from right to left */
+  float: left;
   border: 2px solid var(--toc_border_color);
-  margin-right: 30px; /* Increase right margin (was left margin) */
-  margin-left: 20px; /* Add left margin for edge spacing (was right margin) */
-  margin-bottom: 30px; /* Increase bottom margin */
-  margin-top: 30px; /* Increase top margin to prevent header overlap */
-  padding: 25px; /* Increase padding for better spacing */
+  margin-right: 30px;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding: 25px;
   font-family: monospace;
-  font-size: 110%; /* Increase font size by 10% */
+  font-size: 110%;
   background-color: var(--toc_background_color);
-  max-width: 600px; /* Increased for much wider TOC */
-  clear: left; /* Ensure it clears any other floated elements (changed from right) */
+  max-width: 280px;
+  clear: left;
   position: relative;
-  top: 0; /* Ensure it's not pushed up */
+  top: 0; 
 }
 
 .table-of-contents h2,

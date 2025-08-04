@@ -308,7 +308,7 @@ gh act -j test-custom-configuration --bind
 gh act -j test-remote-css --bind
 
 # Test GitHub Pages README deployment
-gh act -j convert-and-deploy-readme --bind
+gh act -j convert-and-deploy-documentation --bind
 ```
 
 #### Test Entire Workflows
