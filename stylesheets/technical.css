@@ -341,10 +341,6 @@ p {
   margin: 32px 0 32px 40px;
   padding: 24px;
   font-size: 14px;
-  position: sticky;
-  top: 120px;
-  max-height: calc(100vh - 160px);
-  overflow-y: auto;
   box-shadow: var(--shadow_md);
   transition: all 0.3s ease;
 }

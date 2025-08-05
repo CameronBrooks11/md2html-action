@@ -219,10 +219,6 @@ p {
   padding: 24px;
   font-size: 14px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  position: sticky;
-  top: 110px;
-  max-height: calc(100vh - 130px);
-  overflow-y: auto;
 }
 
 .table-of-contents h2 {
