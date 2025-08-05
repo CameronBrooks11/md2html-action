@@ -38,7 +38,7 @@
     />
     $endif$
 
-    <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+    <title>$if(title-prefix)$$title-prefix$ – $endif$$if(title)$$title$$else$$pagetitle$$endif$</title>
 
     <!-- Favicon -->
     $if(rel_path)$

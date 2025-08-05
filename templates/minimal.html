@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+    <title>$if(title-prefix)$$title-prefix$ – $endif$$if(title)$$title$$else$$pagetitle$$endif$</title>
 
     $if(stylesheet)$ $if(rel_path)$
     <link rel="stylesheet" href="$rel_path$/$stylesheet$" />
