@@ -192,9 +192,12 @@ Page Header
 }
 
 .page-title {
-  font-size: 150%;
-  margin-bottom: 10px;
-  color: var(--heading_color);
+  font-size: 150% !important;
+  margin-bottom: 10px !important;
+  margin-left: 0 !important; /* Ensure no negative margin */
+  margin-top: 0 !important; /* Override default h1 top margin */
+  padding-left: 0 !important; /* Ensure proper left alignment */
+  color: var(--heading_color) !important;
   border: none !important; /* Override default h1 styling */
 }
 
