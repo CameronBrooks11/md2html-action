@@ -1,70 +1,70 @@
-name: 'Markdown to HTML Converter'
-description: 'Convert Markdown files to HTML with customizable templates and stylesheets using Pandoc'
-author: 'Cameron Brooks'
+name: "Markdown to HTML Converter"
+description: "Convert Markdown files to HTML with customizable templates and stylesheets using Pandoc"
+author: "Cameron Brooks"
 
 inputs:
   source-dir:
-    description: 'Directory containing Markdown files to convert'
+    description: "Directory containing Markdown files to convert"
     required: false
-    default: 'source'
-  
+    default: "source"
+
   source-file:
-    description: 'Single Markdown file to convert (alternative to source-dir)'
+    description: "Single Markdown file to convert (alternative to source-dir)"
     required: false
-    default: ''
-  
+    default: ""
+
   output-dir:
-    description: 'Directory where HTML files will be generated'
+    description: "Directory where HTML files will be generated"
     required: false
-    default: '_website'
-  
+    default: "_website"
+
   template:
     description: 'HTML template to use. Built-in options: "default", "minimal", "github". Can also be path to custom template file'
     required: false
-    default: 'default'
-  
+    default: "default"
+
   stylesheet:
     description: 'CSS stylesheet to use. Built-in options: "default", "minimal", "academic", "technical", "blog", "corporate". Can also be path to local file, or URL to remote stylesheet (e.g. GitHub)'
     required: false
-    default: 'default'
-  
+    default: "default"
+
   site-title:
-    description: 'Title for the website (used in navigation and meta tags)'
+    description: "Title for the website (used in navigation and meta tags)"
     required: false
-    default: 'Documentation'
-  
+    default: "Documentation"
+
   base-url:
-    description: 'Base URL for the site (useful for GitHub Pages deployment)'
+    description: "Base URL for the site (useful for GitHub Pages deployment)"
     required: false
-    default: ''
-  
+    default: ""
+
   include-toc:
-    description: 'Include table of contents in generated HTML'
+    description: "Include table of contents in generated HTML"
     required: false
-    default: 'true'
-  
+    default: "true"
+
   pandoc-options:
-    description: 'Additional Pandoc command line options'
+    description: "Additional Pandoc command line options"
     required: false
-    default: ''
+    default: ""
 
 outputs:
   output-path:
-    description: 'Path to the generated HTML files'
+    description: "Path to the generated HTML files"
     value: ${{ steps.convert.outputs.output-path }}
-  
+
   files-converted:
-    description: 'Number of files converted'
+    description: "Number of files converted"
     value: ${{ steps.convert.outputs.files-converted }}
 
 runs:
-  using: 'composite'
+  using: "composite"
   steps:
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
-    
+        python-version: "3.x"
+
     - name: Install Pandoc
       shell: bash
       run: |
@@ -81,7 +81,7 @@ runs:
             choco install pandoc
           fi
         fi
-    
+
     - name: Convert Markdown to HTML
       id: convert
       shell: bash
@@ -102,5 +102,5 @@ runs:
         "$GITHUB_ACTION_PATH/convert-action.sh"
 
 branding:
-  icon: 'file-text'
-  color: 'blue'
+  icon: "file-text"
+  color: "blue"

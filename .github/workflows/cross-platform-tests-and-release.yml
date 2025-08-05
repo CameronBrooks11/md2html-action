@@ -5,10 +5,10 @@ name: Cross-Platform Tests and Release
 
 on:
   push:
-    branches: [ main, master ]
-    tags: [ 'v*' ]
+    branches: [main, master]
+    tags: ["v*"]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   cross-platform-tests:
@@ -17,55 +17,55 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Test Action on ${{ matrix.os }}
         id: test
         uses: ./
         with:
-          source-dir: 'test-docs'
-          output-dir: 'outputs-cross-platform-test'
-          site-title: 'Cross-Platform Test Site'
-      
+          source-dir: "test-docs"
+          output-dir: "outputs-cross-platform-test"
+          site-title: "Cross-Platform Test Site"
+
       - name: Verify Output on ${{ matrix.os }}
         shell: bash
         run: |
           echo "Files converted: ${{ steps.test.outputs.files-converted }}"
           echo "Output path: ${{ steps.test.outputs.output-path }}"
-          
+
           # Check that HTML files were created
           if [ ! -f "outputs-cross-platform-test/index.html" ]; then
             echo "ERROR: index.html not created on ${{ matrix.os }}"
             exit 1
           fi
-          
+
           if [ ! -f "outputs-cross-platform-test/getting-started.html" ]; then
             echo "ERROR: getting-started.html not created on ${{ matrix.os }}"
             exit 1
           fi
-          
+
           if [ ! -f "outputs-cross-platform-test/advanced/configuration.html" ]; then
             echo "ERROR: advanced/configuration.html not created on ${{ matrix.os }}"
             exit 1
           fi
-          
+
           # Check that CSS file exists
           if [ ! -f "outputs-cross-platform-test/style.css" ]; then
             echo "ERROR: style.css not created on ${{ matrix.os }}"
             exit 1
           fi
-          
+
           # Check that media files were copied
           if [ ! -f "outputs-cross-platform-test/media/favicon.ico" ]; then
             echo "ERROR: media files not copied on ${{ matrix.os }}"
             exit 1
           fi
-          
+
           echo "✅ All tests passed on ${{ matrix.os }}!"
-      
+
       - name: Upload Cross-Platform Test Results
         uses: actions/upload-artifact@v4
         with:
@@ -78,15 +78,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Create automated release
     if: startsWith(github.ref, 'refs/tags/v')
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Extract version from tag
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-      
+
       - name: Create GitHub Release
         uses: actions/create-release@v1
         env:
@@ -96,9 +96,9 @@ jobs:
           release_name: md2html-action ${{ steps.version.outputs.VERSION }}
           body: |
             ## 🚀 md2html-action ${{ steps.version.outputs.VERSION }}
-            
+
             A GitHub Action that converts Markdown files to HTML using Pandoc with customizable templates and stylesheets.
-            
+
             ### ✨ Features
             - 📝 Pure Markdown support (no frontmatter required)
             - 🎨 Customizable templates and stylesheets
@@ -106,9 +106,9 @@ jobs:
             - 🔗 Automatic table of contents generation
             - 📁 Directory structure preservation
             - 📄 Single file conversion support
-            
+
             ### 📖 Usage
-            
+
             ```yaml
             - name: Convert Markdown to HTML
               uses: CameronBrooks11/md2html-action@${{ steps.version.outputs.VERSION }}
@@ -118,11 +118,11 @@ jobs:
                 template: 'default'
                 stylesheet: 'default'
             ```
-            
+
             See the [README](README.md) for complete documentation and examples.
-            
+
             ---
-            
+
             **Full Changelog**: https://github.com/CameronBrooks11/md2html-action/compare/v1.0.0...${{ steps.version.outputs.VERSION }}
           draft: false
           prerelease: false

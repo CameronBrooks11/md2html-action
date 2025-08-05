@@ -27,7 +27,7 @@ See the action in action! The demo gallery showcases different templates and sty
 - **[Default Theme](https://cameronbrooks11.github.io/md2html-action/demos/default/)** - Clean, professional layout with navigation header, table of contents, and responsive design with dark/light mode support
 - **[Minimal Theme](https://cameronbrooks11.github.io/md2html-action/demos/minimal/)** - Streamlined design focused on content readability with minimal styling overhead
 - **[Academic Theme](https://cameronbrooks11.github.io/md2html-action/demos/academic/)** - Elegant serif typography designed for scholarly documentation, research papers, and academic content
-- **[Technical Theme](https://cameronbrooks11.github.io/md2html-action/demos/technical/)** - GitHub-inspired clean interface optimized for API documentation and technical guides with alert callouts
+- **[Technical Theme](https://cameronbrooks11.github.io/md2html-action/demos/technical/)** - Modern tech company styling with gradient headers, interactive elements, and sophisticated typography
 - **[Blog Theme](https://cameronbrooks11.github.io/md2html-action/demos/blog/)** - Elegant blog-style layout with beautiful typography, perfect for articles and tutorials
 - **[Corporate Theme](https://cameronbrooks11.github.io/md2html-action/demos/corporate/)** - Professional business styling with corporate color scheme for enterprise documentation
 
@@ -252,13 +252,14 @@ You can provide your own CSS file or use a remote stylesheet. The action include
 - Sophisticated color scheme with accent highlights
 - Right-aligned table of contents
 
-#### `technical` - Modern Technical Docs
+#### `technical` - Modern Tech Company Style
 
-- GitHub-inspired clean interface
-- Optimized for API documentation and technical guides
-- Monospace code styling with syntax highlighting support
-- Alert callouts for info, warning, success, and error messages
-- Sticky sidebar navigation
+- Sleek design inspired by modern tech companies (Stripe, Notion, Linear)
+- Advanced typography with Inter font and enhanced visual hierarchy
+- Gradient headers and interactive elements with smooth animations
+- Enhanced code blocks with language indicators and syntax highlighting
+- Sophisticated callout system with multiple alert types
+- Interactive table of contents with hover effects and smooth scrolling
 
 #### `blog` - Personal Blog Style
 

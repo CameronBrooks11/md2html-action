@@ -19,7 +19,7 @@ This page demonstrates how to create documentation using Markdown.
 
 The action works with any standard Markdown file. Just write normal Markdown:
 
-```markdown
+````markdown
 # My Page Title
 
 This is my content. No special formatting needed!
@@ -27,13 +27,14 @@ This is my content. No special formatting needed!
 ## Features
 
 - Lists work
-- **Bold** and *italic* text
+- **Bold** and _italic_ text
 - [Links](https://example.com)
 - Code blocks
 
 ```python
 print("Hello, World!")
 ```
+````
 
 Want custom metadata? Frontmatter is optional:
 

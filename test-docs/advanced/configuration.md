@@ -9,12 +9,12 @@ You can create your own Pandoc templates:
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <title>$title$</title>
-</head>
-<body>
-  <main>$body$</main>
-</body>
+  <head>
+    <title>$title$</title>
+  </head>
+  <body>
+    <main>$body$</main>
+  </body>
 </html>
 ```
 
@@ -55,7 +55,7 @@ You can use:
 The action supports additional Pandoc options:
 
 ```yaml
-pandoc-options: '--highlight-style=github --toc-depth=4 --number-sections'
+pandoc-options: "--highlight-style=github --toc-depth=4 --number-sections"
 ```
 
 ## Directory Structure

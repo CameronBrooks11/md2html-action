@@ -65,7 +65,7 @@
         padding: 0;
         background-color: #0d1117;
       }
-      
+
       .markdown-body {
         box-sizing: border-box;
         min-width: 200px;
@@ -87,22 +87,38 @@
 
     <div class="markdown-body">
       $if(site-title)$
-      <header style="text-align: center; margin-bottom: 2em; border-bottom: 1px solid #eaecef; padding-bottom: 1em;">
+      <header
+        style="
+          text-align: center;
+          margin-bottom: 2em;
+          border-bottom: 1px solid #eaecef;
+          padding-bottom: 1em;
+        "
+      >
         <h1>
-          <a href="$if(rel_path)$$rel_path$/$endif$index.html" style="text-decoration: none; color: inherit;">
+          <a
+            href="$if(rel_path)$$rel_path$/$endif$index.html"
+            style="text-decoration: none; color: inherit"
+          >
             $site-title$
           </a>
         </h1>
-        <nav style="margin-top: 1em;">
-          <a href="$if(rel_path)$$rel_path$/$endif$index.html" style="margin: 0 1em; text-decoration: none;">Home</a>
+        <nav style="margin-top: 1em">
+          <a
+            href="$if(rel_path)$$rel_path$/$endif$index.html"
+            style="margin: 0 1em; text-decoration: none"
+            >Home</a
+          >
           $for(nav-links)$
-          <a href="$if(rel_path)$$rel_path$/$endif$$nav-links.url$" style="margin: 0 1em; text-decoration: none;">$nav-links.title$</a>
+          <a
+            href="$if(rel_path)$$rel_path$/$endif$$nav-links.url$"
+            style="margin: 0 1em; text-decoration: none"
+            >$nav-links.title$</a
+          >
           $endfor$
         </nav>
       </header>
-      $endif$
-
-      $if(title)$
+      $endif$ $if(title)$
       <header>
         <h1>$title$</h1>
         $if(subtitle)$
@@ -111,22 +127,27 @@
         <p><strong>By:</strong> $for(author)$$author$$sep$, $endfor$</p>
         $endif$
       </header>
-      $endif$ 
-      
-      $if(toc)$
+      $endif$ $if(toc)$
       <nav>
         <h2>Contents</h2>
         $table-of-contents$
       </nav>
-      $endif$
-
-      $body$
-
-      $if(site-title)$
-      <footer style="margin-top: 3em; padding-top: 1em; border-top: 1px solid #eaecef; text-align: center; color: #586069; font-size: 0.9em;">
+      $endif$ $body$ $if(site-title)$
+      <footer
+        style="
+          margin-top: 3em;
+          padding-top: 1em;
+          border-top: 1px solid #eaecef;
+          text-align: center;
+          color: #586069;
+          font-size: 0.9em;
+        "
+      >
         <p>
           Generated with
-          <a href="https://github.com/CameronBrooks11/md2html-action">md2html-action</a>
+          <a href="https://github.com/CameronBrooks11/md2html-action"
+            >md2html-action</a
+          >
         </p>
         $if(footer-text)$
         <p>$footer-text$</p>
