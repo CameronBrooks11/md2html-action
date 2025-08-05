@@ -28,7 +28,7 @@
     <!-- Open Graph metadata -->
     <meta
       property="og:title"
-      content="$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$"
+      content="$if(title-prefix)$$title-prefix$ – $endif$$if(title)$$title$$else$$pagetitle$$endif$"
     />
     <meta property="og:type" content="website" />
     $if(base-url)$

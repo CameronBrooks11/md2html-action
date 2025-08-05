@@ -66,6 +66,19 @@ relpath() {
     }
 }
 
+# Function to extract title from first H1 heading in markdown file
+extract_title() {
+    local md_file="$1"
+    # Look for the first H1 heading (# Title) and extract the title text
+    local title=$(grep -m 1 '^# ' "$md_file" 2>/dev/null | sed 's/^# *//' | sed 's/ *$//')
+    if [[ -n "$title" ]]; then
+        echo "$title"
+    else
+        # Fallback to filename without extension
+        basename "$md_file" .md
+    fi
+}
+
 # ------------------------------------------------------------
 # Validate inputs and setup paths
 # ------------------------------------------------------------
@@ -191,6 +204,7 @@ fi
 PANDOC_OPTS=(
     "--template=$TEMPLATE_FILE"
     "--standalone"
+    "--shift-heading-level-by=0"
     "--mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
 )
 
@@ -239,9 +253,14 @@ if [[ "$SINGLE_FILE_MODE" == "true" ]]; then
     
     log_info "Converting: $(basename "$SOURCE_FILE")"
     
+    # Extract title from the markdown file
+    extracted_title=$(extract_title "$SOURCE_FILE")
+    log_info "Extracted title: $extracted_title"
+    
     # Convert the single file
     if pandoc "$SOURCE_FILE" "${PANDOC_OPTS[@]}" \
         --metadata="rel_path:." \
+        --metadata="title:$extracted_title" \
         --output="$html_file"; then
         
         FILES_CONVERTED=1
@@ -268,9 +287,13 @@ else
         
         log_info "Converting: $rel_path"
         
+        # Extract title from the markdown file
+        extracted_title=$(extract_title "$md_file")
+        
         # Convert the file
         if pandoc "$md_file" "${PANDOC_OPTS[@]}" \
             --metadata="rel_path:$rel_to_root" \
+            --metadata="title:$extracted_title" \
             --output="$html_file"; then
             
             FILES_CONVERTED=$((FILES_CONVERTED + 1))
@@ -331,8 +354,13 @@ fi
 if [[ "$SINGLE_FILE_MODE" == "false" ]]; then
     if [[ ! -f "$OUTPUT_DIR/index.html" ]] && [[ -f "$SOURCE_DIR/README.md" ]]; then
         log_info "Generating index.html from README.md"
+        
+        # Extract title from README.md
+        extracted_title=$(extract_title "$SOURCE_DIR/README.md")
+        
         pandoc "$SOURCE_DIR/README.md" "${PANDOC_OPTS[@]}" \
             --metadata="rel_path:." \
+            --metadata="title:$extracted_title" \
             --output="$OUTPUT_DIR/index.html"
         FILES_CONVERTED=$((FILES_CONVERTED + 1))
         log_success "Generated index.html"
