@@ -158,6 +158,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
    ```
 
 3. **Avoid HTML in headers:**
+
    ```markdown
    # Good Header
 
@@ -193,6 +194,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
    ```
 
 3. **Escape special characters:**
+
    ```markdown
    # In Markdown, escape backslashes
 

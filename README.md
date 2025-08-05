@@ -16,7 +16,7 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 - 🏷️ Open Graph meta tags for social sharing
 - ⚡ Fast and reliable conversion
 
-## 🎨 Live Demo Gallery
+## Live Demo Gallery
 
 **[View Live Demos →](https://cameronbrooks11.github.io/md2html-action/demos/)**
 
