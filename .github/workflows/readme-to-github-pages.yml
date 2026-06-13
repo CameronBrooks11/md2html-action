@@ -29,6 +29,7 @@ jobs:
   convert-and-deploy-documentation:
     runs-on: ubuntu-latest
     name: Convert documentation and deploy to GitHub Pages
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

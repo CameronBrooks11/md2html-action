@@ -17,6 +17,7 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     name: Create GitHub Release
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
