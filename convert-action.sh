@@ -41,11 +41,12 @@ log_error() {
 }
 
 # Function to compute relative paths
+# Paths are passed as argv (sys.argv) to avoid shell-injection via string interpolation.
 relpath() {
     # python3 is pre-installed on all GitHub-hosted runners
-    python3 -c "import os.path; print(os.path.relpath('$1','$2'))" 2>/dev/null && return
+    python3 -c "import sys, os.path; print(os.path.relpath(sys.argv[1], sys.argv[2]))" "$1" "$2" 2>/dev/null && return
     # fallback for environments where python3 is aliased as python
-    python -c "import os.path; print(os.path.relpath('$1','$2'))" 2>/dev/null && return
+    python -c "import sys, os.path; print(os.path.relpath(sys.argv[1], sys.argv[2]))" "$1" "$2" 2>/dev/null && return
     # GNU realpath fallback (Linux runners)
     realpath --relative-to="$2" "$1" 2>/dev/null && return
     # last resort: strip common prefix (only safe for direct children)
@@ -199,13 +200,12 @@ if [[ "$INCLUDE_TOC" == "true" ]]; then
     PANDOC_OPTS+=("--table-of-contents" "--toc-depth=3")
 fi
 
-# Add extra options if provided
+# Add extra options if provided.
+# eval + read is used so that quoted arguments containing spaces are preserved,
+# e.g. --metadata="title:My Site" is kept as a single token.
 if [[ -n "$EXTRA_PANDOC_OPTIONS" ]]; then
-    # Split extra options by space and add them
-    IFS=' ' read -ra EXTRA_OPTS <<< "$EXTRA_PANDOC_OPTIONS"
-    for opt in "${EXTRA_OPTS[@]}"; do
-        PANDOC_OPTS+=("$opt")
-    done
+    eval "EXTRA_OPTS=($EXTRA_PANDOC_OPTIONS)"
+    PANDOC_OPTS+=("${EXTRA_OPTS[@]}")
 fi
 
 # Add metadata
@@ -297,16 +297,21 @@ fi
 # ------------------------------------------------------------
 log_info "Fixing internal markdown links..."
 
-# Find all HTML files and fix .md links to .html links
+# Find all HTML files and fix .md links to .html links.
+# Two sed expressions handle both double-quoted and single-quoted href attributes.
 find "$OUTPUT_DIR" -name "*.html" -type f | while read -r html_file; do
-    # Use sed to replace .md links with .html links
-    # This regex matches href="something.md" and href="path/something.md"
     case "$(uname -s)" in
         Darwin*|FreeBSD*|OpenBSD*)
-            sed -i '' 's/href="\([^"]*\)\.md"/href="\1.html"/g' "$html_file"
+            sed -i '' \
+                -e 's/href="\([^"]*\)\.md"/href="\1.html"/g' \
+                -e "s/href='\([^']*\)\.md'/href='\1.html'/g" \
+                "$html_file"
         ;;
         *)
-            sed -i 's/href="\([^"]*\)\.md"/href="\1.html"/g' "$html_file"
+            sed -i \
+                -e 's/href="\([^"]*\)\.md"/href="\1.html"/g' \
+                -e "s/href='\([^']*\)\.md'/href='\1.html'/g" \
+                "$html_file"
         ;;
     esac
 done

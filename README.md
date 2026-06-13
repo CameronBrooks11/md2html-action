@@ -399,7 +399,7 @@ For business and enterprise docs:
 ## Requirements
 
 - Pandoc (automatically installed by the action)
-- Python 3.x (for path utilities, automatically available)
+- Python 3.x (pre-installed on all GitHub-hosted runners; used for path utilities)
 
 ## Local Testing with Act
 
