@@ -66,7 +66,7 @@ jobs:
           ls -la _site/
 
       - name: Download integration test outputs for demo gallery
-        uses: dawidd6/action-download-artifact@v2
+        uses: dawidd6/action-download-artifact@v6
         with:
           workflow: integration-tests.yml
           path: _site/demos/

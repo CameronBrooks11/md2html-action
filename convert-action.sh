@@ -40,24 +40,6 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
-# ------------------------------------------------------------
-# Platform detection and setup
-# ------------------------------------------------------------
-case "$(uname -s)" in
-    Linux*|MINGW*|MSYS*)
-        alias sedi="sed -i"
-        PLATFORM="linux"
-    ;;
-    Darwin*|FreeBSD*|OpenBSD*)
-        alias sedi="sed -i ''"
-        PLATFORM="macos"
-    ;;
-    *)
-        alias sedi="sed -i"
-        PLATFORM="linux"
-    ;;
-esac
-
 # Function to compute relative paths
 relpath() {
     python3 -c "import os.path; print(os.path.relpath('$1','$2'))" 2>/dev/null || {

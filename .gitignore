@@ -34,3 +34,8 @@ node_modules/
 # Temporary files
 *.tmp
 *.temp
+
+# Build artifacts and working documents
+artifacts/
+planning/
+working/

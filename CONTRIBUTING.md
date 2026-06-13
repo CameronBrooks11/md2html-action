@@ -83,15 +83,24 @@ git push origin feature/your-feature-name
 
 ## Release Process
 
-Releases are automated when tags are pushed:
+Releases are triggered by pushing a version tag. The release workflow creates the GitHub Release automatically.
 
-1. Update version in documentation
-2. Create and push a tag:
+1. Ensure all changes are merged to main and CI is green.
+2. Create a new annotated patch/minor/major tag:
 
 ```bash
 git tag -a v1.1.0 -m "Release v1.1.0"
 git push origin v1.1.0
 ```
+
+3. Move the floating major tag forward so users pinned to `@v1` get the update:
+
+```bash
+git tag -f v1 HEAD
+git push origin v1 --force
+```
+
+The release workflow (`.github/workflows/release.yml`) will detect the new tag and create the GitHub Release.
 
 ## Getting Help
 
