@@ -53,7 +53,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Convert Markdown to HTML
         uses: CameronBrooks11/md2html-action@v1
@@ -87,7 +87,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Convert Markdown to HTML
         id: convert
@@ -103,7 +103,7 @@ jobs:
           pandoc-options: "--highlight-style=tango"
 
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
         with:
           path: ${{ steps.convert.outputs.output-path }}
 ```
