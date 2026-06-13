@@ -1,0 +1,56 @@
+# Create a GitHub Release when a version tag is pushed.
+# Tests are expected to have already passed on main before tagging.
+
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    name: Create GitHub Release
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "md2html-action ${{ steps.version.outputs.VERSION }}"
+          body: |
+            ## md2html-action ${{ steps.version.outputs.VERSION }}
+
+            A GitHub Action that converts Markdown files to HTML using Pandoc
+            with customizable templates and stylesheets.
+
+            ### Usage
+
+            ```yaml
+            - name: Convert Markdown to HTML
+              uses: CameronBrooks11/md2html-action@${{ steps.version.outputs.VERSION }}
+              with:
+                source-dir: 'docs'
+                output-dir: 'website'
+                template: 'default'
+                stylesheet: 'default'
+            ```
+
+            See the [README](README.md) for full documentation, input reference,
+            template and stylesheet options, and deployment examples.
+
+            ---
+
+            **Full Changelog**: https://github.com/CameronBrooks11/md2html-action/commits/${{ steps.version.outputs.VERSION }}
+          draft: false
+          prerelease: false
