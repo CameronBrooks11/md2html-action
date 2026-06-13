@@ -42,10 +42,14 @@ log_error() {
 
 # Function to compute relative paths
 relpath() {
-    python3 -c "import os.path; print(os.path.relpath('$1','$2'))" 2>/dev/null || {
-        # Fallback if python3 is not available
-        realpath --relative-to="$2" "$1" 2>/dev/null || echo "$1"
-    }
+    # python3 is pre-installed on all GitHub-hosted runners
+    python3 -c "import os.path; print(os.path.relpath('$1','$2'))" 2>/dev/null && return
+    # fallback for environments where python3 is aliased as python
+    python -c "import os.path; print(os.path.relpath('$1','$2'))" 2>/dev/null && return
+    # GNU realpath fallback (Linux runners)
+    realpath --relative-to="$2" "$1" 2>/dev/null && return
+    # last resort: strip common prefix (only safe for direct children)
+    echo "${1#$2/}"
 }
 
 # Function to extract title from first H1 heading in markdown file
