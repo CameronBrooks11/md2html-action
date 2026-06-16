@@ -1,8 +1,8 @@
-# 📝 Examples and Use Cases
+# Examples and Use Cases
 
 This page showcases real-world examples of md2html-action in action, demonstrating various use cases, configurations, and best practices.
 
-## 🏢 Corporate Documentation
+## Corporate Documentation
 
 Perfect for internal company docs, policies, and procedures.
 
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "handbook"
           output-dir: "employee-portal"
@@ -34,7 +34,7 @@ jobs:
             --metadata author="HR Department"
 ```
 
-## 🎓 Academic Documentation
+## Academic Documentation
 
 Ideal for research papers, theses, and academic publications.
 
@@ -65,7 +65,7 @@ can significantly improve productivity [@doe2022; @johnson2023].
 ## References
 ```
 
-## 💻 Technical Documentation
+## Technical Documentation
 
 Perfect for API docs, developer guides, and technical specifications.
 
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "api-docs"
           output-dir: "public/api"
@@ -141,7 +141,7 @@ Returns a list of users.
 }
 ```
 
-## 📚 Educational Content
+## Educational Content
 
 Great for course materials, tutorials, and learning resources.
 
@@ -159,7 +159,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "course"
           output-dir: "course-site"
@@ -171,7 +171,7 @@ jobs:
             --highlight-style=github
 ```
 
-## 📖 Personal Blog
+## Personal Blog
 
 Ideal for personal websites, portfolios, and blog posts.
 
@@ -192,13 +192,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Convert blog posts
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "blog"
           output-dir: "public"
           stylesheet: "blog"
           template: "default"
-          custom-css: "assets/custom-blog.css"
           pandoc-options: >-
             --metadata author="Your Name"
             --metadata site-title="My Blog"
@@ -221,9 +220,9 @@ I'll walk you through setting up automated documentation generation.
 
 ## Why Use md2html-action?
 
-- 🚀 **Zero configuration** - works with any Markdown
-- 🎨 **Beautiful themes** - professional styling out of the box
-- 📱 **Responsive design** - looks great on all devices
+- **Zero configuration** - works with any Markdown
+- **Beautiful themes** - professional styling out of the box
+- **Responsive design** - looks great on all devices
 
 <!-- more -->
 
@@ -241,7 +240,7 @@ With md2html-action, creating beautiful documentation is as simple
 as writing Markdown. Give it a try in your next project!
 ```
 
-## 🏗️ Multi-Site Architecture
+## Multi-Site Architecture
 
 Managing multiple documentation sites from a single repository.
 
@@ -259,7 +258,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs/product-a"
           output-dir: "dist/product-a"
@@ -271,7 +270,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs/product-b"
           output-dir: "dist/product-b"
@@ -280,7 +279,7 @@ jobs:
             --metadata title="Product B Documentation"
 ```
 
-## 🌍 Internationalization
+## Internationalization
 
 Supporting multiple languages in your documentation.
 
@@ -315,7 +314,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: ${{ matrix.source }}
           output-dir: "public/${{ matrix.language }}"
@@ -325,7 +324,7 @@ jobs:
             --metadata lang="${{ matrix.language }}"
 ```
 
-## 🧪 A/B Testing Themes
+## A/B Testing Themes
 
 Testing different themes for the same content.
 
@@ -347,7 +346,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "test-themes/${{ matrix.theme }}"
@@ -359,7 +358,7 @@ jobs:
           echo "https://your-site.github.io/test-themes/${{ matrix.theme }}/"
 ```
 
-## 📊 Analytics Integration
+## Analytics Integration
 
 Adding analytics to track documentation usage.
 
@@ -382,7 +381,7 @@ Adding analytics to track documentation usage.
 </script>
 ```
 
-## 🔍 Search Integration
+## Search Integration
 
 Adding search functionality to your documentation.
 
@@ -408,7 +407,7 @@ Adding search functionality to your documentation.
     atomic-algolia --source search-index.txt
 ```
 
-## 🚀 Performance Optimization
+## Performance Optimization
 
 Optimizing build times and output performance.
 
@@ -437,7 +436,7 @@ jobs:
           key: pandoc-${{ runner.os }}
 
       - name: Convert documentation
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "public"
@@ -454,7 +453,7 @@ jobs:
             xargs -I {} sh -c 'gzip -k "$1"' _ {}
 ```
 
-## 🔄 Automated Content Updates
+## Automated Content Updates
 
 Keeping documentation in sync with code changes.
 
@@ -480,7 +479,7 @@ jobs:
           python scripts/extract-api-docs.py src/api/ > docs/api-reference.md
 
       - name: Convert to HTML
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "public"
@@ -495,7 +494,7 @@ jobs:
           git push
 ```
 
-## 🎨 Custom Theme Development
+## Custom Theme Development
 
 Creating your own theme from scratch.
 
@@ -553,12 +552,12 @@ body {
 Usage:
 
 ```yaml
-- uses: CameronBrooks11/md2html-action@main
+- uses: CameronBrooks11/md2html-action@v1
   with:
-    custom-css: "assets/custom-brand.css"
+    stylesheet: "assets/custom-brand.css"
 ```
 
-## 📝 Best Practices Summary
+## Best Practices Summary
 
 ### Content Organization
 
@@ -590,7 +589,7 @@ Usage:
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
 Ready to implement these examples in your own projects? Here's how:
 

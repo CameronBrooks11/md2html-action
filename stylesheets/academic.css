@@ -1,6 +1,9 @@
 /* Academic Stylesheet for md2html-action */
 /* Professional scholarly documentation styling */
 
+/* Fonts — @import must precede all style rules (CSS spec) */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@300;400;500&display=swap');
+
 /* ─── Theme Variables ─────────────────────────────────────────────────── */
 :root {
   /* Light theme (primary) */
@@ -63,8 +66,6 @@
   }
 }
 
-/* ─── Google Fonts Import ──────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Fira+Code:wght@300;400;500&display=swap');
 
 /* ─── Base Styles ─────────────────────────────────────────────────────── */
 html {

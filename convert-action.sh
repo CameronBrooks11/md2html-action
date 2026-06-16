@@ -50,14 +50,23 @@ relpath() {
     # GNU realpath fallback (Linux runners)
     realpath --relative-to="$2" "$1" 2>/dev/null && return
     # last resort: strip common prefix (only safe for direct children)
-    echo "${1#$2/}"
+    echo "${1#"$2"/}"
+}
+
+# Split a string into argv tokens the way a POSIX shell would (honoring quotes),
+# WITHOUT eval — eval would execute $(...) or backticks embedded in the input.
+# Tokens are emitted NUL-separated so they read safely into a bash array.
+shlex_split() {
+    python3 -c "import sys, shlex; sys.stdout.write(''.join(t + chr(0) for t in shlex.split(sys.stdin.read())))" 2>/dev/null && return
+    python -c "import sys, shlex; sys.stdout.write(''.join(t + chr(0) for t in shlex.split(sys.stdin.read())))"
 }
 
 # Function to extract title from first H1 heading in markdown file
 extract_title() {
     local md_file="$1"
     # Look for the first H1 heading (# Title) and extract the title text
-    local title=$(grep -m 1 '^# ' "$md_file" 2>/dev/null | sed 's/^# *//' | sed 's/ *$//')
+    local title
+    title=$(grep -m 1 '^# ' "$md_file" 2>/dev/null | sed 's/^# *//' | sed 's/ *$//')
     if [[ -n "$title" ]]; then
         echo "$title"
     else
@@ -86,8 +95,11 @@ else
         log_error "Source directory '$SOURCE_DIR' does not exist!"
         exit 1
     fi
-    # Count markdown files
-    MD_FILES=$(find "$SOURCE_DIR" -name "*.md" -type f | wc -l | tr -d ' ')
+    # Path to prune so a nested output directory (e.g. source-dir "." with
+    # output-dir "_site") is never picked up and re-converted on later runs.
+    OUTPUT_PRUNE_PATH="$SOURCE_DIR/$(relpath "$OUTPUT_DIR" "$SOURCE_DIR")"
+    # Count markdown files (excluding the output directory)
+    MD_FILES=$(find "$SOURCE_DIR" -path "$OUTPUT_PRUNE_PATH" -prune -o -name "*.md" -type f -print | wc -l | tr -d ' ')
     SINGLE_FILE_MODE=false
 fi
 
@@ -96,8 +108,8 @@ log_info "Template: $TEMPLATE"
 log_info "Stylesheet: $STYLESHEET"
 if [[ "$MD_FILES" -eq 0 ]]; then
     log_warning "No Markdown files found in '$SOURCE_DIR'"
-    echo "files-converted=0" >> $GITHUB_OUTPUT
-    echo "output-path=$OUTPUT_DIR" >> $GITHUB_OUTPUT
+    echo "files-converted=0" >> "$GITHUB_OUTPUT"
+    echo "output-path=$OUTPUT_DIR" >> "$GITHUB_OUTPUT"
     exit 0
 fi
 
@@ -201,11 +213,12 @@ if [[ "$INCLUDE_TOC" == "true" ]]; then
 fi
 
 # Add extra options if provided.
-# eval + read is used so that quoted arguments containing spaces are preserved,
-# e.g. --metadata="title:My Site" is kept as a single token.
+# Split with shlex (honors quotes) rather than eval, so embedded $(...) or
+# backticks in the pandoc-options input are NOT executed.
 if [[ -n "$EXTRA_PANDOC_OPTIONS" ]]; then
-    eval "EXTRA_OPTS=($EXTRA_PANDOC_OPTIONS)"
-    PANDOC_OPTS+=("${EXTRA_OPTS[@]}")
+    while IFS= read -r -d '' opt; do
+        PANDOC_OPTS+=("$opt")
+    done < <(printf '%s' "$EXTRA_PANDOC_OPTIONS" | shlex_split)
 fi
 
 # Add metadata
@@ -283,13 +296,13 @@ else
             --output="$html_file"; then
             
             FILES_CONVERTED=$((FILES_CONVERTED + 1))
-            log_success "✓ $rel_path → ${html_file#$OUTPUT_DIR/}"
+            log_success "✓ $rel_path → ${html_file#"$OUTPUT_DIR"/}"
         else
             log_error "✗ Failed to convert $rel_path"
             exit 1
         fi
         
-    done < <(find "$SOURCE_DIR" -name "*.md" -type f -print0)
+    done < <(find "$SOURCE_DIR" -path "$OUTPUT_PRUNE_PATH" -prune -o -name "*.md" -type f -print0)
 fi
 
 # ------------------------------------------------------------
@@ -319,25 +332,24 @@ done
 log_success "Fixed internal markdown links"
 
 # ------------------------------------------------------------
-# Copy additional assets
+# Copy additional assets (media/images/assets/static/files) that live
+# alongside the source. In directory mode this is the source directory; in
+# single-file mode it is the directory that contains the source file, so that
+# relative image/asset links in the generated HTML still resolve.
 # ------------------------------------------------------------
-if [[ "$SINGLE_FILE_MODE" == "false" ]]; then
-    log_info "Copying additional assets..."
-
-    # Copy media files (images, etc.)
-    if [[ -d "$SOURCE_DIR/media" ]]; then
-        cp -r "$SOURCE_DIR/media" "$OUTPUT_DIR/"
-        log_success "Copied media directory"
-    fi
-
-    # Copy any other common asset directories
-    for asset_dir in "images" "assets" "static" "files"; do
-        if [[ -d "$SOURCE_DIR/$asset_dir" ]]; then
-            cp -r "$SOURCE_DIR/$asset_dir" "$OUTPUT_DIR/"
-            log_success "Copied $asset_dir directory"
-        fi
-    done
+if [[ "$SINGLE_FILE_MODE" == "true" ]]; then
+    ASSET_BASE=$(dirname "$SOURCE_FILE")
+else
+    ASSET_BASE="$SOURCE_DIR"
 fi
+
+log_info "Copying additional assets from '$ASSET_BASE'..."
+for asset_dir in "media" "images" "assets" "static" "files"; do
+    if [[ -d "$ASSET_BASE/$asset_dir" ]]; then
+        cp -r "$ASSET_BASE/$asset_dir" "$OUTPUT_DIR/"
+        log_success "Copied $asset_dir directory"
+    fi
+done
 
 # ------------------------------------------------------------
 # Generate index if it doesn't exist (directory mode only)
@@ -366,11 +378,11 @@ log_info "Files converted: $FILES_CONVERTED"
 log_info "Output directory: $OUTPUT_DIR"
 
 # Set GitHub Actions outputs
-echo "files-converted=$FILES_CONVERTED" >> $GITHUB_OUTPUT
-echo "output-path=$OUTPUT_DIR" >> $GITHUB_OUTPUT
+echo "files-converted=$FILES_CONVERTED" >> "$GITHUB_OUTPUT"
+echo "output-path=$OUTPUT_DIR" >> "$GITHUB_OUTPUT"
 
 # List generated files
 log_info "Generated files:"
 find "$OUTPUT_DIR" -name "*.html" -type f | while read -r file; do
-    echo "  - ${file#$OUTPUT_DIR/}"
+    echo "  - ${file#"$OUTPUT_DIR"/}"
 done

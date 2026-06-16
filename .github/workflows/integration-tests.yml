@@ -31,16 +31,35 @@ jobs:
 
       - name: Verify output
         run: |
+          out=outputs-default-configuration
           echo "Files converted: ${{ steps.convert.outputs.files-converted }}"
           echo "Output path: ${{ steps.convert.outputs.output-path }}"
-          ls -la outputs-default-configuration/
+          ls -la "$out/"
 
-          # Verify key files exist
-          test -f outputs-default-configuration/index.html || (echo "ERROR: index.html missing" && exit 1)
-          test -f outputs-default-configuration/getting-started.html || (echo "ERROR: getting-started.html missing" && exit 1)
-          test -f outputs-default-configuration/advanced/configuration.html || (echo "ERROR: configuration.html missing" && exit 1)
+          # Key files exist (directory structure preserved)
+          for f in index.html getting-started.html advanced/configuration.html; do
+            test -f "$out/$f" || { echo "ERROR: $f missing"; exit 1; }
+          done
 
-          echo "✅ Default configuration test passed!"
+          # Internal .md links are rewritten to .html (none should remain)
+          if grep -rEq 'href="[^"]*\.md"' "$out"; then
+            echo "ERROR: unrewritten .md link(s) found:"
+            grep -rEo 'href="[^"]*\.md"' "$out"
+            exit 1
+          fi
+          grep -q 'href="getting-started.html"' "$out/index.html" \
+            || { echo "ERROR: expected rewritten .html link not found"; exit 1; }
+
+          # MathJax is injected by default (index source contains math)
+          grep -q 'mathjax' "$out/index.html" || { echo "ERROR: MathJax script not injected"; exit 1; }
+
+          # Table of contents generated (include-toc defaults to true)
+          grep -q 'class="table-of-contents"' "$out/index.html" || { echo "ERROR: table of contents missing"; exit 1; }
+
+          # Asset directories copied into the output
+          test -f "$out/media/favicon.ico" || { echo "ERROR: media/ not copied"; exit 1; }
+
+          echo "Default configuration assertions passed"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -77,7 +96,7 @@ jobs:
           # Verify files exist with custom settings
           test -f outputs-custom-configuration/index.html || (echo "ERROR: custom index.html missing" && exit 1)
 
-          echo "✅ Custom configuration test passed!"
+          echo "Custom configuration test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -112,7 +131,7 @@ jobs:
           # Verify files exist
           test -f outputs-remote-css/index.html || (echo "ERROR: remote CSS index.html missing" && exit 1)
 
-          echo "✅ Remote CSS integration test passed!"
+          echo "Remote CSS integration test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -148,7 +167,7 @@ jobs:
           test -f outputs-academic-style/index.html || (echo "ERROR: academic index.html missing" && exit 1)
           test -f outputs-academic-style/style.css || (echo "ERROR: academic style.css missing" && exit 1)
 
-          echo "✅ Academic stylesheet test passed!"
+          echo "Academic stylesheet test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -184,7 +203,7 @@ jobs:
           test -f outputs-technical-style/index.html || (echo "ERROR: technical index.html missing" && exit 1)
           test -f outputs-technical-style/style.css || (echo "ERROR: technical style.css missing" && exit 1)
 
-          echo "✅ Technical stylesheet test passed!"
+          echo "Technical stylesheet test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -220,7 +239,7 @@ jobs:
           test -f outputs-blog-style/index.html || (echo "ERROR: blog index.html missing" && exit 1)
           test -f outputs-blog-style/style.css || (echo "ERROR: blog style.css missing" && exit 1)
 
-          echo "✅ Blog stylesheet test passed!"
+          echo "Blog stylesheet test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -256,7 +275,7 @@ jobs:
           test -f outputs-corporate-style/index.html || (echo "ERROR: corporate index.html missing" && exit 1)
           test -f outputs-corporate-style/style.css || (echo "ERROR: corporate style.css missing" && exit 1)
 
-          echo "✅ Corporate stylesheet test passed!"
+          echo "Corporate stylesheet test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7

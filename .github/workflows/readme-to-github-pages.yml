@@ -29,6 +29,9 @@ jobs:
   convert-and-deploy-documentation:
     runs-on: ubuntu-latest
     name: Convert documentation and deploy to GitHub Pages
+    # On a workflow_run trigger, only deploy when Integration Tests succeeded.
+    # Push (paths filter) and manual dispatch are unaffected.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     timeout-minutes: 20
     environment:
       name: github-pages
@@ -45,7 +48,7 @@ jobs:
         run: |
           # Copy README.md as-is for conversion (no frontmatter needed)
           cp README.md temp-readme.md
-          echo "✅ README prepared for conversion"
+          echo "README prepared for conversion"
 
       - name: Convert README to HTML using md2html-action
         id: convert
@@ -63,7 +66,7 @@ jobs:
       - name: Rename converted file to index.html
         run: |
           mv _site/temp-readme.html _site/index.html
-          echo "✅ README converted to index.html"
+          echo "README converted to index.html"
           ls -la _site/
 
       - name: Download integration test outputs for demo gallery
@@ -78,7 +81,7 @@ jobs:
         run: |
           # Create demo gallery from integration test outputs
           if [ -d "_site/demos" ]; then
-            echo "✅ Integration test outputs downloaded"
+            echo "Integration test outputs downloaded"
             ls -la _site/demos/
             
             # Rename output directories to match demo structure
@@ -94,10 +97,10 @@ jobs:
             # Copy demo gallery index page template
             cp ../../.github/templates/demo-gallery-index.html index.html
             
-            echo "✅ Demo gallery organized with index page"
+            echo "Demo gallery organized with index page"
             ls -la
           else
-            echo "⚠️ No integration test outputs found - will only deploy documentation"
+            echo "No integration test outputs found - will only deploy documentation"
           fi
 
       - name: Upload GitHub Pages artifact

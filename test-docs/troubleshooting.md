@@ -1,8 +1,8 @@
-# 🔧 Troubleshooting Guide
+# Troubleshooting Guide
 
 Having issues with md2html-action? This comprehensive troubleshooting guide will help you diagnose and fix common problems quickly.
 
-## 🚨 Common Issues
+## Common Issues
 
 ### Build Failures
 
@@ -61,7 +61,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
 
 3. **Enable debug mode:**
    ```yaml
-   - uses: CameronBrooks11/md2html-action@main
+   - uses: CameronBrooks11/md2html-action@v1
      with:
        pandoc-options: "--verbose"
      env:
@@ -87,10 +87,10 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
    stylesheet: "technical" # Must be exact match
    ```
 
-2. **Check custom CSS path:**
+2. **Check a custom stylesheet path:**
 
    ```yaml
-   custom-css: "assets/styles.css" # File must exist in repository
+   stylesheet: "assets/styles.css" # stylesheet also accepts a local path (must exist)
    ```
 
 3. **Test with default theme:**
@@ -175,10 +175,12 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
 
 **Solutions:**
 
-1. **Enable math support:**
+1. **Math is enabled by default (MathJax).** If formulas are not rendering, it
+   is almost always a syntax issue (see below) rather than a missing option. To
+   use KaTeX instead, override it:
 
    ```yaml
-   pandoc-options: "--katex" # or --mathjax
+   pandoc-options: "--katex"
    ```
 
 2. **Use proper LaTeX syntax:**
@@ -279,13 +281,13 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
    git push
    ```
 
-## 🐛 Debugging Techniques
+## Debugging Techniques
 
 ### Enable Verbose Logging
 
 ```yaml
 - name: Debug conversion
-  uses: CameronBrooks11/md2html-action@main
+  uses: CameronBrooks11/md2html-action@v1
   with:
     source-dir: "docs"
     pandoc-options: "--verbose"
@@ -357,7 +359,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
    find docs -name "*.md" -exec markdown-link-check {} \;
    ```
 
-## 🔍 Performance Issues
+## Performance Issues
 
 ### Slow Build Times
 
@@ -415,7 +417,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
        find output -name "*.html" -exec html-minifier --minify-css --minify-js -o {} {} \;
    ```
 
-## 🛠️ Workflow Debugging
+## Workflow Debugging
 
 ### Check Action Logs
 
@@ -473,20 +475,20 @@ jobs:
         run: |
           if [ -f "docs/index.md" ]; then
             pandoc docs/index.md -o test.html --standalone
-            echo "✅ Basic conversion successful"
+            echo "Basic conversion successful"
           else
-            echo "❌ docs/index.md not found"
+            echo "docs/index.md not found"
           fi
 
       - name: Test with action
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "debug-output"
           stylesheet: "default"
 ```
 
-## 📱 Mobile and Browser Issues
+## Mobile and Browser Issues
 
 ### Mobile Display Problems
 
@@ -529,7 +531,7 @@ jobs:
    }
    ```
 
-## 🆘 Getting Help
+## Getting Help
 
 ### Before Asking for Help
 
@@ -602,7 +604,7 @@ Any other relevant information
 
 ````
 
-## 🎯 Prevention Tips
+## Prevention Tips
 
 ### Best Practices
 
@@ -642,7 +644,7 @@ Any other relevant information
 
 ---
 
-## 📞 Quick Reference
+## Quick Reference
 
 | Problem            | Quick Fix                                 |
 | ------------------ | ----------------------------------------- |

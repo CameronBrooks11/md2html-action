@@ -1,6 +1,9 @@
 /* Corporate Stylesheet for md2html-action */
 /* Professional business documentation styling */
 
+/* Fonts — @import must precede all style rules (CSS spec) */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Source+Code+Pro:wght@400;500&display=swap');
+
 /* ─── Theme Variables ─────────────────────────────────────────────────── */
 :root {
   /* Light theme */
@@ -66,8 +69,6 @@
   }
 }
 
-/* ─── Google Fonts Import ──────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Source+Code+Pro:wght@400;500&display=swap');
 
 /* ─── Base Styles ─────────────────────────────────────────────────────── */
 html {

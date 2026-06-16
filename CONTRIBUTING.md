@@ -108,4 +108,4 @@ The release workflow (`.github/workflows/release.yml`) will detect the new tag a
 - Check existing issues before creating new ones
 - Provide clear reproduction steps for bugs
 
-Thank you for contributing! 🎉
+Thank you for contributing! 

@@ -1,29 +1,29 @@
-# 📚 Getting Started with md2html-action
+# Getting Started with md2html-action
 
 Welcome to md2html-action! This guide will help you quickly start converting Markdown files to beautiful, styled HTML using this powerful GitHub Action.
 
-## 🎯 What is md2html-action?
+## What is md2html-action?
 
 md2html-action is a GitHub Action that converts Markdown files to stunning HTML using Pandoc. It's designed to work with **pure vanilla Markdown** - no special setup, frontmatter, or configuration required!
 
-### ✨ Key Features
+### Key Features
 
-- 🚀 **Zero Configuration** - Works with any standard Markdown file
-- 🎨 **6 Professional Themes** - Academic, Technical, Blog, Corporate, Default, and Minimal
-- 📱 **Fully Responsive** - Beautiful on desktop, tablet, and mobile
-- 🔍 **Auto Table of Contents** - Generated automatically from your headings
-- 🧮 **Math Support** - LaTeX math rendering via Pandoc
-- ⚡ **Fast & Reliable** - Optimized for speed and performance
+- **Zero Configuration** - Works with any standard Markdown file
+- **6 Professional Themes** - Academic, Technical, Blog, Corporate, Default, and Minimal
+- **Fully Responsive** - Beautiful on desktop, tablet, and mobile
+- **Auto Table of Contents** - Generated automatically from your headings
+- **Math Support** - LaTeX math rendering via Pandoc
+- **Fast & Reliable** - Optimized for speed and performance
 
-## 🛠️ Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have:
 
-- ✅ A GitHub repository
-- ✅ Basic knowledge of Markdown syntax
-- ✅ Basic understanding of GitHub Actions (helpful but not required)
+- A GitHub repository
+- Basic knowledge of Markdown syntax
+- Basic understanding of GitHub Actions (helpful but not required)
 
-## 🚀 Quick Setup
+## Quick Setup
 
 ### Step 1: Create Your Workflow
 
@@ -47,7 +47,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Convert Markdown to HTML
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs" # Directory containing your .md files
           output-dir: "html" # Where to save the HTML files
@@ -103,28 +103,28 @@ print("Hello from md2html-action!")
 2. Check the Actions tab in your GitHub repository
 3. Watch as your Markdown is converted to stunning HTML!
 
-## 🎨 Choosing Your Theme
+## Choosing Your Theme
 
 md2html-action includes 6 professional themes:
 
 | Theme            | Best For                   | Description                                  |
 | ---------------- | -------------------------- | -------------------------------------------- |
-| **🎓 Academic**  | Research papers, theses    | Traditional typography, scholarly formatting |
-| **💻 Technical** | API docs, developer guides | Modern tech company design with Inter fonts  |
-| **📝 Blog**      | Personal blogs, articles   | Comfortable reading typography               |
-| **🏢 Corporate** | Business docs, reports     | Professional, authoritative styling          |
-| **🎨 Default**   | General documentation      | Clean, balanced design                       |
-| **⚡ Minimal**   | Simple sites               | Lightweight, fast-loading                    |
+| **Academic**  | Research papers, theses    | Traditional typography, scholarly formatting |
+| **Technical** | API docs, developer guides | Modern tech company design with Inter fonts  |
+| **Blog**      | Personal blogs, articles   | Comfortable reading typography               |
+| **Corporate** | Business docs, reports     | Professional, authoritative styling          |
+| **Default**   | General documentation      | Clean, balanced design                       |
+| **Minimal**   | Simple sites               | Lightweight, fast-loading                    |
 
 To change themes, simply update the `stylesheet` parameter in your workflow:
 
 ```yaml
-- uses: CameronBrooks11/md2html-action@main
+- uses: CameronBrooks11/md2html-action@v1
   with:
     stylesheet: "academic" # Change this to any theme name
 ```
 
-## 📝 Writing Effective Markdown
+## Writing Effective Markdown
 
 ### Essential Markdown Syntax
 
@@ -227,11 +227,11 @@ git commit -m "Update docs"
 > Perfect for highlighting important information!
 ```
 
-## 🔧 Working with Pure Markdown
+## Working with Pure Markdown
 
 One of md2html-action's greatest strengths is its support for **pure vanilla Markdown**:
 
-### ✅ What Works Out of the Box
+### What Works Out of the Box
 
 ````markdown
 # My Documentation
@@ -259,7 +259,7 @@ print("No configuration needed!")
 - [External link](https://github.com)
 ````
 
-### 🎛️ Optional Frontmatter
+### Optional Frontmatter
 
 While not required, you can add frontmatter for more control:
 
@@ -275,7 +275,7 @@ date: "2024-01-01"
 The frontmatter above is completely optional but gives you more control over metadata.
 ```
 
-## 🌐 Organizing Your Documentation
+## Organizing Your Documentation
 
 ### Recommended Directory Structure
 
@@ -307,7 +307,7 @@ your-repository/
 4. **Link between pages** - Use relative links like `[Guide](guides/installation.md)`
 5. **Include a media folder** - Keep images organized
 
-## 📱 Mobile-Friendly Tips
+## Mobile-Friendly Tips
 
 All themes are fully responsive, but you can optimize for mobile:
 
@@ -334,26 +334,26 @@ All themes are fully responsive, but you can optimize for mobile:
 - Break up long sections with subheadings
 - Include plenty of whitespace
 
-## ⚡ Performance Tips
+## Performance Tips
 
 1. **Optimize Images** - Use compressed images (WebP, optimized JPG/PNG)
 2. **Choose the Right Theme** - Minimal theme loads fastest
 3. **Organize Content** - Split very long pages into multiple files
 4. **Use Proper Headings** - Creates better TOC structure
 
-## 🎯 Next Steps
+## Next Steps
 
 Now that you understand the basics:
 
-1. **[📖 Read the Advanced Configuration Guide](advanced/configuration.md)** - Learn about custom templates, advanced Pandoc options, and deployment strategies
+1. **[Read the Advanced Configuration Guide](advanced/configuration.md)** - Learn about custom templates, advanced Pandoc options, and deployment strategies
 
-2. **🎨 Explore the Demo Gallery** - See all themes in action at the demo gallery
+2. **Explore the Demo Gallery** - See all themes in action at the demo gallery
 
-3. **🔧 Customize Your Setup** - Experiment with different themes and templates
+3. **Customize Your Setup** - Experiment with different themes and templates
 
-4. **📚 Check Real Examples** - Browse the source code of this documentation for reference
+4. **Check Real Examples** - Browse the source code of this documentation for reference
 
-## 🆘 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -371,9 +371,9 @@ Now that you understand the basics:
 
 ### Getting Help
 
-- **📋 Check the Issues** - Browse existing GitHub issues for solutions
-- **💬 Start a Discussion** - Ask questions in GitHub Discussions
-- **📖 Read the Source** - The action is open source and well-documented
+- **Check the Issues** - Browse existing GitHub issues for solutions
+- **Start a Discussion** - Ask questions in GitHub Discussions
+- **Read the Source** - The action is open source and well-documented
 
 ---
 
