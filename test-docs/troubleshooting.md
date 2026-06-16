@@ -87,10 +87,10 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
    stylesheet: "technical" # Must be exact match
    ```
 
-2. **Check custom CSS path:**
+2. **Check a custom stylesheet path:**
 
    ```yaml
-   custom-css: "assets/styles.css" # File must exist in repository
+   stylesheet: "assets/styles.css" # stylesheet also accepts a local path (must exist)
    ```
 
 3. **Test with default theme:**

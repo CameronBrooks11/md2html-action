@@ -198,7 +198,6 @@ jobs:
           output-dir: "public"
           stylesheet: "blog"
           template: "default"
-          custom-css: "assets/custom-blog.css"
           pandoc-options: >-
             --metadata author="Your Name"
             --metadata site-title="My Blog"
@@ -555,7 +554,7 @@ Usage:
 ```yaml
 - uses: CameronBrooks11/md2html-action@main
   with:
-    custom-css: "assets/custom-brand.css"
+    stylesheet: "assets/custom-brand.css"
 ```
 
 ## 📝 Best Practices Summary

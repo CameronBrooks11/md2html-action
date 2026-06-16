@@ -43,11 +43,8 @@ jobs:
           output-dir: "dist"
 
           # Theme and template selection
-          stylesheet: "technical" # academic, technical, blog, corporate, default, minimal
+          stylesheet: "technical" # built-in name, or a local path / URL to a .css file
           template: "default" # default, minimal, github
-
-          # Custom CSS (optional)
-          custom-css: "assets/custom.css"
 
           # Pandoc options
           pandoc-options: >-
@@ -81,14 +78,17 @@ jobs:
 
 ### Input Parameters Reference
 
-| Parameter        | Type   | Default     | Description                                                               |
-| ---------------- | ------ | ----------- | ------------------------------------------------------------------------- |
-| `source-dir`     | string | `'.'`       | Directory containing Markdown files                                       |
-| `output-dir`     | string | `'html'`    | Output directory for HTML files                                           |
-| `stylesheet`     | string | `'default'` | Theme: `academic`, `technical`, `blog`, `corporate`, `default`, `minimal` |
-| `template`       | string | `'default'` | Template: `default`, `minimal`, `github`                                  |
-| `custom-css`     | string | `''`        | Path to custom CSS file (optional)                                        |
-| `pandoc-options` | string | `''`        | Additional Pandoc command-line options                                    |
+| Parameter        | Type   | Default           | Description                                                                                 |
+| ---------------- | ------ | ----------------- | ------------------------------------------------------------------------------------------- |
+| `source-dir`     | string | `'source'`        | Directory of Markdown files to convert                                                      |
+| `source-file`    | string | `''`              | Single Markdown file to convert (alternative to `source-dir`)                               |
+| `output-dir`     | string | `'_website'`      | Output directory for generated HTML                                                         |
+| `template`       | string | `'default'`       | `default`, `minimal`, `github`, or a path to a custom template                              |
+| `stylesheet`     | string | `'default'`       | `default`, `minimal`, `academic`, `technical`, `blog`, `corporate`, or a local path / URL   |
+| `site-title`     | string | `'Documentation'` | Site title (used in navigation and meta tags)                                               |
+| `base-url`       | string | `''`              | Base URL for the site (useful for GitHub Pages)                                             |
+| `include-toc`    | string | `'true'`          | Include a table of contents                                                                 |
+| `pandoc-options` | string | `''`              | Additional Pandoc command-line options                                                      |
 
 ## 🎨 Custom Templates
 
@@ -377,7 +377,7 @@ Available highlighting styles:
 ```yaml
 - uses: CameronBrooks11/md2html-action@main
   with:
-    custom-css: "assets/custom.css"
+    stylesheet: "assets/custom.css"
 ```
 
 ### CSS Override Examples
