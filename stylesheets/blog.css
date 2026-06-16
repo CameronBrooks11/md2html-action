@@ -53,7 +53,7 @@
 
     --toc_background_color: #3d4349;
     --toc_border_color: #495057;
-    --toc_link_color: #adb5bd;
+    --toc_link_color: #d4d9de;
     --toc_link_hover_color: #fd79a8;
 
     --code_bg_color: #212529;
@@ -101,7 +101,6 @@ body {
 }
 
 /* ─── Header ────────────────────────────────────────────────────────── */
-header,
 .site-header {
   background: linear-gradient(135deg, var(--header_background_color) 0%, #34495e 100%);
   color: white;

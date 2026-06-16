@@ -117,7 +117,6 @@ Main content layout
 Header styling
 === */
 
-header,
 .site-header {
   border-bottom: 1px solid var(--border_color);
   background-color: var(--header_background_color);
@@ -553,20 +552,12 @@ Table of contents
 
 .table-of-contents,
 .table_of_contents {
-  float: left;
   border: 2px solid var(--toc_border_color);
-  margin-right: 30px;
-  margin-left: 20px;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  margin: 30px 0;
   padding: 25px;
   font-family: monospace;
   font-size: 110%;
   background-color: var(--toc_background_color);
-  max-width: 280px;
-  clear: left;
-  position: relative;
-  top: 0; 
 }
 
 .table-of-contents h2,
