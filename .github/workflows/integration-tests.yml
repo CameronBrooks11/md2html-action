@@ -283,3 +283,39 @@ jobs:
           name: outputs-corporate-style
           path: outputs-corporate-style/
           retention-days: 7
+
+  test-readme-index:
+    runs-on: ubuntu-latest
+    name: Test README-to-index link rewriting
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      # Directory with a README that links to another page, and no index.md,
+      # so index.html is produced by the README->index fallback.
+      - name: Create fixture
+        run: |
+          mkdir -p readme-index-fixture
+          printf '# Home\n\nSee the [guide](guide.md).\n' > readme-index-fixture/README.md
+          printf '# Guide\n\nBody.\n' > readme-index-fixture/guide.md
+
+      - name: Convert
+        id: convert
+        uses: ./
+        with:
+          source-dir: "readme-index-fixture"
+          output-dir: "outputs-readme-index"
+
+      - name: Verify generated index.html has rewritten links
+        run: |
+          out=outputs-readme-index
+          test -f "$out/index.html" || { echo "ERROR: index.html missing"; exit 1; }
+          grep -q 'href="guide.html"' "$out/index.html" \
+            || { echo "ERROR: guide link not rewritten in index.html"; exit 1; }
+          if grep -Eq 'href="[^"]*\.md"' "$out/index.html"; then
+            echo "ERROR: unrewritten .md link in index.html:"
+            grep -Eo 'href="[^"]*\.md"' "$out/index.html"
+            exit 1
+          fi
+          echo "README-to-index link rewriting verified"
