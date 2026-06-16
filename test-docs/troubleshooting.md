@@ -175,10 +175,12 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
 
 **Solutions:**
 
-1. **Enable math support:**
+1. **Math is enabled by default (MathJax).** If formulas are not rendering, it
+   is almost always a syntax issue (see below) rather than a missing option. To
+   use KaTeX instead, override it:
 
    ```yaml
-   pandoc-options: "--katex" # or --mathjax
+   pandoc-options: "--katex"
    ```
 
 2. **Use proper LaTeX syntax:**

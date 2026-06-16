@@ -12,7 +12,9 @@ A GitHub Action that converts Markdown files to HTML using Pandoc with customiza
 - 🔗 Automatic table of contents generation
 - 📁 Preserves directory structure and converts entire directories
 - 📄 Single file conversion support for individual Markdown files
-- 🖼️ Copies media and asset files
+- 🖼️ Auto-copies asset folders (`media`, `images`, `assets`, `static`, `files`)
+- 🔗 Rewrites internal `.md` links to `.html` in generated pages
+- 🏠 Generates `index.html` from `README.md` in directory mode
 - 🏷️ Open Graph meta tags for social sharing
 - ⚡ Fast and reliable conversion
 
@@ -74,6 +76,11 @@ Convert a single Markdown file (great for README to GitHub Pages):
     output-dir: "_site"
     template: "default"
 ```
+
+> In single-file mode the output is named after the input (`README.md` →
+> `README.html`). For a Pages landing page at `index.html`, rename it after
+> conversion, or use directory mode (which generates `index.html` from
+> `README.md` automatically).
 
 ### Advanced Usage
 
@@ -182,13 +189,29 @@ _website/                   # Generated HTML files
 └── style.css              # Stylesheet
 ```
 
+## Automatic behavior
+
+A few things happen automatically, without configuration:
+
+- **Asset folders are copied.** Any `media`, `images`, `assets`, `static`, or
+  `files` directory next to your source is copied into the output — relative to
+  `source-dir` in directory mode, or relative to the source file in single-file
+  mode — so relative image and asset links keep working.
+- **Internal `.md` links are rewritten to `.html`.** A cross-page link written
+  as `[other](other.md)` points to `other.html` in the generated site. Only
+  `href` attributes are rewritten.
+- **An `index.html` is generated from `README.md`** in directory mode, when the
+  output does not already contain one.
+- **Math is rendered with MathJax by default**, so `$E = mc^2$` works with no
+  extra options.
+
 ## Markdown Features Supported
 
 - **Pure Markdown** - No frontmatter required!
 - Standard Markdown syntax
 - Tables
 - Code blocks with syntax highlighting
-- Math expressions (with appropriate Pandoc options)
+- Math expressions via MathJax (enabled by default)
 - Footnotes
 - Task lists
 - Strikethrough
