@@ -56,7 +56,32 @@
     $endif$ $for(css)$
     <link rel="stylesheet" href="$css$" />
     $endfor$ $if(math)$ $math$ $endif$ $for(header-includes)$ $header-includes$
-    $endfor$
+    $endfor$ $if(highlighting-css)$
+    <style>
+      /* Unified dark code block so zenburn highlighting stays readable in light and dark mode (inline code keeps its theme style) */
+      pre,
+      .markdown-body pre,
+      div.sourceCode {
+        background-color: #1e222a;
+      }
+      pre,
+      pre code,
+      .markdown-body pre code {
+        color: #dcdccc;
+      }
+$highlighting-css$
+      @media print {
+        body { background: #fff !important; color: #000 !important; }
+        .site-header { position: static; box-shadow: none; }
+        .main-content, .markdown-body { padding-top: 1rem !important; max-width: none; box-shadow: none !important; background: #fff !important; color: #000 !important; }
+        pre, .markdown-body pre, div.sourceCode, .table-of-contents { background: #f6f8fa !important; color: #111 !important; border: 1px solid #ddd; }
+        pre code, pre code span, .markdown-body pre code { color: #111 !important; }
+        a { color: #000; }
+        .site-nav { display: none; }
+        * { box-shadow: none !important; text-shadow: none !important; }
+      }
+    </style>
+    $endif$
   </head>
 
   <body>

@@ -66,6 +66,12 @@ if __name__ == "__main__":
     asyncio.run(process_users(users))
 ```
 
+## Image Rendering
+
+Images from a copied asset folder (`media/`) render with responsive sizing:
+
+![A funny frog, here to prove image rendering works](media/funny_frog.jpg)
+
 ## Feature Status
 
 | Feature                | Status     | Notes                          |

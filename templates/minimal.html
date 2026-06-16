@@ -11,7 +11,30 @@
     <link rel="stylesheet" href="$stylesheet$" />
     $endif$ $endif$ $if(stylesheet-url)$
     <link rel="stylesheet" href="$stylesheet-url$" />
-    $endif$ $if(math)$ $math$ $endif$
+    $endif$ $if(math)$ $math$ $endif$ $if(highlighting-css)$
+    <style>
+      /* Unified dark code block so zenburn highlighting stays readable in light and dark mode (inline code keeps its theme style) */
+      pre,
+      .markdown-body pre,
+      div.sourceCode {
+        background-color: #1e222a;
+      }
+      pre,
+      pre code,
+      .markdown-body pre code {
+        color: #dcdccc;
+      }
+$highlighting-css$
+      @media print {
+        body { background: #fff !important; color: #000 !important; }
+        header { position: static; }
+        pre, div.sourceCode { background: #f6f8fa !important; color: #111 !important; border: 1px solid #ddd; }
+        pre code, pre code span { color: #111 !important; }
+        a { color: #000; }
+        * { box-shadow: none !important; }
+      }
+    </style>
+    $endif$
   </head>
 
   <body>

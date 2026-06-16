@@ -59,6 +59,16 @@ jobs:
           # Asset directories copied into the output
           test -f "$out/media/favicon.ico" || { echo "ERROR: media/ not copied"; exit 1; }
 
+          # Syntax highlighting CSS is injected (regression guard for the
+          # missing $highlighting-css$ bug)
+          grep -q 'code span\.kw' "$out/getting-started.html" \
+            || { echo "ERROR: syntax highlighting CSS not injected"; exit 1; }
+
+          # A real image renders and its asset is copied
+          test -f "$out/media/funny_frog.jpg" || { echo "ERROR: image asset not copied"; exit 1; }
+          grep -q 'src="media/funny_frog.jpg"' "$out/index.html" \
+            || { echo "ERROR: image not rendered as <img>"; exit 1; }
+
           echo "Default configuration assertions passed"
 
       - name: Upload test artifacts
