@@ -94,8 +94,11 @@ else
         log_error "Source directory '$SOURCE_DIR' does not exist!"
         exit 1
     fi
-    # Count markdown files
-    MD_FILES=$(find "$SOURCE_DIR" -name "*.md" -type f | wc -l | tr -d ' ')
+    # Path to prune so a nested output directory (e.g. source-dir "." with
+    # output-dir "_site") is never picked up and re-converted on later runs.
+    OUTPUT_PRUNE_PATH="$SOURCE_DIR/$(relpath "$OUTPUT_DIR" "$SOURCE_DIR")"
+    # Count markdown files (excluding the output directory)
+    MD_FILES=$(find "$SOURCE_DIR" -path "$OUTPUT_PRUNE_PATH" -prune -o -name "*.md" -type f -print | wc -l | tr -d ' ')
     SINGLE_FILE_MODE=false
 fi
 
@@ -298,7 +301,7 @@ else
             exit 1
         fi
         
-    done < <(find "$SOURCE_DIR" -name "*.md" -type f -print0)
+    done < <(find "$SOURCE_DIR" -path "$OUTPUT_PRUNE_PATH" -prune -o -name "*.md" -type f -print0)
 fi
 
 # ------------------------------------------------------------
