@@ -205,6 +205,7 @@ PANDOC_OPTS=(
     "--standalone"
     "--shift-heading-level-by=0"
     "--mathjax=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    "--highlight-style=zenburn"
 )
 
 # Add table of contents if requested
