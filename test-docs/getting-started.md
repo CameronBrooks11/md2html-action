@@ -47,7 +47,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Convert Markdown to HTML
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs" # Directory containing your .md files
           output-dir: "html" # Where to save the HTML files
@@ -119,7 +119,7 @@ md2html-action includes 6 professional themes:
 To change themes, simply update the `stylesheet` parameter in your workflow:
 
 ```yaml
-- uses: CameronBrooks11/md2html-action@main
+- uses: CameronBrooks11/md2html-action@v1
   with:
     stylesheet: "academic" # Change this to any theme name
 ```

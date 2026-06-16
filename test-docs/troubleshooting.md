@@ -61,7 +61,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
 
 3. **Enable debug mode:**
    ```yaml
-   - uses: CameronBrooks11/md2html-action@main
+   - uses: CameronBrooks11/md2html-action@v1
      with:
        pandoc-options: "--verbose"
      env:
@@ -287,7 +287,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
 
 ```yaml
 - name: Debug conversion
-  uses: CameronBrooks11/md2html-action@main
+  uses: CameronBrooks11/md2html-action@v1
   with:
     source-dir: "docs"
     pandoc-options: "--verbose"
@@ -481,7 +481,7 @@ jobs:
           fi
 
       - name: Test with action
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "debug-output"

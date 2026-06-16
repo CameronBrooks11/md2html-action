@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "handbook"
           output-dir: "employee-portal"
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "api-docs"
           output-dir: "public/api"
@@ -159,7 +159,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "course"
           output-dir: "course-site"
@@ -192,7 +192,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Convert blog posts
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "blog"
           output-dir: "public"
@@ -258,7 +258,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs/product-a"
           output-dir: "dist/product-a"
@@ -270,7 +270,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs/product-b"
           output-dir: "dist/product-b"
@@ -314,7 +314,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: ${{ matrix.source }}
           output-dir: "public/${{ matrix.language }}"
@@ -346,7 +346,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "test-themes/${{ matrix.theme }}"
@@ -436,7 +436,7 @@ jobs:
           key: pandoc-${{ runner.os }}
 
       - name: Convert documentation
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "public"
@@ -479,7 +479,7 @@ jobs:
           python scripts/extract-api-docs.py src/api/ > docs/api-reference.md
 
       - name: Convert to HTML
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "public"
@@ -552,7 +552,7 @@ body {
 Usage:
 
 ```yaml
-- uses: CameronBrooks11/md2html-action@main
+- uses: CameronBrooks11/md2html-action@v1
   with:
     stylesheet: "assets/custom-brand.css"
 ```

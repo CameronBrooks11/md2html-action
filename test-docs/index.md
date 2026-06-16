@@ -132,7 +132,7 @@ Explore the complete documentation:
 
 - **[Getting Started](getting-started.md)** - Learn the basics and start converting your first Markdown files
 - **[Advanced Configuration](advanced/configuration.md)** - Discover advanced features, custom templates, and styling options
-- **[Demo Gallery](../_site/demos/)** - Interactive showcase of all available themes and templates
+- **[Demo Gallery](https://cameronbrooks11.github.io/md2html-action/demos/)** - Interactive showcase of all available themes and templates
 
 ## Math Rendering Example
 
@@ -240,7 +240,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: CameronBrooks11/md2html-action@main
+      - uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "html"

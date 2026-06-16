@@ -35,7 +35,7 @@ jobs:
           fetch-depth: 0 # Full history for git info
 
       - name: Convert Markdown with custom options
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         id: convert
         with:
           # Source and output configuration
@@ -375,7 +375,7 @@ Available highlighting styles:
 2. **Reference in your workflow:**
 
 ```yaml
-- uses: CameronBrooks11/md2html-action@main
+- uses: CameronBrooks11/md2html-action@v1
   with:
     stylesheet: "assets/custom.css"
 ```
@@ -444,7 +444,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Convert Markdown to HTML
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         id: convert
         with:
           source-dir: "docs"
@@ -493,7 +493,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Convert with environment config
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           stylesheet: ${{ matrix.theme }}
           pandoc-options: >-
@@ -684,7 +684,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Test theme ${{ matrix.theme }}
-        uses: CameronBrooks11/md2html-action@main
+        uses: CameronBrooks11/md2html-action@v1
         with:
           source-dir: "docs"
           output-dir: "test-${{ matrix.theme }}"
@@ -821,7 +821,7 @@ Enable verbose logging:
 
 ```yaml
 - name: Convert with debug
-  uses: CameronBrooks11/md2html-action@main
+  uses: CameronBrooks11/md2html-action@v1
   with:
     source-dir: "docs"
     pandoc-options: "--verbose"
