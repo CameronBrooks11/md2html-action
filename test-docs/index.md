@@ -126,7 +126,7 @@ All themes are fully responsive. Try resizing your browser window to see how the
 
 ## Navigation
 
-## � Documentation Navigation
+## Documentation Navigation
 
 Explore the complete documentation:
 
