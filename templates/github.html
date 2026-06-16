@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html
   xmlns="http://www.w3.org/1999/xhtml"
-  lang="$lang$"
-  xml:lang="$lang$"
+  $if(lang)$lang="$lang$" xml:lang="$lang$"$else$lang="en" xml:lang="en"$endif$
   $if(dir)$
   dir="$dir$"
   $endif$
@@ -63,7 +62,13 @@
       body {
         margin: 0;
         padding: 0;
-        background-color: #0d1117;
+        background-color: #ffffff;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #0d1117;
+        }
       }
 
       .markdown-body {
