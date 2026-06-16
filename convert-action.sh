@@ -53,6 +53,14 @@ relpath() {
     echo "${1#$2/}"
 }
 
+# Split a string into argv tokens the way a POSIX shell would (honoring quotes),
+# WITHOUT eval — eval would execute $(...) or backticks embedded in the input.
+# Tokens are emitted NUL-separated so they read safely into a bash array.
+shlex_split() {
+    python3 -c "import sys, shlex; sys.stdout.write(''.join(t + chr(0) for t in shlex.split(sys.stdin.read())))" 2>/dev/null && return
+    python -c "import sys, shlex; sys.stdout.write(''.join(t + chr(0) for t in shlex.split(sys.stdin.read())))"
+}
+
 # Function to extract title from first H1 heading in markdown file
 extract_title() {
     local md_file="$1"
@@ -201,11 +209,12 @@ if [[ "$INCLUDE_TOC" == "true" ]]; then
 fi
 
 # Add extra options if provided.
-# eval + read is used so that quoted arguments containing spaces are preserved,
-# e.g. --metadata="title:My Site" is kept as a single token.
+# Split with shlex (honors quotes) rather than eval, so embedded $(...) or
+# backticks in the pandoc-options input are NOT executed.
 if [[ -n "$EXTRA_PANDOC_OPTIONS" ]]; then
-    eval "EXTRA_OPTS=($EXTRA_PANDOC_OPTIONS)"
-    PANDOC_OPTS+=("${EXTRA_OPTS[@]}")
+    while IFS= read -r -d '' opt; do
+        PANDOC_OPTS+=("$opt")
+    done < <(printf '%s' "$EXTRA_PANDOC_OPTIONS" | shlex_split)
 fi
 
 # Add metadata
