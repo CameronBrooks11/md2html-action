@@ -328,25 +328,24 @@ done
 log_success "Fixed internal markdown links"
 
 # ------------------------------------------------------------
-# Copy additional assets
+# Copy additional assets (media/images/assets/static/files) that live
+# alongside the source. In directory mode this is the source directory; in
+# single-file mode it is the directory that contains the source file, so that
+# relative image/asset links in the generated HTML still resolve.
 # ------------------------------------------------------------
-if [[ "$SINGLE_FILE_MODE" == "false" ]]; then
-    log_info "Copying additional assets..."
-
-    # Copy media files (images, etc.)
-    if [[ -d "$SOURCE_DIR/media" ]]; then
-        cp -r "$SOURCE_DIR/media" "$OUTPUT_DIR/"
-        log_success "Copied media directory"
-    fi
-
-    # Copy any other common asset directories
-    for asset_dir in "images" "assets" "static" "files"; do
-        if [[ -d "$SOURCE_DIR/$asset_dir" ]]; then
-            cp -r "$SOURCE_DIR/$asset_dir" "$OUTPUT_DIR/"
-            log_success "Copied $asset_dir directory"
-        fi
-    done
+if [[ "$SINGLE_FILE_MODE" == "true" ]]; then
+    ASSET_BASE=$(dirname "$SOURCE_FILE")
+else
+    ASSET_BASE="$SOURCE_DIR"
 fi
+
+log_info "Copying additional assets from '$ASSET_BASE'..."
+for asset_dir in "media" "images" "assets" "static" "files"; do
+    if [[ -d "$ASSET_BASE/$asset_dir" ]]; then
+        cp -r "$ASSET_BASE/$asset_dir" "$OUTPUT_DIR/"
+        log_success "Copied $asset_dir directory"
+    fi
+done
 
 # ------------------------------------------------------------
 # Generate index if it doesn't exist (directory mode only)
