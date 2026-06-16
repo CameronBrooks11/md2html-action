@@ -55,7 +55,7 @@
 
     --toc_background_color: #2d3748;
     --toc_border_color: #4a5568;
-    --toc_link_color: #a0aec0;
+    --toc_link_color: #cdd5e0;
     --toc_link_hover_color: #63b3ed;
 
     --code_bg_color: #1a202c;
@@ -105,7 +105,6 @@ body {
 }
 
 /* ─── Header ────────────────────────────────────────────────────────── */
-header,
 .site-header {
   background-color: var(--header_background_color);
   border-bottom: 2px solid var(--border_color);

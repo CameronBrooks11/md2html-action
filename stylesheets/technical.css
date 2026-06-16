@@ -66,7 +66,7 @@
 
     --toc_background_color: #1e293b;
     --toc_border_color: #334155;
-    --toc_link_color: #94a3b8;
+    --toc_link_color: #c4cedd;
     --toc_link_hover_color: #60a5fa;
     --toc_active_bg: #1e40af;
 
@@ -133,7 +133,6 @@ body {
 }
 
 /* ─── Header ────────────────────────────────────────────────────────── */
-header,
 .site-header {
   background: var(--header_background_color);
   background-image: var(--gradient_primary);
