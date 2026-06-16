@@ -355,16 +355,13 @@ done
 # Generate index if it doesn't exist (directory mode only)
 # ------------------------------------------------------------
 if [[ "$SINGLE_FILE_MODE" == "false" ]]; then
-    if [[ ! -f "$OUTPUT_DIR/index.html" ]] && [[ -f "$SOURCE_DIR/README.md" ]]; then
-        log_info "Generating index.html from README.md"
+    if [[ ! -f "$OUTPUT_DIR/index.html" ]] && [[ -f "$OUTPUT_DIR/README.html" ]]; then
+        log_info "Generating index.html from README.html"
         
-        # Extract title from README.md
-        extracted_title=$(extract_title "$SOURCE_DIR/README.md")
-        
-        pandoc "$SOURCE_DIR/README.md" "${PANDOC_OPTS[@]}" \
-            --metadata="rel_path:." \
-            --metadata="title:$extracted_title" \
-            --output="$OUTPUT_DIR/index.html"
+        # README.md was already converted (and link-fixed) in the loop above, so
+        # copy that output instead of re-running pandoc here. Re-running after the
+        # link-rewrite pass would leave the landing page's .md links unrewritten.
+        cp "$OUTPUT_DIR/README.html" "$OUTPUT_DIR/index.html"
         FILES_CONVERTED=$((FILES_CONVERTED + 1))
         log_success "Generated index.html"
     fi
