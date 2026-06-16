@@ -2,7 +2,7 @@
 
 This comprehensive guide covers advanced usage of md2html-action, including custom templates, advanced Pandoc options, deployment strategies, and power-user features.
 
-## 🏗️ Action Configuration
+## Action Configuration
 
 ### Complete Workflow Example
 
@@ -90,7 +90,7 @@ jobs:
 | `include-toc`    | string | `'true'`          | Include a table of contents                                                                 |
 | `pandoc-options` | string | `''`              | Additional Pandoc command-line options                                                      |
 
-## 🎨 Custom Templates
+## Custom Templates
 
 ### Creating Custom Pandoc Templates
 
@@ -216,7 +216,7 @@ md2html-action automatically populates these Pandoc template variables:
 - `$navbar$` - Enable navigation
 - `$nav-links$` - Navigation links array
 
-## 📋 YAML Frontmatter Guide
+## YAML Frontmatter Guide
 
 While md2html-action works perfectly with vanilla Markdown, frontmatter gives you additional control:
 
@@ -274,7 +274,7 @@ math: true
 Your content here...
 ```
 
-## 🔧 Advanced Pandoc Options
+## Advanced Pandoc Options
 
 ### Mathematical Typesetting
 
@@ -345,7 +345,7 @@ Available highlighting styles:
 - `breezedark`
 - `haddock`
 
-## 🎯 Custom CSS Integration
+## Custom CSS Integration
 
 ### Using Custom Stylesheets
 
@@ -416,7 +416,7 @@ Available highlighting styles:
 }
 ```
 
-## 🌐 Deployment Strategies
+## Deployment Strategies
 
 ### GitHub Pages Deployment
 
@@ -514,7 +514,7 @@ jobs:
    - Add CNAME record: `docs.yourdomain.com` → `yourusername.github.io`
    - Or A records for apex domain: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
 
-## 📊 Advanced Directory Structures
+## Advanced Directory Structures
 
 ### Large Documentation Sites
 
@@ -579,7 +579,7 @@ docs/
     └── diagrams/
 ```
 
-## 🔍 SEO and Metadata Optimization
+## SEO and Metadata Optimization
 
 ### SEO-Friendly Frontmatter
 
@@ -622,7 +622,7 @@ Add structured data to your custom template:
 </script>
 ```
 
-## 🛠️ Development and Testing
+## Development and Testing
 
 ### Local Development Setup
 
@@ -660,7 +660,7 @@ for theme in "${themes[@]}"; do
         --output="test-output/$theme/index.html"
 done
 
-echo "✅ All themes tested successfully!"
+echo "All themes tested successfully!"
 ```
 
 ### Automated Testing
@@ -701,7 +701,7 @@ jobs:
           find docs -name "*.md" -exec markdown-link-check {} \;
 ```
 
-## 🎯 Performance Optimization
+## Performance Optimization
 
 ### Image Optimization
 
@@ -753,7 +753,7 @@ jobs:
       ${{ runner.os }}-docs-
 ```
 
-## 🆘 Troubleshooting Guide
+## Troubleshooting Guide
 
 ### Common Issues and Solutions
 
@@ -846,14 +846,14 @@ Enable verbose logging:
 
 ---
 
-## 🚀 Next Steps
+## Next Steps
 
 You now have comprehensive knowledge of md2html-action's advanced features! Here are some next steps:
 
-1. **🎨 Experiment with custom templates** - Create your own branded designs
-2. **📊 Set up analytics** - Track documentation usage and performance
-3. **🔧 Automate workflows** - Integrate with your development process
-4. **📚 Explore examples** - Check out real-world implementations
-5. **🤝 Contribute** - Help improve the action for everyone
+1. **Experiment with custom templates** - Create your own branded designs
+2. **Set up analytics** - Track documentation usage and performance
+3. **Automate workflows** - Integrate with your development process
+4. **Explore examples** - Check out real-world implementations
+5. **Contribute** - Help improve the action for everyone
 
 For more examples and community contributions, visit the [GitHub repository](https://github.com/CameronBrooks11/md2html-action)!

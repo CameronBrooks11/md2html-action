@@ -4,16 +4,16 @@ This comprehensive documentation demonstrates the full capabilities of md2html-a
 
 Explore our comprehensive documentation:
 
-- **[📚 Getting Started](getting-started.md)** - Learn the basics and start converting your first Markdown files
-- **[⚙️ Advanced Configuration](advanced/configuration.md)** - Discover advanced features, custom templates, and styling options
-- **[📝 Examples & Use Cases](examples.md)** - Real-world examples and implementation patterns
-- **[🔧 Troubleshooting Guide](troubleshooting.md)** - Solve common issues and debug problems
+- **[Getting Started](getting-started.md)** - Learn the basics and start converting your first Markdown files
+- **[Advanced Configuration](advanced/configuration.md)** - Discover advanced features, custom templates, and styling options
+- **[Examples & Use Cases](examples.md)** - Real-world examples and implementation patterns
+- **[Troubleshooting Guide](troubleshooting.md)** - Solve common issues and debug problems
 
-## 🚀 Quick Start
+## Quick Start
 
 The md2html-action works with **pure vanilla Markdown** - no frontmatter or special setup required! Just write standard Markdown and let the action handle the rest.
 
-## ✨ Features Being Tested
+## Features Being Tested
 
 - [x] **Markdown to HTML conversion** - Full Pandoc integration
 - [x] **Pure vanilla Markdown support** - No frontmatter needed!
@@ -27,7 +27,7 @@ The md2html-action works with **pure vanilla Markdown** - no frontmatter or spec
 - [x] **GitHub Actions CI/CD** - Automated testing and deployment
 - [x] **Demo gallery** - Interactive theme showcase
 
-## 🐍 Code Example
+## Code Example
 
 Here's a comprehensive Python example showcasing syntax highlighting:
 
@@ -66,75 +66,75 @@ if __name__ == "__main__":
     asyncio.run(process_users(users))
 ```
 
-## 📊 Feature Status
+## Feature Status
 
 | Feature                | Status     | Notes                          |
 | ---------------------- | ---------- | ------------------------------ |
-| Markdown Conversion    | ✅ Working | Full Pandoc integration        |
-| Default Template       | ✅ Working | Clean, responsive layout       |
-| Minimal Template       | ✅ Working | Lightweight styling            |
-| GitHub Template        | ✅ Working | GitHub-like appearance         |
-| Academic Stylesheet    | ✅ Working | Professional academic styling  |
-| Technical Stylesheet   | ✅ Working | Modern tech company design     |
-| Blog Stylesheet        | ✅ Working | Personal blog styling          |
-| Corporate Stylesheet   | ✅ Working | Professional business design   |
-| Table of Contents      | ✅ Working | Auto-generated navigation      |
-| Code Highlighting      | ✅ Working | Syntax highlighting support    |
-| Math Rendering         | ✅ Working | LaTeX math via Pandoc          |
-| Responsive Design      | ✅ Working | Mobile-friendly layouts        |
-| GitHub Actions CI/CD   | ✅ Working | Automated testing & deployment |
-| Demo Gallery           | ✅ Working | Interactive theme showcase     |
-| Custom CSS Integration | ✅ Working | External stylesheet support    |
+| Markdown Conversion    | Working | Full Pandoc integration        |
+| Default Template       | Working | Clean, responsive layout       |
+| Minimal Template       | Working | Lightweight styling            |
+| GitHub Template        | Working | GitHub-like appearance         |
+| Academic Stylesheet    | Working | Professional academic styling  |
+| Technical Stylesheet   | Working | Modern tech company design     |
+| Blog Stylesheet        | Working | Personal blog styling          |
+| Corporate Stylesheet   | Working | Professional business design   |
+| Table of Contents      | Working | Auto-generated navigation      |
+| Code Highlighting      | Working | Syntax highlighting support    |
+| Math Rendering         | Working | LaTeX math via Pandoc          |
+| Responsive Design      | Working | Mobile-friendly layouts        |
+| GitHub Actions CI/CD   | Working | Automated testing & deployment |
+| Demo Gallery           | Working | Interactive theme showcase     |
+| Custom CSS Integration | Working | External stylesheet support    |
 
-## 🌐 Available Themes
+## Available Themes
 
 The md2html-action includes 6 professional stylesheet themes:
 
-### 🎓 Academic
+### Academic
 
 Perfect for research papers, theses, and academic documentation. Features traditional typography, proper citations, and scholarly formatting.
 
-### 💻 Technical
+### Technical
 
 Modern tech company design inspired by Stripe, Notion, and Linear. Features Inter fonts, gradient accents, and clean layouts ideal for API docs and developer guides.
 
-### 📝 Blog
+### Blog
 
 Personal blog styling with comfortable reading typography, engaging layouts, and social media integration hooks.
 
-### 🏢 Corporate
+### Corporate
 
 Professional business design suitable for company documentation, reports, and formal communications. Clean, authoritative styling.
 
-### 🎨 Default
+### Default
 
 Clean, responsive layout that works well for general documentation. Balanced typography and neutral color scheme.
 
-### ⚡ Minimal
+### Minimal
 
 Lightweight styling focused on performance and readability. Perfect for simple documentation sites.
 
-## 📱 Responsive Design Example
+## Responsive Design Example
 
 All themes are fully responsive. Try resizing your browser window to see how the layout adapts!
 
 | Device Type    | Layout Features      | Key Benefits               |
 | -------------- | -------------------- | -------------------------- |
-| 📱 **Mobile**  | Single column layout | Easy thumb navigation      |
-| 💻 **Tablet**  | Flexible grid system | Optimized touch targets    |
-| 🖥️ **Desktop** | Full-width layouts   | Floating table of contents |
+| **Mobile**  | Single column layout | Easy thumb navigation      |
+| **Tablet**  | Flexible grid system | Optimized touch targets    |
+| **Desktop** | Full-width layouts   | Floating table of contents |
 
-## 🔗 Navigation
+## Navigation
 
 ## � Documentation Navigation
 
 Explore the complete documentation:
 
-- **[📚 Getting Started](getting-started.md)** - Learn the basics and start converting your first Markdown files
-- **[⚙️ Advanced Configuration](advanced/configuration.md)** - Discover advanced features, custom templates, and styling options
-- **[🎨 Demo Gallery](../_site/demos/)** - Interactive showcase of all available themes and templates
+- **[Getting Started](getting-started.md)** - Learn the basics and start converting your first Markdown files
+- **[Advanced Configuration](advanced/configuration.md)** - Discover advanced features, custom templates, and styling options
+- **[Demo Gallery](../_site/demos/)** - Interactive showcase of all available themes and templates
 
-## 🧮 Math Rendering Example
+## Math Rendering Example
 
 The action supports LaTeX math rendering via Pandoc for technical documentation:
 
@@ -168,7 +168,7 @@ cx + dy
 \end{bmatrix}
 $$
 
-## 💬 Blockquote Styling
+## Blockquote Styling
 
 > **Pro Tip:** The md2html-action is designed to work with pure vanilla Markdown.  
 > You don't need any special setup, frontmatter, or configuration files.  
@@ -177,20 +177,20 @@ $$
 > This makes it perfect for documentation that needs to be readable both as  
 > Markdown source and as rendered HTML.
 
-## 🎯 Advanced Features
+## Advanced Features
 
 ### Task Lists
 
-- [x] ✅ Full Pandoc integration with all extensions
-- [x] 🎨 Six professional theme options
-- [x] 📱 Responsive design for all devices
-- [x] 🔍 Automatic table of contents generation
-- [x] 🌙 Dark mode support (where applicable)
-- [x] 📊 Beautiful table formatting
-- [x] 🧮 LaTeX math rendering
-- [x] 🔗 Smart link handling (internal/external)
-- [ ] 🌐 Multi-language support (planned)
-- [ ] 🔧 Plugin system (under development)
+- [x] Full Pandoc integration with all extensions
+- [x] Six professional theme options
+- [x] Responsive design for all devices
+- [x] Automatic table of contents generation
+- [x] Dark mode support (where applicable)
+- [x] Beautiful table formatting
+- [x] LaTeX math rendering
+- [x] Smart link handling (internal/external)
+- [ ] Multi-language support (planned)
+- [ ] Plugin system (under development)
 
 ### Code Language Examples
 
@@ -247,28 +247,28 @@ jobs:
           stylesheet: "technical"
 ```
 
-## 🚀 Performance & Compatibility
+## Performance & Compatibility
 
 | Aspect              | Details                                                  |
 | ------------------- | -------------------------------------------------------- |
-| **Build Time**      | ⚡ Fast conversion using optimized Pandoc                |
-| **File Size**       | 📦 Minimal CSS/JS footprint                              |
-| **Browser Support** | 🌐 Modern browsers (Chrome 88+, Firefox 85+, Safari 14+) |
-| **Mobile Support**  | 📱 Fully responsive on all devices                       |
-| **Accessibility**   | ♿ WCAG 2.1 AA compliant                                 |
-| **SEO Friendly**    | 🔍 Semantic HTML with proper meta tags                   |
+| **Build Time**      | Fast conversion using optimized Pandoc                |
+| **File Size**       | Minimal CSS/JS footprint                              |
+| **Browser Support** | Modern browsers (Chrome 88+, Firefox 85+, Safari 14+) |
+| **Mobile Support**  | Fully responsive on all devices                       |
+| **Accessibility**   | WCAG 2.1 AA compliant                                 |
+| **SEO Friendly**    | Semantic HTML with proper meta tags                   |
 
-## 🎉 Conclusion
+## Conclusion
 
 If you can see this page properly formatted with:
 
-- ✅ Professional typography and spacing
-- ✅ Syntax-highlighted code blocks
-- ✅ Responsive table layouts
-- ✅ Mathematical equations
-- ✅ Interactive table of contents
-- ✅ Smooth navigation between pages
+- Professional typography and spacing
+- Syntax-highlighted code blocks
+- Responsive table layouts
+- Mathematical equations
+- Interactive table of contents
+- Smooth navigation between pages
 
-Then the md2html-action is working perfectly! 🎊
+Then the md2html-action is working perfectly! 
 
 Ready to get started? Check out the [Getting Started guide](getting-started.md) or dive into [Advanced Configuration](advanced/configuration.md) for power-user features.

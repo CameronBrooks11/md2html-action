@@ -1,8 +1,8 @@
-# 📝 Examples and Use Cases
+# Examples and Use Cases
 
 This page showcases real-world examples of md2html-action in action, demonstrating various use cases, configurations, and best practices.
 
-## 🏢 Corporate Documentation
+## Corporate Documentation
 
 Perfect for internal company docs, policies, and procedures.
 
@@ -34,7 +34,7 @@ jobs:
             --metadata author="HR Department"
 ```
 
-## 🎓 Academic Documentation
+## Academic Documentation
 
 Ideal for research papers, theses, and academic publications.
 
@@ -65,7 +65,7 @@ can significantly improve productivity [@doe2022; @johnson2023].
 ## References
 ```
 
-## 💻 Technical Documentation
+## Technical Documentation
 
 Perfect for API docs, developer guides, and technical specifications.
 
@@ -141,7 +141,7 @@ Returns a list of users.
 }
 ```
 
-## 📚 Educational Content
+## Educational Content
 
 Great for course materials, tutorials, and learning resources.
 
@@ -171,7 +171,7 @@ jobs:
             --highlight-style=github
 ```
 
-## 📖 Personal Blog
+## Personal Blog
 
 Ideal for personal websites, portfolios, and blog posts.
 
@@ -220,9 +220,9 @@ I'll walk you through setting up automated documentation generation.
 
 ## Why Use md2html-action?
 
-- 🚀 **Zero configuration** - works with any Markdown
-- 🎨 **Beautiful themes** - professional styling out of the box
-- 📱 **Responsive design** - looks great on all devices
+- **Zero configuration** - works with any Markdown
+- **Beautiful themes** - professional styling out of the box
+- **Responsive design** - looks great on all devices
 
 <!-- more -->
 
@@ -240,7 +240,7 @@ With md2html-action, creating beautiful documentation is as simple
 as writing Markdown. Give it a try in your next project!
 ```
 
-## 🏗️ Multi-Site Architecture
+## Multi-Site Architecture
 
 Managing multiple documentation sites from a single repository.
 
@@ -279,7 +279,7 @@ jobs:
             --metadata title="Product B Documentation"
 ```
 
-## 🌍 Internationalization
+## Internationalization
 
 Supporting multiple languages in your documentation.
 
@@ -324,7 +324,7 @@ jobs:
             --metadata lang="${{ matrix.language }}"
 ```
 
-## 🧪 A/B Testing Themes
+## A/B Testing Themes
 
 Testing different themes for the same content.
 
@@ -358,7 +358,7 @@ jobs:
           echo "https://your-site.github.io/test-themes/${{ matrix.theme }}/"
 ```
 
-## 📊 Analytics Integration
+## Analytics Integration
 
 Adding analytics to track documentation usage.
 
@@ -381,7 +381,7 @@ Adding analytics to track documentation usage.
 </script>
 ```
 
-## 🔍 Search Integration
+## Search Integration
 
 Adding search functionality to your documentation.
 
@@ -407,7 +407,7 @@ Adding search functionality to your documentation.
     atomic-algolia --source search-index.txt
 ```
 
-## 🚀 Performance Optimization
+## Performance Optimization
 
 Optimizing build times and output performance.
 
@@ -453,7 +453,7 @@ jobs:
             xargs -I {} sh -c 'gzip -k "$1"' _ {}
 ```
 
-## 🔄 Automated Content Updates
+## Automated Content Updates
 
 Keeping documentation in sync with code changes.
 
@@ -494,7 +494,7 @@ jobs:
           git push
 ```
 
-## 🎨 Custom Theme Development
+## Custom Theme Development
 
 Creating your own theme from scratch.
 
@@ -557,7 +557,7 @@ Usage:
     stylesheet: "assets/custom-brand.css"
 ```
 
-## 📝 Best Practices Summary
+## Best Practices Summary
 
 ### Content Organization
 
@@ -589,7 +589,7 @@ Usage:
 
 ---
 
-## 🎯 Next Steps
+## Next Steps
 
 Ready to implement these examples in your own projects? Here's how:
 

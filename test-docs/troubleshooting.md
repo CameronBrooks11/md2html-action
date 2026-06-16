@@ -1,8 +1,8 @@
-# 🔧 Troubleshooting Guide
+# Troubleshooting Guide
 
 Having issues with md2html-action? This comprehensive troubleshooting guide will help you diagnose and fix common problems quickly.
 
-## 🚨 Common Issues
+## Common Issues
 
 ### Build Failures
 
@@ -281,7 +281,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
    git push
    ```
 
-## 🐛 Debugging Techniques
+## Debugging Techniques
 
 ### Enable Verbose Logging
 
@@ -359,7 +359,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
    find docs -name "*.md" -exec markdown-link-check {} \;
    ```
 
-## 🔍 Performance Issues
+## Performance Issues
 
 ### Slow Build Times
 
@@ -417,7 +417,7 @@ Having issues with md2html-action? This comprehensive troubleshooting guide will
        find output -name "*.html" -exec html-minifier --minify-css --minify-js -o {} {} \;
    ```
 
-## 🛠️ Workflow Debugging
+## Workflow Debugging
 
 ### Check Action Logs
 
@@ -475,9 +475,9 @@ jobs:
         run: |
           if [ -f "docs/index.md" ]; then
             pandoc docs/index.md -o test.html --standalone
-            echo "✅ Basic conversion successful"
+            echo "Basic conversion successful"
           else
-            echo "❌ docs/index.md not found"
+            echo "docs/index.md not found"
           fi
 
       - name: Test with action
@@ -488,7 +488,7 @@ jobs:
           stylesheet: "default"
 ```
 
-## 📱 Mobile and Browser Issues
+## Mobile and Browser Issues
 
 ### Mobile Display Problems
 
@@ -531,7 +531,7 @@ jobs:
    }
    ```
 
-## 🆘 Getting Help
+## Getting Help
 
 ### Before Asking for Help
 
@@ -604,7 +604,7 @@ Any other relevant information
 
 ````
 
-## 🎯 Prevention Tips
+## Prevention Tips
 
 ### Best Practices
 
@@ -644,7 +644,7 @@ Any other relevant information
 
 ---
 
-## 📞 Quick Reference
+## Quick Reference
 
 | Problem            | Quick Fix                                 |
 | ------------------ | ----------------------------------------- |

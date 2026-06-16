@@ -68,7 +68,7 @@ jobs:
             exit 1
           fi
 
-          echo "✅ All tests passed on ${{ matrix.os }}!"
+          echo "All tests passed on ${{ matrix.os }}!"
 
       - name: Upload Cross-Platform Test Results
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7

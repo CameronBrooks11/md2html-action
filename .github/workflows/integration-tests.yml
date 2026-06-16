@@ -96,7 +96,7 @@ jobs:
           # Verify files exist with custom settings
           test -f outputs-custom-configuration/index.html || (echo "ERROR: custom index.html missing" && exit 1)
 
-          echo "✅ Custom configuration test passed!"
+          echo "Custom configuration test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -131,7 +131,7 @@ jobs:
           # Verify files exist
           test -f outputs-remote-css/index.html || (echo "ERROR: remote CSS index.html missing" && exit 1)
 
-          echo "✅ Remote CSS integration test passed!"
+          echo "Remote CSS integration test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -167,7 +167,7 @@ jobs:
           test -f outputs-academic-style/index.html || (echo "ERROR: academic index.html missing" && exit 1)
           test -f outputs-academic-style/style.css || (echo "ERROR: academic style.css missing" && exit 1)
 
-          echo "✅ Academic stylesheet test passed!"
+          echo "Academic stylesheet test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -203,7 +203,7 @@ jobs:
           test -f outputs-technical-style/index.html || (echo "ERROR: technical index.html missing" && exit 1)
           test -f outputs-technical-style/style.css || (echo "ERROR: technical style.css missing" && exit 1)
 
-          echo "✅ Technical stylesheet test passed!"
+          echo "Technical stylesheet test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -239,7 +239,7 @@ jobs:
           test -f outputs-blog-style/index.html || (echo "ERROR: blog index.html missing" && exit 1)
           test -f outputs-blog-style/style.css || (echo "ERROR: blog style.css missing" && exit 1)
 
-          echo "✅ Blog stylesheet test passed!"
+          echo "Blog stylesheet test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
@@ -275,7 +275,7 @@ jobs:
           test -f outputs-corporate-style/index.html || (echo "ERROR: corporate index.html missing" && exit 1)
           test -f outputs-corporate-style/style.css || (echo "ERROR: corporate style.css missing" && exit 1)
 
-          echo "✅ Corporate stylesheet test passed!"
+          echo "Corporate stylesheet test passed!"
 
       - name: Upload test artifacts
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
