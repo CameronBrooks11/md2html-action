@@ -50,7 +50,7 @@ relpath() {
     # GNU realpath fallback (Linux runners)
     realpath --relative-to="$2" "$1" 2>/dev/null && return
     # last resort: strip common prefix (only safe for direct children)
-    echo "${1#$2/}"
+    echo "${1#"$2"/}"
 }
 
 # Split a string into argv tokens the way a POSIX shell would (honoring quotes),
@@ -65,7 +65,8 @@ shlex_split() {
 extract_title() {
     local md_file="$1"
     # Look for the first H1 heading (# Title) and extract the title text
-    local title=$(grep -m 1 '^# ' "$md_file" 2>/dev/null | sed 's/^# *//' | sed 's/ *$//')
+    local title
+    title=$(grep -m 1 '^# ' "$md_file" 2>/dev/null | sed 's/^# *//' | sed 's/ *$//')
     if [[ -n "$title" ]]; then
         echo "$title"
     else
@@ -107,8 +108,8 @@ log_info "Template: $TEMPLATE"
 log_info "Stylesheet: $STYLESHEET"
 if [[ "$MD_FILES" -eq 0 ]]; then
     log_warning "No Markdown files found in '$SOURCE_DIR'"
-    echo "files-converted=0" >> $GITHUB_OUTPUT
-    echo "output-path=$OUTPUT_DIR" >> $GITHUB_OUTPUT
+    echo "files-converted=0" >> "$GITHUB_OUTPUT"
+    echo "output-path=$OUTPUT_DIR" >> "$GITHUB_OUTPUT"
     exit 0
 fi
 
@@ -295,7 +296,7 @@ else
             --output="$html_file"; then
             
             FILES_CONVERTED=$((FILES_CONVERTED + 1))
-            log_success "✓ $rel_path → ${html_file#$OUTPUT_DIR/}"
+            log_success "✓ $rel_path → ${html_file#"$OUTPUT_DIR"/}"
         else
             log_error "✗ Failed to convert $rel_path"
             exit 1
@@ -377,11 +378,11 @@ log_info "Files converted: $FILES_CONVERTED"
 log_info "Output directory: $OUTPUT_DIR"
 
 # Set GitHub Actions outputs
-echo "files-converted=$FILES_CONVERTED" >> $GITHUB_OUTPUT
-echo "output-path=$OUTPUT_DIR" >> $GITHUB_OUTPUT
+echo "files-converted=$FILES_CONVERTED" >> "$GITHUB_OUTPUT"
+echo "output-path=$OUTPUT_DIR" >> "$GITHUB_OUTPUT"
 
 # List generated files
 log_info "Generated files:"
 find "$OUTPUT_DIR" -name "*.html" -type f | while read -r file; do
-    echo "  - ${file#$OUTPUT_DIR/}"
+    echo "  - ${file#"$OUTPUT_DIR"/}"
 done

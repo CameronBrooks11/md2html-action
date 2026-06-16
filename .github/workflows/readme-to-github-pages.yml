@@ -29,6 +29,9 @@ jobs:
   convert-and-deploy-documentation:
     runs-on: ubuntu-latest
     name: Convert documentation and deploy to GitHub Pages
+    # On a workflow_run trigger, only deploy when Integration Tests succeeded.
+    # Push (paths filter) and manual dispatch are unaffected.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     timeout-minutes: 20
     environment:
       name: github-pages
