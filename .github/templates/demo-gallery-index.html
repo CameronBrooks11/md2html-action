@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>md2html-action Theme Demos</title>
     <style>
+      /* Light is the base and dark is the override, matching academic, blog,
+         corporate and technical. (default.css is the odd one out — see #6.)
+         Every colour is a token so the dark block only restates values, never
+         rules. */
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --fg: #1f2328;
+        --heading: #2c3e50;
+        --accent: #3498db;
+        --accent-hover: #2980b9;
+        --on-accent: #ffffff;
+        --card-bg: #f9f9f9;
+        --card-border: #dddddd;
+        --note-bg: #e8f4fd;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1117;
+          --fg: #e6edf3;
+          --heading: #e6edf3;
+          --accent: #388bfd;
+          --accent-hover: #1f6feb;
+          --on-accent: #ffffff;
+          --card-bg: #161b22;
+          --card-border: #30363d;
+          --note-bg: #10243e;
+        }
+      }
       body {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           sans-serif;
@@ -12,10 +41,12 @@
         margin: 40px auto;
         padding: 20px;
         line-height: 1.6;
+        background: var(--bg);
+        color: var(--fg);
       }
       h1 {
-        color: #2c3e50;
-        border-bottom: 2px solid #3498db;
+        color: var(--heading);
+        border-bottom: 2px solid var(--accent);
         padding-bottom: 10px;
       }
       .demo-grid {
@@ -25,30 +56,30 @@
         margin: 20px 0;
       }
       .demo-card {
-        border: 1px solid #ddd;
+        border: 1px solid var(--card-border);
         border-radius: 8px;
         padding: 20px;
-        background: #f9f9f9;
+        background: var(--card-bg);
       }
       .demo-card h3 {
         margin-top: 0;
-        color: #2c3e50;
+        color: var(--heading);
       }
       .demo-card a {
         display: inline-block;
-        background: #3498db;
-        color: white;
+        background: var(--accent);
+        color: var(--on-accent);
         padding: 8px 16px;
         text-decoration: none;
         border-radius: 4px;
         margin-top: 10px;
       }
       .demo-card a:hover {
-        background: #2980b9;
+        background: var(--accent-hover);
       }
       .note {
-        background: #e8f4fd;
-        border-left: 4px solid #3498db;
+        background: var(--note-bg);
+        border-left: 4px solid var(--accent);
         padding: 15px;
         margin: 20px 0;
       }

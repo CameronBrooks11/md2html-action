@@ -20,6 +20,7 @@ The md2html-action works with **pure vanilla Markdown** - no frontmatter or spec
 - [x] **Table of contents generation** - Automatic navigation
 - [x] **Code syntax highlighting** - Beautiful code blocks
 - [x] **Math rendering** - LaTeX math via Pandoc
+- [x] **Footnotes** - Reference-style notes with backlinks
 - [x] **Links and navigation** - Internal and external links
 - [x] **Multiple templates** - Default, minimal, and GitHub themes
 - [x] **6 Professional stylesheets** - Academic, technical, blog, corporate designs
@@ -197,6 +198,30 @@ $$
 - [x] Smart link handling (internal/external)
 - [ ] Multi-language support (planned)
 - [ ] Plugin system (under development)
+
+### Footnote Rendering
+
+Footnotes are part of Pandoc's default Markdown, so they render without any
+extra flag[^why]. This section exists so that every theme is exercised against
+real footnote markup — a reference marker in flowing text, a numbered list at
+the end of the document, and the backlink Pandoc emits to return to the
+reference.
+
+A short note[^short] and a longer one[^long] appear below, plus an inline
+note^[Inline notes are defined at the point of use rather than by reference.]
+to cover that form too.
+
+[^why]: Pandoc selects its `markdown` reader from the `.md` extension, and the
+    `footnotes` extension is enabled in that dialect by default. No
+    `--from` flag is set by `convert-action.sh`.
+
+[^short]: A single-line note.
+
+[^long]: A note spanning more than one paragraph, which Pandoc renders as
+    multiple `<p>` elements inside the same list item.
+
+    This second paragraph is indented so it stays part of the note, and is
+    what catches a theme whose footnote spacing only accounts for one line.
 
 ### Code Language Examples
 
