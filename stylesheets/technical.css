@@ -971,3 +971,60 @@ button:focus-visible {
     border: 2px solid var(--border_color);
   }
 }
+
+/* ─── Footnotes ─────────────────────────────────────────────────────────── */
+/* Pandoc writes a superscript .footnote-ref in the text, and at the end a
+   section.footnotes holding an <hr> and an <ol> of notes, each ending in a
+   .footnote-back link. Colours come from the theme's variables, so both
+   colour schemes follow. */
+.footnote-ref {
+  text-decoration: none;
+}
+
+.footnote-ref sup {
+  font-size: 0.75em;
+  line-height: 0; /* keep the marker from opening up the line above */
+  padding: 0 0.1em;
+}
+
+.footnotes {
+  margin-top: 3em;
+  font-size: 0.9em;
+}
+
+.footnotes > hr {
+  width: 33%;
+  margin: 0 0 1em 0;
+  border: 0;
+  border-top: 1px solid var(--border_color);
+}
+
+.footnotes ol {
+  margin-bottom: 0;
+  padding-left: 1.5em;
+}
+
+.footnotes li {
+  margin-bottom: 0.75em;
+  line-height: 1.5;
+}
+
+.footnotes li > p {
+  margin: 0 0 0.5em 0;
+}
+
+.footnotes li > p:last-child {
+  margin-bottom: 0;
+}
+
+.footnote-back {
+  margin-left: 0.25em;
+  text-decoration: none;
+}
+
+/* The note a reader has just jumped to */
+.footnotes li:target {
+  outline: 2px solid var(--link_color);
+  outline-offset: 0.25em;
+  border-radius: 2px;
+}

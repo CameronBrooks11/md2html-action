@@ -129,3 +129,6 @@ nav ul ul {
   h2 { font-size: 1.75rem; }
   h3 { font-size: 1.5rem; }
 }
+
+/* Footnotes keep the browser defaults, on purpose: minimal styles little
+   beyond type and layout (decided in #12). */
