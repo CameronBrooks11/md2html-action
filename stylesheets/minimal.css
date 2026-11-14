@@ -1,4 +1,6 @@
 /* Minimal Stylesheet for md2html-action */
+/* Light only, on purpose: it has no prefers-color-scheme handling, so it
+   renders the same light palette in every colour scheme (decided in #11). */
 
 /* Reset and base styles */
 * {
